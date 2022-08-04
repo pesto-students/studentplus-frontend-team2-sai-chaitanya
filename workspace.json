@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "admin": "apps/admin",
+    "admin-e2e": "apps/admin-e2e",
+    "api": "apps/api",
+    "login": "apps/login",
+    "manager": "apps/manager",
+    "manager-e2e": "apps/manager-e2e",
+    "student": "apps/student",
+    "student-e2e": "apps/student-e2e",
+    "ui-shared": "libs/ui-shared"
+  }
+}
