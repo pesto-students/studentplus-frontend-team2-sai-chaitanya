@@ -1,49 +1,47 @@
-import NxWelcome from './nx-welcome';
+/*
+ * Copyright (c) 2021-Present, Okta, Inc. and/or its affiliates. All rights reserved.
+ * The Okta software accompanied by this notice is provided pursuant to the Apache License, Version 2.0 (the "License.")
+ *
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ */
 
-import { Route, Routes, Link } from 'react-router-dom';
-export function App() {
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
+import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
+import config from '../config';
+import { Login, Navbar, Profile } from './components';
+
+const oktaAuth = new OktaAuth(config.oidc);
+
+const App = () => {
+  const history = useHistory();
+
+  const customAuthHandler = () => {
+    history.push('/login');
+  };
+
+  const restoreOriginalUri = async (oktaAuth, originalUri) => {
+    history.replace(toRelativeUrl(originalUri || '/', window.location.origin));
+  };
+
   return (
-    <>
-      <NxWelcome title="login" />
-      <div />
+    <Router>
+      <Security oktaAuth={oktaAuth} onAuthRequired={customAuthHandler} restoreOriginalUri={restoreOriginalUri}>
+        <Navbar/>
+          <Switch>
+            <Route path="/" exact={true} component={Login}/>
+            <Route path="/login/callback" component={LoginCallback}/>
+            <SecureRoute path="/profile" component={Profile}/>
+          </Switch>
+      </Security>
+    </Router>
 
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
-      <br />
-      <hr />
-      <br />
-      <div role="navigation">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-        </ul>
-      </div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
-          }
-        />
-        <Route
-          path="/page-2"
-          element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
-          }
-        />
-      </Routes>
-      {/* END: routes */}
-    </>
   );
-}
+};
 export default App;
