@@ -4,7 +4,7 @@ import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import config from '../config/config';
 import { Login, Profile } from '../pages';
-import './app.module.css'
+import './app.module.scss'
 
 const oktaAuth = new OktaAuth(config.oidc);
 
