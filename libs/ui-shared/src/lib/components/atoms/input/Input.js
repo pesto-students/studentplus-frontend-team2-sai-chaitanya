@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 // Components
 import { Input as AntdInput } from "antd";
 
@@ -8,7 +7,7 @@ import { Input as AntdInput } from "antd";
 import SIZES from "./constants/input.sizes";
 import TYPES from "./constants/input.types";
 
-const Input = ({classes, id, label, name, onChangeCallback, size, type}) => {
+const Input = ({id, label, name, onChangeCallback, size, type}) => {
   //const { type, size, placeholder, ...restProps } = props;
   function onChangeHandler(e){
     onChangeCallback(e.target.value);
@@ -21,7 +20,6 @@ const Input = ({classes, id, label, name, onChangeCallback, size, type}) => {
 };
 
 Input.protoTypes = {
-  classes : PropTypes.object,
   id : PropTypes.string.isRequired,
   label : PropTypes.string.isRequired,
   name : PropTypes.string,
@@ -30,7 +28,6 @@ Input.protoTypes = {
 }
 
 Input.defaultProps = {
-  classes : {},
   id : "",
   label : "",
   name : "",

@@ -1,5 +1,5 @@
 import { useOktaAuth } from '@okta/okta-react';
-import SignInForm from '../../components/organisms/forms/signInForm';
+import SignInForm from '../../../../../libs/ui-shared/src/lib/components/organisms';
 import './login.scss';
 
 const Login = () => {
