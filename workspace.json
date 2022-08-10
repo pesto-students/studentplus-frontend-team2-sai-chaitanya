@@ -4,6 +4,7 @@
   "projects": {
     "api": "apps/api",
     "login": "apps/login",
+    "sp-student": "apps/sp-student",
     "ui-shared": "libs/ui-shared"
   }
 }
