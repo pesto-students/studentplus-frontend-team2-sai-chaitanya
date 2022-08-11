@@ -1,22 +1,21 @@
 import PropTypes from 'prop-types';
+import { Input as AntdInput } from 'antd';
 import _noop from 'lodash/noop';
 import styles from './Input.module.scss';
 
-const Input = ({ name, onChange, placeholder, type, value }) => {
+const Input = ({ onChange, placeholder, prefix, size, type, value }) => {
   return (
-    <input
-      className={styles.input}
-      type={type}
+    <AntdInput
+      type={type} 
+      prefix={prefix}
       placeholder={placeholder}
       onChange={onChange}
-      name={name}
-      value={value}
+      size={size}
     />
   );
 };
 
 Input.propTypes = {
-  name: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   type: PropTypes.string,
@@ -24,10 +23,9 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  name: 'name',
   onChange: _noop,
-  placeholder: 'placeholder',
-  type: 'text',
+  placeholder: '',
+  type: '',
   value: '',
 };
 

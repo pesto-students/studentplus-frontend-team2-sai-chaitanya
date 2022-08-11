@@ -1,13 +1,16 @@
 import React from 'react';
-import { Button, Logo } from '../../atoms';
+import { Avatar, Logo, Title } from '../../atoms';
 import styles from './header.module.scss';
 
 const Header = () => {
   return (
     <div className={styles.header}>
-      <Logo />
-      <div>
-        <Button label="Sign Up" />
+      <div className={styles.headerLeft}>
+        <Logo />
+      </div>
+      <div className={styles.headerRight}>
+        <Title level={3}>PageTitle</Title>
+        <Avatar size={32} src=""/>
       </div>
     </div>
   );

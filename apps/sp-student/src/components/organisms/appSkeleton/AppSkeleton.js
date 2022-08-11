@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 
 import { SideBar } from '../sideBar';
 import styles from './appSkeleton.module.scss';
+import { Header } from '../../molecules';
 
 function AppSkeleton({ children }) {
   return (
     <div className={styles.container}>
-      <nav className={styles.navbar}>Navbar</nav>
+      <nav className={styles.header}>
+        <Header />
+      </nav>
       <div className={styles.content}>
         <div className={styles.sideBar}>
           <SideBar />

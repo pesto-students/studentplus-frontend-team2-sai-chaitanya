@@ -1,41 +1,71 @@
 import React, { useState } from 'react';
+import { KeyOutlined, UserOutlined } from '../../atoms'
 import styles from './loginForm.module.scss';
 import { Button, Input } from '../..';
+import { Redirect } from 'react-router-dom';
+import { useOktaAuth } from '@okta/okta-react/';
 
-const LoginForm = ({ onLogin }) => {
-  const [emailValue, setEmailValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
+const LoginForm = () => {
+  const { oktaAuth, authState } = useOktaAuth();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  function formSubmitHandler(e) {
-    e.preventDefault();
-    if (emailValue.trim() && passwordValue.trim()) {
-      onLogin(passwordValue, emailValue);
-    } else {
-      console.log('email or password can not be empty');
-    }
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    await oktaAuth.signInWithCredentials({
+      username: username,
+      password: password
+    })
+      .then(function (transaction) {
+        const { status, sessionToken } = transaction;
+        if (status === "SUCCESS") {
+          oktaAuth.signInWithRedirect({
+            originalUri: '/',
+            sessionToken
+          });
+        }
+
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  };
+if (!authState) {
+    return <div>Loading...</div>;
   }
 
+    if (authState.isAuthenticated) {
+      <Redirect to="/"/>
+    }
+
+  if (!authState.isAuthenticated) {
+
   return (
-    <form onSubmit={formSubmitHandler}>
-      <Input
-        type="email"
+    <form className={styles.formCover} onSubmit={handleLogin}>
+      <h2 className={styles.formTitle}>Login</h2>
+      <label className={styles.formLabel}>Welcome back! Please enter your details</label>
+      <div className={styles.formGroup}>
+        <Input
+        type="text"
         placeholder="Email Address"
-        name="emailValue"
-        value={emailValue}
-        onChange={(e) => setEmailValue(e.target.value)}
+        prefix={<UserOutlined />}
+        name="username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
       />
-      <br />
-      <Input
+        <Input
         type="password"
         placeholder="Password"
-        name="passwordValue"
-        value={passwordValue}
-        onChange={(e) => setPasswordValue(e.target.value)}
+        prefix={<KeyOutlined />}
+        name="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
-      <br />
-      <Button type="submit" label="Login" className="btnLoginSignup" />
+        <Button variant="contained" type="submit">Sign in</Button>
+      </div>
     </form>
   );
+  }
 };
 
 export default LoginForm;

@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import _noop from 'lodash/noop';
 import styles from './button.module.scss';
 
-const Button = ({ type, onClick, label, className, children }) => {
+const Button = ({ type, label, className, children }) => {
   return (
-    <button type={type} className={styles[`${className}`]} onClick={onClick}>
+    <button type={type} className={styles[`${className}`]}>
       {label || children}
     </button>
   );
