@@ -1,5 +1,6 @@
 import React from 'react';
-import { Avatar, Logo, Title } from '../../atoms';
+import { Logo, Title } from '../../atoms';
+import { ProfileDropdown } from '../../molecules';
 import styles from './header.module.scss';
 
 const Header = () => {
@@ -10,7 +11,7 @@ const Header = () => {
       </div>
       <div className={styles.headerRight}>
         <Title level={3}>PageTitle</Title>
-        <Avatar size={32} src=""/>
+        <ProfileDropdown />
       </div>
     </div>
   );

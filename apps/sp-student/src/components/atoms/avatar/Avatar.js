@@ -1,10 +1,16 @@
-import { UserOutlined } from "../icon";
-import { Avatar as AntdAvatar } from "antd";
+import { UserOutlined } from '../icon';
+import { Avatar as AntdAvatar } from 'antd';
 
-const Avatar = ({size, src}) => {
+const Avatar = ({ size, src }) => {
   return (
-    <AntdAvatar alt="Avatar" icon={<UserOutlined/>} shape="circle" size={size} src={src}/>
-  )
-}
+    <AntdAvatar
+      alt="Avatar"
+      icon={<UserOutlined />}
+      shape="circle"
+      size={size}
+      src={src}
+    />
+  );
+};
 
-export default Avatar
+export default Avatar;

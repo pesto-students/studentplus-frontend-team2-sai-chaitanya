@@ -1,15 +1,19 @@
 import {
+  ClockCircleFilled,
   DashboardOutlined,
+  LogoutOutlined,
   ProfileOutlined,
   KeyOutlined,
   UserOutlined,
-  WechatOutlined
+  WechatOutlined,
 } from '@ant-design/icons';
 
 export {
+  ClockCircleFilled,
   DashboardOutlined,
+  LogoutOutlined,
   ProfileOutlined,
   KeyOutlined,
   UserOutlined,
-  WechatOutlined
+  WechatOutlined,
 };

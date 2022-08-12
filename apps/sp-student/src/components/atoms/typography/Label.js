@@ -1,11 +1,9 @@
-import { Typography } from "antd"
+import { Typography } from 'antd';
 
 const { Text } = Typography;
 
-const Label = () => {
-  return (
-    <Text strong/>
-  )
-}
+const Label = ({ children }) => {
+  return <Text strong>{children}</Text>;
+};
 
-export default Label
+export default Label;

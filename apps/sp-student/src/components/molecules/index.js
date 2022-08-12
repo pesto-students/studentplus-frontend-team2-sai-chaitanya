@@ -1,4 +1,4 @@
-import Header from './header';
 import LoginForm from './loginForm';
+import ProfileDropdown from './profileDropdown';
 
-export { Header, LoginForm };
+export { LoginForm, ProfileDropdown };

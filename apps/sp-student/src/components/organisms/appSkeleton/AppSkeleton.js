@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { SideBar } from '../sideBar';
 import styles from './appSkeleton.module.scss';
-import { Header } from '../../molecules';
+import Header from '../header';
 
 function AppSkeleton({ children }) {
   return (

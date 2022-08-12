@@ -6,7 +6,7 @@ import { LoginCallback, Security, SecureRoute } from '@okta/okta-react';
 import { PATHS } from '../constants';
 import SecureRoutes from './SecureRoutes';
 import { ForgotPassword, Login } from '../pages';
-import { OIDC } from './constants'; 
+import { OIDC } from './constants';
 
 const oktaAuth = new OktaAuth(OIDC);
 
@@ -14,20 +14,23 @@ function Routes() {
   const history = useHistory();
 
   const customAuthHandler = () => {
-    history.push('/');
+    history.push('/login');
   };
 
   const restoreOriginalUri = async (_oktaAuth, originalUri) => {
     history.replace(toRelativeUrl(originalUri || '/', window.location.origin));
   };
   return (
-    <Security oktaAuth={oktaAuth} onAuthRequired={customAuthHandler} restoreOriginalUri={restoreOriginalUri}>
+    <Security
+      oktaAuth={oktaAuth}
+      onAuthRequired={customAuthHandler}
+      restoreOriginalUri={restoreOriginalUri}
+    >
       <Switch>
         <Route exact path={PATHS.FORGOT_PASSWORD} component={ForgotPassword} />
         <Route exact path={PATHS.LOGIN} component={Login} />
         <Route exact path={PATHS.LOGIN_CALLBACK} component={LoginCallback} />
-        {/* <SecureRoute path="*" component={SecureRoutes} /> */}
-        <Route path="*" component={SecureRoutes} />
+        <SecureRoute path="*" component={SecureRoutes} />
       </Switch>
     </Security>
   );
