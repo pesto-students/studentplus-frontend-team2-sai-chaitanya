@@ -6,6 +6,7 @@ import styles from './appSkeleton.module.scss';
 import Header from '../header';
 
 function AppSkeleton({ children }) {
+  console.log(children);
   return (
     <div className={styles.container}>
       <nav className={styles.header}>

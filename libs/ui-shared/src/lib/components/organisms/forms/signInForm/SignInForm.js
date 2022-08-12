@@ -28,6 +28,8 @@ const SignInForm = () => {
         originalUri: '/',
         sessionToken,
       });
+    } else {
+      console.error("Authentication error:",transaction);
     }
   };
 
