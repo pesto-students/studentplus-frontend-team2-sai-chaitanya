@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { KeyOutlined, UserOutlined } from '../../atoms'
+import { KeyOutlined, UserOutlined } from '../../atoms';
 import styles from './loginForm.module.scss';
 import { Button, Input } from '../..';
 import { Redirect } from 'react-router-dom';
@@ -12,59 +12,61 @@ const LoginForm = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    await oktaAuth.signInWithCredentials({
-      username: username,
-      password: password
-    })
-      .then(function (transaction) {
-        const { status, sessionToken } = transaction;
-        if (status === "SUCCESS") {
-          oktaAuth.signInWithRedirect({
-            originalUri: '/',
-            sessionToken
-          });
-        }
-
-      })
-      .catch(function (err) {
-        console.log(err);
+    try {
+      const transaction = await oktaAuth.signInWithCredentials({
+        username: username,
+        password: password,
       });
+      const { status, sessionToken } = transaction;
+      if (status === 'SUCCESS') {
+        oktaAuth.signInWithRedirect({
+          originalUri: '/',
+          sessionToken,
+        });
+      }
+    } catch (err) {
+      console.log('Login Custom Error', err);
+    }
   };
-if (!authState) {
+
+  if (!authState) {
     return <div>Loading...</div>;
   }
 
-    if (authState.isAuthenticated) {
-      <Redirect to="/"/>
-    }
+  if (authState.isAuthenticated) {
+    <Redirect to="/" />;
+  }
 
   if (!authState.isAuthenticated) {
-
-  return (
-    <form className={styles.formCover} onSubmit={handleLogin}>
-      <h2 className={styles.formTitle}>Login</h2>
-      <label className={styles.formLabel}>Welcome back! Please enter your details</label>
-      <div className={styles.formGroup}>
-        <Input
-        type="text"
-        placeholder="Email Address"
-        prefix={<UserOutlined />}
-        name="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-        <Input
-        type="password"
-        placeholder="Password"
-        prefix={<KeyOutlined />}
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-        <Button variant="contained" type="submit">Sign in</Button>
-      </div>
-    </form>
-  );
+    return (
+      <form className={styles.formCover} onSubmit={handleLogin}>
+        <h2 className={styles.formTitle}>Login</h2>
+        <label className={styles.formLabel}>
+          Welcome back! Please enter your details
+        </label>
+        <div className={styles.formGroup}>
+          <Input
+            type="text"
+            placeholder="Email Address"
+            prefix={<UserOutlined />}
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            prefix={<KeyOutlined />}
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button variant="contained" type="submit">
+            Sign in
+          </Button>
+        </div>
+      </form>
+    );
   }
 };
 

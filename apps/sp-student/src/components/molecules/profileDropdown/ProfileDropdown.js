@@ -3,6 +3,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import { Avatar, Dropdown, Menu } from '../../atoms';
 import { MENU_ITEMS } from './constants';
 import { useHistory } from 'react-router-dom';
+import { PATHS } from '../../../constants';
 
 const ProfileDropdown = () => {
   const history = useHistory();
@@ -13,17 +14,17 @@ const ProfileDropdown = () => {
       logoutHandler();
     }
     if (key === 'PROFILE') {
-      history.push('/profile');
+      history.push(PATHS.PROFILE);
     }
     if (key === 'DASHBOARD') {
-      history.push('/');
+      history.push(PATHS.DASHBOARD);
     }
     setActiveMenu(key);
     console.log(key);
     console.log(activeMenu);
   };
 
-  const logoutHandler = () => oktaAuth.signOut('/');
+  const logoutHandler = () => oktaAuth.signOut(PATHS.DASHBOARD);
   return (
     <Dropdown
       menu={

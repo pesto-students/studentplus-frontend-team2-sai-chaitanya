@@ -1,4 +1,8 @@
-import { DashboardOutlined, ProfileOutlined, WechatOutlined } from '../../../atoms';
+import {
+  DashboardOutlined,
+  ProfileOutlined,
+  CommentOutlined,
+} from '../../../atoms';
 
 const DASHBOARD = {
   key: 'DASHBOARD',
@@ -14,7 +18,7 @@ const PROFILE = {
 
 const RECENT_CHATBOARDS = {
   key: 'RECENT_CHATBOARDS',
-  icon: <WechatOutlined />,
+  icon: <CommentOutlined />,
   label: 'Recent Chatboards',
 };
 

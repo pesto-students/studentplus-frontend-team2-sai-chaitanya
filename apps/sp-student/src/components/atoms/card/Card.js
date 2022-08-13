@@ -1,12 +1,9 @@
 import React from 'react';
 import { Card as AntdCard } from 'antd';
 
-const Card = ({ children }) => {
+const Card = ({ children, className, title }) => {
   return (
-    <AntdCard
-      style={{ borderRadius: '25px', padding: '10px 20px', margin: '20px 0px' }}
-      bodyStyle={{ padding: '0' }}
-    >
+    <AntdCard className={className} bodyStyle={{ padding: '0' }} title={title}>
       {children}
     </AntdCard>
   );

@@ -1,9 +1,9 @@
 const PATHS = {
   LOGIN: '/login',
   FORGOT_PASSWORD: '/forgot-password',
-  HOME: '/home',
+  DASHBOARD: '/',
   PROFILE: '/profile',
-  LOGIN_CALLBACK: '/login/callback'
+  LOGIN_CALLBACK: '/login/callback',
 };
 
 export { PATHS };
