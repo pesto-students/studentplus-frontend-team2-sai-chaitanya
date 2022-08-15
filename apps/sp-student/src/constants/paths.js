@@ -4,6 +4,7 @@ const PATHS = {
   DASHBOARD: '/',
   PROFILE: '/profile',
   LOGIN_CALLBACK: '/login/callback',
+  ERROR: '/error',
 };
 
 export { PATHS };

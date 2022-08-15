@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 
 // Components
-import PageNotFound from "imcomponents/atoms/pageNotFound";
+import PageNotFound from "../../atoms/pageNotFound";
 
 // Lodash
 import _isEmpty from "lodash/isEmpty";
