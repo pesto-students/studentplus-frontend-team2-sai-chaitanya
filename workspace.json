@@ -5,6 +5,7 @@
     "api": "apps/api",
     "login": "apps/login",
     "sp-admin": "apps/sp-admin",
+    "sp-manager": "apps/sp-manager",
     "sp-student": "apps/sp-student",
     "ui-shared": "libs/ui-shared"
   }

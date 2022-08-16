@@ -1,0 +1,23 @@
+.header {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  box-shadow: -1px 3px 9px 0px #eee;
+  z-index: 1;
+}
+.headerLeft{
+  flex: 1;
+}
+.headerRight{
+  display: flex;
+  flex: 5;
+  padding: 1rem;
+  margin: 0;
+  h3 {
+    flex: 6;
+    padding: 2rem;
+    margin: 0;
+  }
+}
