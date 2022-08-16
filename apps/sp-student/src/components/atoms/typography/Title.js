@@ -8,4 +8,16 @@ const Title = ({ children, className, level }) => {
   );
 };
 
+Title.propTypes = {
+  children: PropTypes.number,
+  className: PropTypes.string,
+  level: PropTypes.string,
+};
+
+Title.defaultProps = {
+  children: undefined,
+  className: '',
+  level: 5,
+};
+
 export default Title;

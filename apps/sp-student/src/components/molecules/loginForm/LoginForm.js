@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { KeyOutlined, UserOutlined } from '../../atoms';
+import { KeyOutlined, Label, Title, UserOutlined } from '../../atoms';
 import styles from './loginForm.module.scss';
 import { Button, Input } from '../..';
 import { Redirect } from 'react-router-dom';
@@ -40,10 +40,12 @@ const LoginForm = () => {
   if (!authState.isAuthenticated) {
     return (
       <form className={styles.formCover} onSubmit={handleLogin}>
-        <h2 className={styles.formTitle}>Login</h2>
-        <label className={styles.formLabel}>
-          Welcome back! Please enter your details
-        </label>
+        <div className={styles.loginHeading}>
+          <Title level={3}>Login</Title>
+          <Label strong={false} className={styles.loginLabel}>
+            Welcome back! Please enter your details
+          </Label>
+        </div>
         <div className={styles.formGroup}>
           <Input
             type="text"

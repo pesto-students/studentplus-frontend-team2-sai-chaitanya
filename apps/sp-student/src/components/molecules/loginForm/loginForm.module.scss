@@ -8,7 +8,12 @@ label.formLabel {
     display: block;
     margin-bottom: 20px;
 }
-
+.loginLabel{
+    font-size: 16px;
+}
+.loginHeading{
+    margin: 1rem 0;
+}
 label.loginWarning {
     color: red;
     background: #ffe3e3;

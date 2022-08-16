@@ -4,33 +4,50 @@ import _noop from 'lodash/noop';
 import styles from './text.module.scss';
 import { Label } from '../../typography';
 
-const Input = ({ label, onChange, placeholder, prefix, size, type, value }) => {
+const Input = ({
+  bordered,
+  className,
+  label,
+  onChangeHandler,
+  placeholder,
+  prefix,
+  size,
+  type,
+}) => {
   return (
     <AntdInput
       type={type}
       addonBefore={<Label>{label}</Label>}
-      bordered={false}
+      bordered={bordered}
       prefix={prefix}
-      className={styles.input}
+      className={styles[`${className}`]}
       placeholder={placeholder}
-      onChange={onChange}
+      onChange={onChangeHandler}
       size={size}
     />
   );
 };
 
 Input.propTypes = {
-  onChange: PropTypes.func,
+  bordered: PropTypes.bool,
+  className: PropTypes.string,
+  onChangeHandler: PropTypes.func,
+  label: PropTypes.string,
   placeholder: PropTypes.string,
+  prefix: PropTypes.node,
   type: PropTypes.string,
-  value: PropTypes.string,
+  size: PropTypes.string,
 };
 
 Input.defaultProps = {
-  onChange: _noop,
+  bordered: false,
+  className: 'input',
+  onChangeHandler: _noop,
+  label: '',
   placeholder: '',
-  type: '',
-  value: '',
+  prefix: undefined,
+  type: 'text',
+  size: 'large',
 };
 
 export default Input;

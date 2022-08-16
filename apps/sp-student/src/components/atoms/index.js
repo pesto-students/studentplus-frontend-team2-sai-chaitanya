@@ -5,6 +5,7 @@ import Dropdown from './dropdown';
 import { Input, Textarea } from './input/';
 import InputGroup from './inputGroup';
 import Logo from './logo';
+import Progress from './progress';
 import { Label, Title } from './typography';
 export { default as Menu } from './menu';
 export * from './icon';
@@ -18,6 +19,7 @@ export {
   InputGroup,
   Logo,
   Label,
+  Progress,
   Title,
   Textarea,
 };

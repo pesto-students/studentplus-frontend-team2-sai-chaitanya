@@ -3,34 +3,47 @@ import PropTypes from 'prop-types';
 import _noop from 'lodash/noop';
 import styles from './button.module.scss';
 
-const Button = ({ block = true, type, label, className, children }) => {
+const Button = ({
+  block,
+  className,
+  htmlType,
+  label,
+  onClickHandler,
+  shape,
+  size,
+}) => {
   return (
     <AntdButton
-      htmlType={type}
-      shape="round"
-      size="large"
+      htmlType={htmlType}
+      shape={shape}
+      size={size}
       block={block}
       className={styles[`${className}`]}
+      onClick={onClickHandler}
     >
-      {label || children}
+      {label}
     </AntdButton>
   );
 };
 
 Button.propTypes = {
-  children: PropTypes.string,
+  block: PropTypes.bool,
   className: PropTypes.string,
-  type: PropTypes.string,
+  htmlType: PropTypes.string,
   label: PropTypes.string,
-  onClick: PropTypes.func,
+  onClickHandler: PropTypes.func,
+  shape: PropTypes.string,
+  size: PropTypes.string,
 };
 
 Button.defaultProps = {
-  children: null,
+  block: true,
   className: 'btn',
-  type: 'button',
-  label: null,
-  onClick: _noop,
+  htmlType: 'submit',
+  label: 'Save',
+  onClickHandler: _noop,
+  shape: 'round',
+  size: 'large',
 };
 
 export default Button;

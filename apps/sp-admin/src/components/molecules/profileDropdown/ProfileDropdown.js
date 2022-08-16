@@ -14,10 +14,10 @@ const ProfileDropdown = () => {
       logoutHandler();
     }
     if (key === 'PROFILE') {
-      history.push(`/${PATHS.PROFILE}`);
+      history.push(PATHS.PROFILE);
     }
     if (key === 'DASHBOARD') {
-      history.push('/');
+      history.push(PATHS.DASHBOARD);
     }
     setActiveMenu(key);
     console.log(key);

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Avatar, Button, Card, Input, Label } from '../../components';
+import { Avatar, Button, Card, Input, Label, Listing } from '../../components';
 import styles from './profile.module.scss';
 
 function Profile() {
   return (
     <div className={styles.profileContainer}>
       <div className={styles.userInfo}>
-        <Card className={styles.profileCard}>
+        <Card>
           <div className={styles.avatarCover}>
             <Avatar size={150} />
             <Label strong={false} className={styles.label}>
@@ -25,10 +25,22 @@ function Profile() {
       </div>
       <div className={styles.otherInfo}>
         <div className={styles.info}>
-          <Card className={styles.assignmentCard} title="Assignments"></Card>
+          <Card title="Assignments">
+            <div className={styles.cardContainer}>
+              <Listing percent={50} />
+              <Listing percent={30} />
+              <Listing percent={70} />
+            </div>
+          </Card>
         </div>
         <div className={styles.info}>
-          <Card className={styles.chatBoardCard} title="Chatboards"></Card>
+          <Card title="Chatboards">
+            <div className={styles.cardContainer}>
+              <Listing percent={20} />
+              <Listing percent={80} />
+              <Listing percent={38} />
+            </div>
+          </Card>
         </div>
       </div>
     </div>
