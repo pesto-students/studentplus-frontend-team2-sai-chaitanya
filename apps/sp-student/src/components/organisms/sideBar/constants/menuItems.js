@@ -2,8 +2,14 @@ import {
   DashboardOutlined,
   ProfileOutlined,
   CommentOutlined,
+  SettingOutlined,
 } from '../../../atoms';
 
+const ACCOUNT_SETTINGS = {
+  key: 'ACCOUNT_SETTINGS',
+  icon: <SettingOutlined />,
+  label: 'Settings',
+};
 const DASHBOARD = {
   key: 'DASHBOARD',
   icon: <DashboardOutlined />,
@@ -22,7 +28,7 @@ const RECENT_CHATBOARDS = {
   label: 'Recent Chatboards',
 };
 
-const MENU_ITEMS = [DASHBOARD, PROFILE, RECENT_CHATBOARDS];
+const MENU_ITEMS = [DASHBOARD, PROFILE, RECENT_CHATBOARDS, ACCOUNT_SETTINGS];
 const DEFAULT_SELECTED_ITEM_KEY = DASHBOARD.key;
 
 export { DEFAULT_SELECTED_ITEM_KEY, MENU_ITEMS };

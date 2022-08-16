@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
 import { Input as AntdInput } from 'antd';
 import _noop from 'lodash/noop';
-import styles from './Input.module.scss';
+import styles from './text.module.scss';
+import { Label } from '../../typography';
 
-const Input = ({ onChange, placeholder, prefix, size, type, value }) => {
+const Input = ({ label, onChange, placeholder, prefix, size, type, value }) => {
   return (
     <AntdInput
-      type={type} 
+      type={type}
+      addonBefore={<Label>{label}</Label>}
+      bordered={false}
       prefix={prefix}
+      className={styles.input}
       placeholder={placeholder}
       onChange={onChange}
       size={size}

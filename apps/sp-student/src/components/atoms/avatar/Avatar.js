@@ -9,6 +9,7 @@ const Avatar = ({ size, src }) => {
       shape="circle"
       size={size}
       src={src}
+      style={{ display: 'block', margin: '1rem auto' }}
     />
   );
 };

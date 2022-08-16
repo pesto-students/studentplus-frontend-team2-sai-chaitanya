@@ -1,4 +1,5 @@
 const PATHS = {
+  ACCOUNT_SETTINGS: '/account-settings',
   LOGIN: '/login',
   FORGOT_PASSWORD: '/forgot-password',
   DASHBOARD: '/',

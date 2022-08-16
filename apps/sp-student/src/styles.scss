@@ -135,5 +135,11 @@ table {
 html {
   font-size: 10px !important;
 }
-
+span.ant-input-group-addon {
+  border: 0px;
+}
+.anticon{
+  color: blue;
+  margin: 0px 10px 0px 0px;
+}
 @import 'antd/dist/antd.css';

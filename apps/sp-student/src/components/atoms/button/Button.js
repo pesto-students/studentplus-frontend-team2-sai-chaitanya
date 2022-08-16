@@ -1,12 +1,19 @@
+import { Button as AntdButton } from 'antd';
 import PropTypes from 'prop-types';
 import _noop from 'lodash/noop';
 import styles from './button.module.scss';
 
-const Button = ({ type, label, className, children }) => {
+const Button = ({ block = true, type, label, className, children }) => {
   return (
-    <button type={type} className={styles[`${className}`]}>
+    <AntdButton
+      htmlType={type}
+      shape="round"
+      size="large"
+      block={block}
+      className={styles[`${className}`]}
+    >
       {label || children}
-    </button>
+    </AntdButton>
   );
 };
 

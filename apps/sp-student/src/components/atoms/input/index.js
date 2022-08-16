@@ -1,2 +1,3 @@
-import Input from './Input';
-export default Input;
+import Input from './text';
+import Textarea from './textarea';
+export { Input, Textarea };

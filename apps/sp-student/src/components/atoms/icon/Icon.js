@@ -6,6 +6,7 @@ import {
   LogoutOutlined,
   ProfileOutlined,
   KeyOutlined,
+  SettingOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 
@@ -17,5 +18,6 @@ export {
   LogoutOutlined,
   ProfileOutlined,
   KeyOutlined,
+  SettingOutlined,
   UserOutlined,
 };

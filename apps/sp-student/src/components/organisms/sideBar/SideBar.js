@@ -14,6 +14,9 @@ function SideBar() {
     if (key === 'DASHBOARD') {
       history.push('/');
     }
+    if (key === 'ACCOUNT_SETTINGS') {
+      history.push('/account-settings');
+    }
   };
 
   return (

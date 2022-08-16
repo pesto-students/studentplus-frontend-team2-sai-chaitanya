@@ -1,15 +1,11 @@
-import { Skeleton, Typography } from "antd"
+import { Skeleton, Typography } from 'antd';
 
-const Title = ({ children, level }) => {
+const Title = ({ children, className, level }) => {
   return (
-    <Typography.Title level={level}>
-        {children ? (
-            children
-        ) : (
-            <Skeleton.Input active />
-        )}
+    <Typography.Title level={level} className={className}>
+      {children ? children : <Skeleton.Input active />}
     </Typography.Title>
-  )
-}
+  );
+};
 
-export default Title
+export default Title;

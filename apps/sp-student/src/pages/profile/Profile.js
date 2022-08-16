@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Avatar,
-  Button,
-  Card,
-  EnvironmentOutlined,
-  Input,
-} from '../../components';
+import { Avatar, Button, Card, Input, Label } from '../../components';
 import styles from './profile.module.scss';
 
 function Profile() {
@@ -13,11 +7,20 @@ function Profile() {
     <div className={styles.profileContainer}>
       <div className={styles.userInfo}>
         <Card className={styles.profileCard}>
-          <Avatar size={150} />
-          <Input type="text" prefix={<EnvironmentOutlined />} />
-          <Input type="text" prefix={<EnvironmentOutlined />} />
-          <Input type="text" prefix={<EnvironmentOutlined />} />
-          <Button type="submit">Edit</Button>
+          <div className={styles.avatarCover}>
+            <Avatar size={150} />
+            <Label strong={false} className={styles.label}>
+              Username
+            </Label>
+          </div>
+          <div className={styles.userInfoCover}>
+            <Input type="text" label="Address : " />
+            <Input type="text" label="Contact : " />
+            <Input type="text" label="Email : " />
+            <div className={styles.buttonCover}>
+              <Button type="submit">Edit</Button>
+            </div>
+          </div>
         </Card>
       </div>
       <div className={styles.otherInfo}>

@@ -12,7 +12,21 @@
 .info{
     flex:auto;
 }
-.profileCard{
+.avatarCover{
+    text-align: center;
+    padding: 2rem;
+}
+.userInfoCover{
+    padding: 3rem;
+}
+.label{
+    font-size: 16px;
+}
+.buttonCover{
+    width: 25em;
+    margin:2em auto;
+}
+/* .profileCard{
     padding: 3rem;
     height: 100%;
     border-radius: 25px;
@@ -25,4 +39,4 @@
     height: 100%;
     border-radius: 25px;
     margin: 8px;
-}
+} */
