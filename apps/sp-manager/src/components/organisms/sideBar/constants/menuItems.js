@@ -7,7 +7,7 @@ import {
   TeamOutlined,
   CheckOutlined,
   StockOutlined,
-} from '../../../atoms';
+} from '../../../../../../../libs/ui-shared/src/lib/components/atoms';
 
 const ACCOUNT_SETTINGS = {
   key: 'ACCOUNT_SETTINGS',

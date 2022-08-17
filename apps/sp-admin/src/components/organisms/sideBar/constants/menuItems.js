@@ -1,4 +1,8 @@
-import { DashboardOutlined, ProfileOutlined, WechatOutlined } from '../../../atoms';
+import {
+  DashboardOutlined,
+  ProfileOutlined,
+  WechatOutlined,
+} from '../../../../../../../libs/ui-shared/src/lib/components/atoms';
 
 const DASHBOARD = {
   key: 'DASHBOARD',

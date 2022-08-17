@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { KeyOutlined, UserOutlined } from '../../atoms';
+import {
+  Button,
+  Input,
+  KeyOutlined,
+  UserOutlined,
+} from '../../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './loginForm.module.scss';
-import { Button, Input } from '../..';
 import { Redirect } from 'react-router-dom';
 import { useOktaAuth } from '@okta/okta-react/';
 

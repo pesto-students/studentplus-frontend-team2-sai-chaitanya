@@ -9,7 +9,7 @@ import {
   Title,
   Textarea,
   InputGroup,
-} from '../../components';
+} from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './accountSettings.module.scss';
 
 const AccountSettings = () => {

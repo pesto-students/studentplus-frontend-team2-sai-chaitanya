@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
-import { Avatar, Dropdown, Menu } from '../../atoms';
+import {
+  Avatar,
+  Dropdown,
+  Menu,
+} from '../../../../../../libs/ui-shared/src/lib/components/atoms';
 import { MENU_ITEMS } from './constants';
 import { useHistory } from 'react-router-dom';
 import { PATHS } from '../../../constants';
@@ -27,15 +31,19 @@ const ProfileDropdown = () => {
   const logoutHandler = () => oktaAuth.signOut(PATHS.DASHBOARD);
   return (
     <Dropdown
-      menu={
+      overlay={
         <Menu
           defaultSelectedKeys={[activeMenu]}
           items={MENU_ITEMS}
           onClick={handleMenuItemClick}
         />
       }
-      targetElement={<Avatar size={40} />}
-    />
+      trigger={['click']}
+      arrow={true}
+      placement="bottomRight"
+    >
+      <Avatar size={40} onClick={(e) => e.preventDefault()} />
+    </Dropdown>
   );
 };
 

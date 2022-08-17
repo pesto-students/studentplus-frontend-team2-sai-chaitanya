@@ -8,7 +8,7 @@ import {
   Attendance,
   CohortManager,
   Dashboard,
-  EventManager,
+  EventEditor,
   Profile,
   Statistics,
 } from '../pages';
@@ -24,7 +24,7 @@ function SecureRoutes() {
           path={PATHS.ACCOUNT_SETTINGS}
           component={AccountSettings}
         />
-        <Route exact path={PATHS.EVENT_MANAGER} component={EventManager} />
+        <Route exact path={PATHS.EVENT_EDITOR} component={EventEditor} />
         <Route exact path={PATHS.COHORT_MANAGER} component={CohortManager} />
         <Route exact path={PATHS.ATTENDANCE} component={Attendance} />
         <Route exact path={PATHS.STATISTICS} component={Statistics} />

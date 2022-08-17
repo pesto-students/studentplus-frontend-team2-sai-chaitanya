@@ -2,7 +2,7 @@ import {
   DashboardOutlined,
   LogoutOutlined,
   ProfileOutlined,
-} from '../../../atoms';
+} from '../../../../../../../libs/ui-shared/src/lib/components/atoms';
 
 const DASHBOARD = {
   key: 'DASHBOARD',

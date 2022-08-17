@@ -1,5 +1,11 @@
 import React from 'react';
-import { Avatar, Button, Card, Input, Label } from '../../components';
+import {
+  Avatar,
+  Button,
+  Card,
+  Input,
+  Label,
+} from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './profile.module.scss';
 
 function Profile() {

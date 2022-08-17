@@ -1,6 +1,11 @@
 import { useOktaAuth } from '@okta/okta-react';
 import { Redirect } from 'react-router-dom';
-import { Card, ClockCircleFilled, Label, Title } from '../../components';
+import {
+  Card,
+  ClockCircleFilled,
+  Label,
+  Title,
+} from '../../../../../libs/ui-shared/src/lib/components/atoms';
 
 const Dashboard = () => {
   const { oktaAuth, authState } = useOktaAuth();

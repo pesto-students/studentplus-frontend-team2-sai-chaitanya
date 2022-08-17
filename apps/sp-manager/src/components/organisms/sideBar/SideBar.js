@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Menu } from '../../atoms';
+import { Menu } from '../../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './sideBar.module.scss';
 import { DEFAULT_SELECTED_ITEM_KEY, MENU_ITEMS } from './constants';
 import { useHistory } from 'react-router-dom';
-import {PATHS} from '../../../constants'
+import { PATHS } from '../../../constants';
 function SideBar() {
   const history = useHistory();
   const handleMenuItemClick = ({ key }) => {

@@ -1,5 +1,9 @@
 import React from 'react';
-import { Card, Label, Title } from '../../atoms';
+import {
+  Card,
+  Label,
+  Title,
+} from '../../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './event.module.scss';
 
 const Event = ({ cardTitle, date, excerpt, icon, title }) => {

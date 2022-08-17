@@ -7,7 +7,7 @@ import {
   Title,
   Textarea,
   InputGroup,
-} from '../../atoms';
+} from '../../../../../../libs/ui-shared/src/lib/components/atoms';
 import moment from 'moment';
 import styles from './eventForm.module.scss';
 
@@ -16,16 +16,16 @@ const EventForm = () => {
   const isEdit = false;
   return (
     <div className={styles.eventContainer}>
-      <Card className={styles.eventForm} title={isEdit?"Edit Event":"Add Event"}>
+      <Card
+        className={styles.eventForm}
+        title={isEdit ? 'Edit Event' : 'Add Event'}
+      >
         <div className={styles.cardContainer}>
           <div className={styles.title}>
             <Title level={5}>Events Editor</Title>
-            <Label strong={false}>
-              {isEdit?"Edit Event":"Add Event"}
-            </Label>
+            <Label strong={false}>{isEdit ? 'Edit Event' : 'Add Event'}</Label>
           </div>
           <div className={styles.profileInfo}>
-            
             <div className={styles.profilefields}>
               <InputGroup size="large">
                 <Row gutter={8}>
@@ -49,17 +49,19 @@ const EventForm = () => {
                 <Row gutter={8}>
                   <Col span={12}>
                     <p> Start</p>
-                    <DatePicker/><TimePicker/>
+                    <DatePicker />
+                    <TimePicker />
                   </Col>
                   <Col span={12}>
                     <p> End</p>
-                    <DatePicker/><TimePicker/>
+                    <DatePicker />
+                    <TimePicker />
                   </Col>
                 </Row>
               </InputGroup>
               <InputGroup size="large">
                 <Row gutter={8}>
-                <Input type="text" label="Meeting Resources: " />
+                  <Input type="text" label="Meeting Resources: " />
                 </Row>
                 <Row gutter={8}>
                   <Title level={5} className={styles.textLabel}>

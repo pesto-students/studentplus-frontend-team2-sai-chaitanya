@@ -1,4 +1,8 @@
-import { ClockCircleFilled, Event, Title } from '../../components';
+import { Event } from '../../components';
+import {
+  ClockCircleFilled,
+  Title,
+} from '../../../../../libs/ui-shared/src/lib/components/atoms';
 
 const Dashboard = () => {
   return (

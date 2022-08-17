@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { Menu } from '../../atoms';
+import { Menu } from '../../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './sideBar.module.scss';
 import { DEFAULT_SELECTED_ITEM_KEY, MENU_ITEMS } from './constants';
 
 function SideBar() {
-  const handleMenuItemClick = ({ key }) => {
-
-  };
+  const handleMenuItemClick = ({ key }) => {};
 
   return (
     <div className={styles.container}>
@@ -18,7 +16,7 @@ function SideBar() {
           items={MENU_ITEMS}
           onClick={handleMenuItemClick}
           style={{
-            borderRight: "none"
+            borderRight: 'none',
           }}
         />
       </div>
