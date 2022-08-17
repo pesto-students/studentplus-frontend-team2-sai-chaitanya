@@ -1,0 +1,11 @@
+.listItem{
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 2rem;
+}
+.itemLeft{
+    flex: 1;
+}
+.itemRight{
+    flex: 1;    
+}
