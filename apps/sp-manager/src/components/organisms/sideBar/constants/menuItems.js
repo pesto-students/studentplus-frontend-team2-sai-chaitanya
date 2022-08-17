@@ -32,10 +32,10 @@ const RECENT_CHATBOARDS = {
   label: 'Recent Chatboards',
 };
 
-const EVENT_MANAGER = {
-  key: 'EVENT_MANAGER',
+const EVENT_EDITOR = {
+  key: 'EVENT_EDITOR',
   icon: <CalendarOutlined />,
-  label: 'Events Manager',
+  label: 'Events Editor',
 };
 
 const COHORT_MANAGER = {
@@ -60,7 +60,7 @@ const MENU_ITEMS = [
   ATTENDANCE,
   COHORT_MANAGER,
   DASHBOARD,
-  EVENT_MANAGER,
+  EVENT_EDITOR,
   PROFILE,
   RECENT_CHATBOARDS,
   ACCOUNT_SETTINGS,

@@ -17,8 +17,8 @@ function SideBar() {
     if (key === 'ACCOUNT_SETTINGS') {
       history.push(`${PATHS.ACCOUNT_SETTINGS}`);
     }
-    if (key === 'EVENT_MANAGER') {
-      history.push(`${PATHS.EVENT_MANAGER}`);
+    if (key === 'EVENT_EDITOR') {
+      history.push(`${PATHS.EVENT_EDITOR}`);
     }
     if (key === 'COHORT_MANAGER') {
       history.push(`${PATHS.COHORT_MANAGER}`);

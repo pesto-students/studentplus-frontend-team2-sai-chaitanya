@@ -4,7 +4,6 @@ import {
   Avatar,
   Button,
   Card,
-  EnvironmentOutlined,
   Input,
   Label,
   Title,

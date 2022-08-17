@@ -1,6 +1,4 @@
-import { useOktaAuth } from '@okta/okta-react';
-import { Redirect } from 'react-router-dom';
-import { ClockCircleFilled, Event, Label, Title } from '../../components';
+import { ClockCircleFilled, Event, Title } from '../../components';
 
 const Dashboard = () => {
   return (

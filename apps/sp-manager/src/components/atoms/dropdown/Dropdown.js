@@ -1,4 +1,4 @@
-import { Button, Dropdown as AntdDropdown } from 'antd';
+import {Dropdown as AntdDropdown } from 'antd';
 
 const Dropdown = ({ menu, targetElement }) => {
   return (

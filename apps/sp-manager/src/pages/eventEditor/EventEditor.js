@@ -1,8 +1,8 @@
 
 import {EventForm} from '../../components';
-import styles from './eventManager.module.scss';
+import styles from './eventEditor.module.scss';
 
-const EventManager = () => {
+const EventEditor = () => {
   return (
     <div className={styles.eventContainer}>
       <EventForm></EventForm>
@@ -10,4 +10,4 @@ const EventManager = () => {
   );
 };
 
-export default EventManager;
+export default EventEditor;

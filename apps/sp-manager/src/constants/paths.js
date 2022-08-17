@@ -4,7 +4,7 @@ const PATHS = {
   COHORT_MANAGER:'/cohort-manager',
   DASHBOARD: '/',
   ERROR: '/error',
-  EVENT_MANAGER:'/event-manager',
+  EVENT_EDITOR:'/event-editor',
   FORGOT_PASSWORD: '/forgot-password',
   LOGIN: '/login',
   LOGIN_CALLBACK: '/login/callback',
