@@ -1,6 +1,6 @@
-const SMALL = "small";
-const MEDIUM = "middle";
-const LARGE = "large";
+const SMALL = 'small';
+const MEDIUM = 'middle';
+const LARGE = 'large';
 
 const SIZES = {
   SMALL,
