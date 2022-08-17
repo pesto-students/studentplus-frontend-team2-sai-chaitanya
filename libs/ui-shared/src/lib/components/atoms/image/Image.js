@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // Component
-import { Image as AntdImage } from "antd";
+import { Image as AntdImage } from 'antd';
 
 // Image
-import fallbackImg from "../../../public/fallback.png";
+import fallbackImg from '../../../../../public/images/fallback.png';
 
 const Image = (props) => {
   const { className, src, ...restProps } = props;
@@ -26,7 +26,7 @@ Image.defaultProps = {
   className: undefined,
   width: undefined,
   height: undefined,
-  src: "",
+  src: '',
   preview: false,
   fallback: fallbackImg,
 };

@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from './logo.module.scss';
 import PropTypes from 'prop-types';
+import Image from '../image';
+import IMAGE_PATHS from '../../../../../public/images/constants/';
 
 const Logo = ({ src, className }) => {
   return (
     <div className={styles[`${className}`]}>
-      <img src={src} />
+      <Image src={src} />
     </div>
   );
 };
@@ -17,6 +19,6 @@ Logo.propTypes = {
 
 Logo.defaultProps = {
   className: 'logo',
-  src: '../../../assets/logoWhite.png',
+  src: IMAGE_PATHS.WHITE_LOGO,
 };
 export default Logo;
