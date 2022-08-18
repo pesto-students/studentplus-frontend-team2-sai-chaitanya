@@ -1,0 +1,83 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/sp-student/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/sp-student",
+        "index": "apps/sp-student/src/index.html",
+        "baseHref": "/",
+        "main": "apps/sp-student/src/main.js",
+        "polyfills": "apps/sp-student/src/polyfills.js",
+        "tsConfig": "apps/sp-student/tsconfig.app.json",
+        "assets": [
+          "apps/sp-student/src/favicon.ico",
+          "apps/sp-student/src/assets"
+        ],
+        "styles": ["apps/sp-student/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/sp-student/src/environments/environment.js",
+              "with": "apps/sp-student/src/environments/environment.prod.js"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "sp-student:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "sp-student:build:development"
+        },
+        "production": {
+          "buildTarget": "sp-student:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/sp-student/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/sp-student"],
+      "options": {
+        "jestConfig": "apps/sp-student/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

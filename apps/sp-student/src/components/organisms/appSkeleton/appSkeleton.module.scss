@@ -1,0 +1,28 @@
+.container {
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f6f7ff;
+}
+
+.header {
+  height: 68px;
+  background-color: #fbfdff;
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+}
+
+.sideBar {
+  width: 240px;
+  background-color: white;
+  box-shadow: -1px 3px 9px 0px #eee;
+}
+
+.children{
+  flex: auto;
+  padding: 5rem 12rem;
+}

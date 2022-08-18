@@ -1,0 +1,33 @@
+import {
+  ClockCircleFilled,
+  CommentOutlined,
+  CalendarOutlined,
+  CheckOutlined,
+  DashboardOutlined,
+  EnvironmentOutlined,
+  LogoutOutlined,
+  ProfileOutlined,
+  KeyOutlined,
+  SettingOutlined,
+  StockOutlined,
+  TeamOutlined,
+  UserOutlined,
+  WechatOutlined,
+} from '@ant-design/icons';
+
+export {
+  ClockCircleFilled,
+  CommentOutlined,
+  CalendarOutlined,
+  CheckOutlined,
+  DashboardOutlined,
+  EnvironmentOutlined,
+  LogoutOutlined,
+  ProfileOutlined,
+  KeyOutlined,
+  SettingOutlined,
+  StockOutlined,
+  TeamOutlined,
+  UserOutlined,
+  WechatOutlined,
+};
