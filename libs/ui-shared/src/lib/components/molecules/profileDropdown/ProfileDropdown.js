@@ -4,7 +4,7 @@ import {
   Avatar,
   Dropdown,
   Menu,
-} from '../../../../../../libs/ui-shared/src/lib/components/atoms';
+} from '../../atoms';
 import { MENU_ITEMS } from './constants';
 import { useHistory } from 'react-router-dom';
 import { PATHS } from '../../../constants';

@@ -5,7 +5,7 @@ import {
   Card,
   Input,
   Label,
-} from '../../../../../libs/ui-shared/src/lib/components/atoms';
+} from '../../../../../libs/ui-shared/src/lib/components';
 import styles from './profile.module.scss';
 
 function Profile() {
