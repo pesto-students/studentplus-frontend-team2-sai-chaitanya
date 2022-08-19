@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 //Components
-import { Row, Col } from "../../atoms/grid";
+import { Row, Col } from "../../atoms";
 
 // Styles
 import styles from "./notification.module.scss";
