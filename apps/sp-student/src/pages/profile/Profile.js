@@ -7,9 +7,10 @@ import {
   Input,
   InputGroup,
   Label,
+  Col,
+  Row
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './profile.module.scss';
-import { Col, Row } from 'antd';
 
 function Profile() {
   return (

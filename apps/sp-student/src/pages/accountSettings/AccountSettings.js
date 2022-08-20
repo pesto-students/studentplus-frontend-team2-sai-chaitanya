@@ -1,4 +1,3 @@
-import { Col, Row } from 'antd';
 import React from 'react';
 import {
   Avatar,
@@ -10,6 +9,8 @@ import {
   Title,
   Textarea,
   InputGroup,
+  Col,
+  Row
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './accountSettings.module.scss';
 

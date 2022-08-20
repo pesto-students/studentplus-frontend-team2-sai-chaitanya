@@ -1,9 +1,6 @@
-import { useOktaAuth } from '@okta/okta-react';
-import { Redirect } from 'react-router-dom';
 import { Event } from '../../components';
 import {
   ClockCircleFilled,
-  Label,
   Title,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 

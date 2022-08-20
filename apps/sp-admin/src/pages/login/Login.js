@@ -1,6 +1,6 @@
 import { useOktaAuth } from '@okta/okta-react';
 import { Redirect } from 'react-router-dom';
-import { LoginForm } from '../../components';
+import { LoginForm } from '../../../../../libs/ui-shared/src/lib/components';
 import styles from './login.module.scss';
 
 const Login = () => {
