@@ -7,9 +7,9 @@ import {
 } from '../../atoms';
 import { MENU_ITEMS } from './constants';
 import { useHistory } from 'react-router-dom';
-import { PATHS } from '../../../constants';
 
-const ProfileDropdown = () => {
+
+const ProfileDropdown = ( PATHS) => {
   const history = useHistory();
   const { oktaAuth, authState } = useOktaAuth();
   const [activeMenu, setActiveMenu] = useState();

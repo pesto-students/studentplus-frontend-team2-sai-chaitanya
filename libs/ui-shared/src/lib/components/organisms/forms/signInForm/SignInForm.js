@@ -1,7 +1,7 @@
 import { useOktaAuth } from '@okta/okta-react';
 import React, { useState } from 'react';
-import Button from '../../../atoms/button/Button';
-import Input from '../../../atoms/input/Input';
+import Button from '../../../atoms';
+import {Input} from '../../../atoms';
 import styles from './signinform.module.scss';
 
 const SignInForm = () => {

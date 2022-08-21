@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import _noop from "lodash/noop";
 
 // Components
-import Logo from "../logo";
+import Logo from "../../atoms";
 
 // Styles
 import styles from "./appLoader.module.scss";

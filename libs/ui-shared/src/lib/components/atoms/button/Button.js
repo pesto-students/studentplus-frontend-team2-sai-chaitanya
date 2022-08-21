@@ -26,8 +26,7 @@ const Button = (props) => {
   return (
     <AntdButton
       {...restProps}
-      type={type}
-      htmlType={htmlType}
+      htmlType={type}
       className={buttonClassName}
       onClick={onClickHandler}
     >

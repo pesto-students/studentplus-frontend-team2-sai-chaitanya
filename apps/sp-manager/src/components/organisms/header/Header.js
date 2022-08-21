@@ -2,9 +2,10 @@ import React from 'react';
 import {
   Logo,
   Title,
-} from '../../../../../../libs/ui-shared/src/lib/components/atoms';
-import { ProfileDropdown } from '../../molecules';
+  ProfileDropdown
+} from '../../../../../../libs/ui-shared/src/lib/components';
 import styles from './header.module.scss';
+import { PATHS } from '../../../constants';
 
 const removeAllSlash = function (str) {
   return str.replace(/\//g, '');
@@ -23,7 +24,7 @@ const Header = () => {
       </div>
       <div className={styles.headerRight}>
         <Title level={3}>{pageTitle}</Title>
-        <ProfileDropdown />
+        <ProfileDropdown PATHS/>
       </div>
     </div>
   );
