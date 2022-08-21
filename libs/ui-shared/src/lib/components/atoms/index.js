@@ -13,7 +13,7 @@ import Dialog from './dialog';
 import Drawer from './drawer';
 import Dropdown from './dropdown';
 import Form from './form';
-import Grid from './grid';
+import { Row, Col } from './grid';
 import { Input, Textarea } from './input';
 import Image from './image';
 import InputGroup from './inputGroup';
@@ -24,7 +24,7 @@ import Menu from './menu';
 import Modal from './modal';
 import PageNotFound from './pageNotFound';
 import SearchBox from './searchBox';
-import Select from './select';
+import { Select, Option } from './select';
 import Skeleton from './skeleton';
 import Slider from './slider';
 import Spin from './spin';
@@ -42,11 +42,11 @@ export {
   BrowserView,
   Card,
   CheckBox,
+  Col,
   Dialog,
   Drawer,
   Dropdown,
   Form,
-  Grid,
   isBrowser,
   isMobile,
   Image,
@@ -57,8 +57,10 @@ export {
   Menu,
   Modal,
   MobileView,
+  Option,
   PageNotFound,
   Progress,
+  Row,
   SearchBox,
   Select,
   Skeleton,

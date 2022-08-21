@@ -1,7 +1,6 @@
 import { useOktaAuth } from '@okta/okta-react';
 import React, { useState } from 'react';
-import Button from '../../../atoms';
-import {Input} from '../../../atoms';
+import { Button, Input } from '../../../atoms';
 import styles from './signinform.module.scss';
 
 const SignInForm = () => {
@@ -55,7 +54,7 @@ const SignInForm = () => {
         Welcome back! Please enter your details
       </label>
       <div className={styles.formGroup}>
-        <div className ={styles.inputField}>
+        <div className={styles.inputField}>
           <Input
             id={ids.username}
             label={labels.username}
@@ -64,7 +63,7 @@ const SignInForm = () => {
             onChangeCallback={updateUserName}
           />
         </div>
-        <div className ={styles.inputField}>
+        <div className={styles.inputField}>
           <Input
             id={ids.password}
             label={labels.password}

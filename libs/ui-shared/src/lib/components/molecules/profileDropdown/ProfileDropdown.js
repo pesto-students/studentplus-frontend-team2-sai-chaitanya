@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
-import {
-  Avatar,
-  Dropdown,
-  Menu,
-} from '../../atoms';
+import { Avatar, Dropdown, Menu } from '../../atoms';
 import { MENU_ITEMS } from './constants';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-
-const ProfileDropdown = ( PATHS) => {
+const ProfileDropdown = ({ paths }) => {
   const history = useHistory();
   const { oktaAuth, authState } = useOktaAuth();
   const [activeMenu, setActiveMenu] = useState();
@@ -18,10 +14,10 @@ const ProfileDropdown = ( PATHS) => {
       logoutHandler();
     }
     if (key === 'PROFILE') {
-      history.push(PATHS.PROFILE);
+      history.push(paths.PROFILE);
     }
     if (key === 'DASHBOARD') {
-      history.push(PATHS.DASHBOARD);
+      history.push(paths.DASHBOARD);
     }
     setActiveMenu(key);
     console.log(key);
@@ -45,6 +41,13 @@ const ProfileDropdown = ( PATHS) => {
       <Avatar size={40} onClick={(e) => e.preventDefault()} />
     </Dropdown>
   );
+};
+
+ProfileDropdown.propTypes = {
+  paths: PropTypes.object,
+};
+ProfileDropdown.defaultProps = {
+  paths: {},
 };
 
 export default ProfileDropdown;

@@ -10,7 +10,7 @@ import {
   Textarea,
   InputGroup,
   Col,
-  Row
+  Row,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './accountSettings.module.scss';
 

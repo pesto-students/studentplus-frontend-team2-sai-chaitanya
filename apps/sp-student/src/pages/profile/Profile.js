@@ -8,7 +8,7 @@ import {
   InputGroup,
   Label,
   Col,
-  Row
+  Row,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './profile.module.scss';
 
