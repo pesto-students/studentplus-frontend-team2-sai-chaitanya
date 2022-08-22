@@ -21,7 +21,7 @@
         ],
         "styles": ["apps/sp-student/src/styles.scss"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "apps/sp-student/custom-webpack.config.js"
       },
       "configurations": {
         "development": {

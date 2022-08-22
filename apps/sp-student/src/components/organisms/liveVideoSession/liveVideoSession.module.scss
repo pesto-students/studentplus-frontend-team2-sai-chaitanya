@@ -1,0 +1,17 @@
+.videoChatCover{
+    display: flex;
+}
+.videoSection, .chatSection{
+    flex:1;
+}
+.videoSectionHeader{
+    display:flex;
+    margin: 16px 0px;
+}
+.sectionLeft{
+    flex:1;
+    margin: 0px 0px 10px 0px;
+}
+.sectionRight{
+    flex:1;
+}

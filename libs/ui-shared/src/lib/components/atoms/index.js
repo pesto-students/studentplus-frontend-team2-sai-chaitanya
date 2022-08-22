@@ -24,7 +24,7 @@ import Menu from './menu';
 import Modal from './modal';
 import PageNotFound from './pageNotFound';
 import SearchBox from './searchBox';
-import { Select, Option } from './select';
+import Select from './select';
 import Skeleton from './skeleton';
 import Slider from './slider';
 import Spin from './spin';
@@ -57,7 +57,6 @@ export {
   Menu,
   Modal,
   MobileView,
-  Option,
   PageNotFound,
   Progress,
   Row,

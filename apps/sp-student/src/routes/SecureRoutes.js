@@ -3,7 +3,13 @@ import { Route, Switch } from 'react-router-dom';
 
 import { PATHS } from '../constants';
 import { AppSkeleton } from '../components';
-import { AccountSettings, Dashboard, Profile } from '../pages';
+import {
+  AccountSettings,
+  Assignment,
+  Dashboard,
+  LiveSessionChat,
+  Profile,
+} from '../pages';
 
 function SecureRoutes() {
   return (
@@ -11,6 +17,12 @@ function SecureRoutes() {
       <Switch>
         <Route exact path={PATHS.DASHBOARD} component={Dashboard} />
         <Route exact path={PATHS.PROFILE} component={Profile} />
+        <Route exact path={PATHS.ASSIGNMENT} component={Assignment} />
+        <Route
+          exact
+          path={PATHS.LIVE_SESSION_CHAT}
+          component={LiveSessionChat}
+        />
         <Route
           exact
           path={PATHS.ACCOUNT_SETTINGS}

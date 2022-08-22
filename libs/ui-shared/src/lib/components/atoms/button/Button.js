@@ -26,7 +26,8 @@ const Button = (props) => {
   return (
     <AntdButton
       {...restProps}
-      htmlType={type}
+      type={type}
+      htmlType={htmlType}
       className={buttonClassName}
       onClick={onClickHandler}
     >
@@ -47,7 +48,7 @@ Button.propTypes = {
 Button.defaultProps = {
   className: undefined,
   label: undefined,
-  htmlType: 'button',
+  htmlType: 'submit',
   onClickHandler: _noop,
   type: BUTTON_TYPES.PRIMARY,
   size: BUTTON_SIZES.MEDIUM,
