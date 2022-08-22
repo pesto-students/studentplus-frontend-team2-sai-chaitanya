@@ -1,67 +1,64 @@
-import { Row, Col, DatePicker, TimePicker } from 'antd';
 import {
   Button,
   Card,
+  Col,
   Input,
   Label,
+  Row,
   Title,
   Textarea,
   InputGroup,
 } from '../../../../../../libs/ui-shared/src/lib/components/atoms';
 // import moment from 'moment';
-import styles from './eventForm.module.scss';
+import styles from './chatBoardForm.module.scss';
 
-const EventForm = () => {
+const ChatBoardForm = () => {
   //state
   const isEdit = false;
   return (
-    <div className={styles.eventContainer}>
+    <div className={styles.container}>
       <Card
-        className={styles.eventForm}
-        title={isEdit ? 'Edit Event' : 'Add Event'}
+        className={styles.form}
+        title={isEdit ? 'Edit Chatboard' : 'Add Chatboard'}
       >
         <div className={styles.cardContainer}>
           <div className={styles.title}>
-            <Title level={5}>Events Editor</Title>
-            <Label strong={false}>{isEdit ? 'Edit Event' : 'Add Event'}</Label>
+            <Title level={5}>Chat Board Editor</Title>
+            <Label strong={false}>{isEdit ? 'Edit Chatboard' : 'Add Chatboard'}</Label>
           </div>
           <div className={styles.profileInfo}>
             <div className={styles.profilefields}>
               <InputGroup size="large">
                 <Row gutter={8}>
-                  <Col span={12}>
-                    <Input type="text" label="Event Title: " />
+                  <Col span={24}>
+                    <Input type="text" addonBefore={<Label>Chat Board Title</Label>} />
                   </Col>
-                  <Col span={12}>
-                    <Input type="text" label="Cohort: " />
+                </Row>
+                <Row gutter={8}>
+                <Col span={24}>
+                    <Input type="text" addonBefore={<Label>Cohort</Label>} />
                   </Col>
                 </Row>
                 <Row gutter={8}>
                   <Col span={12}>
-                    <Input type="text" label="Meeting Link: " />
+                    <Input type="text" label="Media Link: " />
                   </Col>
                   <Col span={12}>
-                    <Input type="text" label="Meeting Password: " />
+                    <Input type="text" label="Assignment 1: " />
                   </Col>
                 </Row>
-              </InputGroup>
-              <InputGroup size="large">
                 <Row gutter={8}>
                   <Col span={12}>
-                    <p> Start</p>
-                    <DatePicker />
-                    <TimePicker />
+                    <Input type="text" label="Assignment 2: " />
                   </Col>
                   <Col span={12}>
-                    <p> End</p>
-                    <DatePicker />
-                    <TimePicker />
+                    <Input type="text" label="Assignment 3: " />
                   </Col>
                 </Row>
               </InputGroup>
               <InputGroup size="large">
                 <Row gutter={8}>
-                  <Input type="text" label="Meeting Resources: " />
+                  <Input type="text" label="Event Deck Link: " />
                 </Row>
                 <Row gutter={8}>
                   <Title level={5} className={styles.textLabel}>
@@ -86,4 +83,4 @@ const EventForm = () => {
   );
 };
 
-export default EventForm;
+export default ChatBoardForm;

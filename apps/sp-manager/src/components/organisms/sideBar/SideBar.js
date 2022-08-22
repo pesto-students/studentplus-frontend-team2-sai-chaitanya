@@ -14,6 +14,9 @@ function SideBar() {
     if (key === 'DASHBOARD') {
       history.push(`${PATHS.DASHBOARD}`);
     }
+    if (key === 'CHATBOARD_EDITOR') {
+      history.push(`${PATHS.CHATBOARD_EDITOR}`);
+    }
     if (key === 'ACCOUNT_SETTINGS') {
       history.push(`${PATHS.ACCOUNT_SETTINGS}`);
     }
