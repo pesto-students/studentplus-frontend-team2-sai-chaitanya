@@ -23,7 +23,13 @@ const LiveVideoSession = ({ title, date, videoUrl }) => {
             <Select value="Select Chatboard" />
           </div>
         </div>
-        <ReactPlayer url={videoUrl} />
+        <ReactPlayer
+          url={videoUrl}
+          style={{
+            borderRadius: 20,
+            overflow: 'hidden',
+          }}
+        />
         <div className={styles.videoSectionHeader}>
           <div className={styles.sectionLeft}>
             <Button type="link">Deck Hyperlink</Button>

@@ -1,8 +1,14 @@
 import React from 'react';
-import { LiveVideoSession } from '../../components';
+import { ChatMessageBox, LiveVideoSession } from '../../components';
+import styles from './liveSessionChat.module.scss';
 
 const LiveSessionChat = () => {
-  return <LiveVideoSession />;
+  return (
+    <div className={styles.liveSessionChatCover}>
+      <LiveVideoSession />
+      <ChatMessageBox />
+    </div>
+  );
 };
 
 export default LiveSessionChat;

@@ -1,3 +1,3 @@
+import ChatMessage from './chatMessage';
 import Listing from './listing';
-
-export { Listing };
+export { ChatMessage, Listing };

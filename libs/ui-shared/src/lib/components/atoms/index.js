@@ -1,5 +1,6 @@
 import Avatar from './avatar';
 import Button from './button';
+import { BUTTON_TYPES, BUTTON_SIZES } from './button';
 import Card from './card';
 import CheckBox from './checkBox';
 import {
@@ -40,6 +41,8 @@ export {
   Avatar,
   Button,
   BrowserView,
+  BUTTON_TYPES,
+  BUTTON_SIZES,
   Card,
   CheckBox,
   Col,

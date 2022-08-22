@@ -20,12 +20,14 @@ const Button = (props) => {
     label,
     type,
     onClickHandler,
+    shape,
     ...restProps
   } = props;
   const buttonClassName = getButtonClassName(className, type);
   return (
     <AntdButton
       {...restProps}
+      shape={shape}
       type={type}
       htmlType={htmlType}
       className={buttonClassName}
@@ -42,6 +44,7 @@ Button.propTypes = {
   htmlType: PropTypes.string,
   onClickHandler: PropTypes.func,
   type: PropTypes.string,
+  shape: PropTypes.string,
   size: PropTypes.string,
 };
 
@@ -51,6 +54,7 @@ Button.defaultProps = {
   htmlType: 'submit',
   onClickHandler: _noop,
   type: BUTTON_TYPES.PRIMARY,
+  shape: 'round',
   size: BUTTON_SIZES.MEDIUM,
 };
 

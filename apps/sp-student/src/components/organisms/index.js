@@ -1,4 +1,6 @@
 import AppSkeleton from './appSkeleton';
+import ChatMessageBox from './chatMessageBox';
+import Chart from './chart';
 import Event from './event';
 import LiveVideoSession from './liveVideoSession';
-export { AppSkeleton, Event, LiveVideoSession };
+export { AppSkeleton, ChatMessageBox, Chart, Event, LiveVideoSession };

@@ -9,6 +9,7 @@ import {
   Dashboard,
   LiveSessionChat,
   Profile,
+  Statistics,
 } from '../pages';
 
 function SecureRoutes() {
@@ -18,6 +19,7 @@ function SecureRoutes() {
         <Route exact path={PATHS.DASHBOARD} component={Dashboard} />
         <Route exact path={PATHS.PROFILE} component={Profile} />
         <Route exact path={PATHS.ASSIGNMENT} component={Assignment} />
+        <Route exact path={PATHS.STATISTICS} component={Statistics} />
         <Route
           exact
           path={PATHS.LIVE_SESSION_CHAT}

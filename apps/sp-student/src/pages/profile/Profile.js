@@ -4,7 +4,6 @@ import {
   Avatar,
   Button,
   Card,
-  Input,
   InputGroup,
   Label,
   Col,
@@ -27,18 +26,20 @@ function Profile() {
             <InputGroup>
               <Row gutter={8}>
                 <Col span={24}>
-                  <Label>Address</Label>
+                  <Label className={styles.profileLabel}>Address</Label>
                 </Col>
                 <Col span={24}>
-                  <Label>Contact</Label>
+                  <Label className={styles.profileLabel}>Contact</Label>
                 </Col>
                 <Col span={24}>
-                  <Label>Email</Label>
+                  <Label className={styles.profileLabel}>Email</Label>
                 </Col>
               </Row>
             </InputGroup>
             <div className={styles.buttonCover}>
-              <Button type="submit">Edit</Button>
+              <Button htmltype="submit" className={styles.editProfileBtn}>
+                Edit
+              </Button>
             </div>
           </div>
         </Card>

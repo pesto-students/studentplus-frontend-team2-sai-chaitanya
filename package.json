@@ -9,6 +9,8 @@
   },
   "private": true,
   "dependencies": {
+    "@ant-design/charts": "^1.4.2",
+    "@ant-design/plots": "^1.2.1",
     "@okta/okta-auth-js": "^6.6.1",
     "@okta/okta-react": "^6.4.3",
     "antd": "^4.22.4",

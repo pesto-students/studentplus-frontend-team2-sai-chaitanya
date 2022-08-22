@@ -4,6 +4,7 @@ import {
   CommentOutlined,
   FolderOpenOutlined,
   SettingOutlined,
+  PieChartOutlined,
 } from '../../../../../../../libs/ui-shared/src/lib/components/atoms';
 
 const ACCOUNT_SETTINGS = {
@@ -33,6 +34,11 @@ const PROFILE = {
   icon: <ProfileOutlined />,
   label: 'Profile',
 };
+const STATISTICS = {
+  key: 'STATISTICS',
+  icon: <PieChartOutlined />,
+  label: 'Statistics',
+};
 
 const RECENT_CHATBOARDS = {
   key: 'RECENT_CHATBOARDS',
@@ -51,6 +57,7 @@ const MENU_ITEMS = [
   PROFILE,
   RECENT_CHATBOARDS,
   RESOURCES,
+  STATISTICS,
   ACCOUNT_SETTINGS,
 ];
 const DEFAULT_SELECTED_ITEM_KEY = DASHBOARD.key;

@@ -28,6 +28,9 @@ function SideBar() {
     if (key === 'ASSIGNMENT') {
       history.push(PATHS.ASSIGNMENT);
     }
+    if (key === 'STATISTICS') {
+      history.push(PATHS.STATISTICS);
+    }
   };
 
   return (

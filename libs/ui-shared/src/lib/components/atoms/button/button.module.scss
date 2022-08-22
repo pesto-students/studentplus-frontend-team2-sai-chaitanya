@@ -1,8 +1,13 @@
-.button {}
-
-.primaryButton {}
-
-.tertiaryButton {
-  background-color: #f6f6f6 !important;
-  border-color: #f6f6f6 !important;
+.button {
+  padding: 10px;
+  height: auto;
+  font-weight: 500;
+  color:#6521FF;
+  border-color: #6521FF;
 }
+
+.primaryButton {
+  background-color: #6521FF;
+  color:#fff;
+}
+

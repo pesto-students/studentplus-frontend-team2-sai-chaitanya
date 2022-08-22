@@ -1,13 +1,22 @@
 import { Select as AntDSelect } from 'antd';
 import PropTypes from 'prop-types';
-
-const Select = ({ options, defaultValue, onChange, style, value }) => {
+import styles from './select.module.scss';
+const defaultClassName = styles.selectbox;
+const Select = ({
+  options,
+  defaultValue,
+  className,
+  onChange,
+  style,
+  value,
+}) => {
   return (
     <AntDSelect
       defaultValue={defaultValue}
       onChange={onChange}
       style={style}
       value={value}
+      className={className}
     >
       {options.map((option) => (
         <AntDSelect.Option key={option}>{option}</AntDSelect.Option>
@@ -19,6 +28,7 @@ const Select = ({ options, defaultValue, onChange, style, value }) => {
 Select.propTypes = {
   options: PropTypes.array,
   defaultValue: PropTypes.string,
+  className: PropTypes.string,
   onChange: PropTypes.func,
   style: PropTypes.object,
   value: PropTypes.string,
@@ -27,6 +37,7 @@ Select.propTypes = {
 Select.defaultProps = {
   options: [],
   defaultValue: 'Select',
+  className: defaultClassName,
   onChange: () => {},
   style: {
     width: '100%',
