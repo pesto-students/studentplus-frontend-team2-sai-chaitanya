@@ -27,9 +27,9 @@ const PROFILE = {
 };
 
 const RECENT_CHATBOARDS = {
-  key: 'RECENT_CHATBOARDS',
+  key: 'CHATBOARD_EDITOR',
   icon: <CommentOutlined />,
-  label: 'Recent Chatboards',
+  label: 'Chatboard Editor',
 };
 
 const EVENT_EDITOR = {
