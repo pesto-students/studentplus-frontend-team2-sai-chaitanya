@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Logo,
   Title,
-  ProfileDropdown
+  ProfileDropdown,
 } from '../../../../../../libs/ui-shared/src/lib/components';
 import styles from './header.module.scss';
 import { PATHS } from '../../../constants';
@@ -24,7 +24,7 @@ const Header = () => {
       </div>
       <div className={styles.headerRight}>
         <Title level={3}>{pageTitle}</Title>
-        <ProfileDropdown PATHS/>
+        <ProfileDropdown paths={PATHS} />
       </div>
     </div>
   );

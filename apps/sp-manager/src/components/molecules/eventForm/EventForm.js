@@ -1,4 +1,5 @@
 import { Row, Col, DatePicker, TimePicker } from 'antd';
+import LocaleProvider from 'antd/lib/locale-provider';
 import {
   Button,
   Card,
@@ -16,10 +17,7 @@ const EventForm = () => {
   const isEdit = false;
   return (
     <div className={styles.eventContainer}>
-      <Card
-        className={styles.eventForm}
-        title={isEdit ? 'Edit Event' : 'Add Event'}
-      >
+      <Card className={styles.eventForm}>
         <div className={styles.cardContainer}>
           <div className={styles.title}>
             <Title level={5}>Events Editor</Title>
@@ -30,18 +28,23 @@ const EventForm = () => {
               <InputGroup size="large">
                 <Row gutter={8}>
                   <Col span={12}>
-                    <Input type="text" label="Event Title: " />
+                    <Label> Event Title</Label>
+                    <Input type="text" placeholder={'Event Title'} />
                   </Col>
                   <Col span={12}>
-                    <Input type="text" label="Cohort: " />
+                    <Label>Cohort</Label>
+                    <Input type="text" placeholder={'Cohort'} />
                   </Col>
                 </Row>
+                <Label strong={true}>Meeting</Label>
                 <Row gutter={8}>
                   <Col span={12}>
-                    <Input type="text" label="Meeting Link: " />
+                    <Label>Link</Label>
+                    <Input type="text" placeholder={'Link'} />
                   </Col>
                   <Col span={12}>
-                    <Input type="text" label="Meeting Password: " />
+                    <Label>Password</Label>
+                    <Input type="text" placeholder={'Password'} />
                   </Col>
                 </Row>
               </InputGroup>
@@ -61,7 +64,8 @@ const EventForm = () => {
               </InputGroup>
               <InputGroup size="large">
                 <Row gutter={8}>
-                  <Input type="text" label="Meeting Resources: " />
+                  <label>Resources</label>
+                  <Input type="text" placeholder={"Meeting Resources"} />
                 </Row>
                 <Row gutter={8}>
                   <Title level={5} className={styles.textLabel}>
@@ -71,10 +75,10 @@ const EventForm = () => {
                 </Row>
               </InputGroup>
               <div className={styles.buttonContainerHorizontal}>
-                <Button type="button" className={styles.clear}>
+                <Button htmltype="button" type='default' className={styles.clear}>
                   Clear
                 </Button>
-                <Button type="submit" className={styles.save}>
+                <Button htmltype="submit" className={styles.save}>
                   Save
                 </Button>
               </div>

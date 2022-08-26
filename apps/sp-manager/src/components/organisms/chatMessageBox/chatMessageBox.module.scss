@@ -1,0 +1,32 @@
+.chatBoxCover{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    border: 1px solid #eee;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 2rem;
+}
+.chatMessageList{
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    overflow: auto;
+    padding: 0 2rem;
+}
+.chatBoxTitle{
+    overflow: visible;
+}
+.messageTextBoxCover{
+    display: flex;
+}
+.messageInputBoxCover{
+    flex:7
+}
+.messagesendButtonCover{
+    flex:3;
+}
+.messagesendButton{
+    width: 100%;
+    margin: 0.6rem;
+}

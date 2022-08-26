@@ -5,6 +5,7 @@ import { PATHS } from '../constants';
 import { AppSkeleton } from '../components';
 import {
   AccountSettings,
+  AssignmentEditor,
   Attendance,
   ChatBoardEditor,
   CohortManager,
@@ -26,7 +27,17 @@ function SecureRoutes() {
           component={AccountSettings}
         />
         <Route exact path={PATHS.EVENT_EDITOR} component={EventEditor} />
-        <Route exact path={PATHS.CHATBOARD_EDITOR} component={ChatBoardEditor}/>
+        <Route
+          exact
+          path={PATHS.CHATBOARD_EDITOR}
+          component={ChatBoardEditor}
+        />
+        <Route
+          exact
+          path={PATHS.ASSIGNMENT_EDITOR}
+          component={AssignmentEditor}
+        />
+
         <Route exact path={PATHS.COHORT_MANAGER} component={CohortManager} />
         <Route exact path={PATHS.ATTENDANCE} component={Attendance} />
         <Route exact path={PATHS.STATISTICS} component={Statistics} />

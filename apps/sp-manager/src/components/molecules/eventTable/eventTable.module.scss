@@ -1,46 +1,8 @@
-.eventContainer{
+.container{
     display: flex;
     flex-direction: column;
 }
-.title{
-    margin: 0 0 3rem 0;
-}
-.accountInfo{
-    flex:auto
-}
-.securityInfo{
-    flex: auto;
-}
-.cardContainer{
+.table {
     padding: 3rem;
-}
-.profileInfo{
-    display: flex;
-    flex-direction: row;
-    gap: 24px;
-}
-.profilefields{
-    flex:2;
-    .textLabel {
-        font-size: 14px;
-        padding-left: 1.8rem;
-    }
-}
-
-.clear{
-    background-color: #ffffff;
-    color:#6521FF;
-}
-.buttonContainer{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 19rem;
-    margin: 2rem auto;
-}
-.buttonContainerHorizontal{
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    margin: 2rem auto;
+    border-radius: 5%;
 }

@@ -1,42 +1,49 @@
-import { useOktaAuth } from '@okta/okta-react';
-import { Redirect } from 'react-router-dom';
-import { Event } from '../../components';
 import {
-  ClockCircleFilled,
-  Label,
-  Title,
+  Card,
+  Select,
+  Button,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
-
+import UserGrid from '../../components/molecules/userGrid';
+import styles from './cohortManager.module.scss';
+import { COHORTS, COHORTUSERS } from './data/DATA';
 const CohortManager = () => {
+  const COHORTUSERARR = Array.from(COHORTUSERS.DATA);
+  const COHORTSARR = Array.from(COHORTS.DATA);
+  function onClickAction() {}
   return (
-    <>
-      <Title level={4}>Pesto Announcement Events</Title>
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
-      <Title level={4}>Cohort Announcement Events</Title>
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
-    </>
+    <Card>
+      <div className={styles.container}>
+        <div className={styles.gridHeader}>
+          <div className={styles.selectionBar}>
+            <Select
+              defaultValue={COHORTSARR[0]}
+              onChange={onClickAction}
+              options={COHORTSARR}
+            />
+          </div>
+          <div className={styles.legend}>
+            {' '}
+            <div className={styles.active}></div> Active
+          </div>
+          <div className={styles.legend}>
+            {' '}
+            <div className={styles.deferred}></div>Deferred
+          </div>
+          <div className={styles.legend}>
+            {' '}
+            <div className={styles.deferNotice}></div>Deferment Requested
+          </div>
+          <Button htmlType="button">View Cohort</Button>
+        </div>
+        <UserGrid
+          cohort={COHORTUSERARR}
+          onClickAction={onClickAction}
+        ></UserGrid>
+        <div className={styles.buttons}>
+          <Button htmlType="button">Submit</Button>
+        </div>
+      </div>
+    </Card>
   );
 };
 

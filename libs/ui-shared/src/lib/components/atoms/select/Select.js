@@ -15,7 +15,7 @@ const Select = ({
       defaultValue={defaultValue}
       onChange={onChange}
       style={style}
-      value={value}
+      // value={value}
       className={className}
     >
       {options.map((option) => (
