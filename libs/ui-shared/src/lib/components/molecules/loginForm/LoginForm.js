@@ -1,50 +1,12 @@
-import React, { useState } from 'react';
-import {
-  Button,
-  Input,
-  KeyOutlined,
-  UserOutlined,
-} from '../../atoms';
+import { Button, Input, KeyOutlined, UserOutlined } from '../../atoms';
 import styles from './loginForm.module.scss';
-import { Redirect } from 'react-router-dom';
-import { useOktaAuth } from '@okta/okta-react/';
+import PropTypes from 'prop-types';
+import _noop from 'lodash/noop';
 
-const LoginForm = () => {
-  const { oktaAuth, authState } = useOktaAuth();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    await oktaAuth
-      .signInWithCredentials({
-        username: username,
-        password: password,
-      })
-      .then(function (transaction) {
-        const { status, sessionToken } = transaction;
-        if (status === 'SUCCESS') {
-          oktaAuth.signInWithRedirect({
-            originalUri: '/',
-            sessionToken,
-          });
-        }
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
-  };
-  if (!authState) {
-    return <div>Loading...</div>;
-  }
-
-  if (authState.isAuthenticated) {
-    <Redirect to="/" />;
-  }
-
+const LoginForm = ({ authState, onLogin, setUsername, setPassword }) => {
   if (!authState.isAuthenticated) {
     return (
-      <form className={styles.formCover} onSubmit={handleLogin}>
+      <form className={styles.formCover} onSubmit={onLogin}>
         <h2 className={styles.formTitle}>Login</h2>
         <label className={styles.formLabel}>
           Welcome back! Please enter your details
@@ -55,7 +17,6 @@ const LoginForm = () => {
             placeholder="Email Address"
             prefix={<UserOutlined />}
             name="username"
-            value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <Input
@@ -63,7 +24,6 @@ const LoginForm = () => {
             placeholder="Password"
             prefix={<KeyOutlined />}
             name="password"
-            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button variant="contained" type="submit">
@@ -73,6 +33,20 @@ const LoginForm = () => {
       </form>
     );
   }
+};
+
+LoginForm.propTypes = {
+  authState: PropTypes.object,
+  onLogin: PropTypes.func,
+  setUsername: PropTypes.func,
+  setPassword: PropTypes.func,
+};
+
+LoginForm.defaultProps = {
+  authState: {},
+  onLogin: _noop,
+  setUsername: _noop,
+  setPassword: _noop,
 };
 
 export default LoginForm;

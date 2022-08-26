@@ -1,11 +1,14 @@
 const PATHS = {
   ACCOUNT_SETTINGS: '/account-settings',
-  LOGIN: '/login',
-  FORGOT_PASSWORD: '/forgot-password',
+  ASSIGNMENT: '/assignment',
   DASHBOARD: '/',
-  PROFILE: '/profile',
-  LOGIN_CALLBACK: '/login/callback',
   ERROR: '/error',
+  FORGOT_PASSWORD: '/forgot-password',
+  LOGIN: '/login',
+  LIVE_SESSION_CHAT: '/live-session',
+  LOGIN_CALLBACK: '/login/callback',
+  PROFILE: '/profile',
+  STATISTICS: '/statistics',
 };
 
 export { PATHS };

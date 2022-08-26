@@ -1,9 +1,9 @@
 .input {
   padding: 8px;
-  border: 0px;
-  border-bottom: 1px solid #eee;
-  border-radius: 8px;
-  margin-bottom: 24px;
+  border: 1px solid #b9b6b6;
+  border-radius: 2rem;
+  margin-top: 10px;
+  margin-bottom: 2rem !important;
   font-size: small;
   &::placeholder {
     color: #576194;

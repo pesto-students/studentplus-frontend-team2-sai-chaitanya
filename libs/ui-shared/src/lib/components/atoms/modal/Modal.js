@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // Components
-import { Modal as AntdModal, Button } from "antd";
+import { Modal as AntdModal } from 'antd';
 
 const Modal = (props) => {
   const { children, ...restProps } = props;
@@ -13,4 +13,4 @@ Modal.propTypes = {
   children: PropTypes.element,
 };
 
-export { Modal, Button };
+export default Modal;

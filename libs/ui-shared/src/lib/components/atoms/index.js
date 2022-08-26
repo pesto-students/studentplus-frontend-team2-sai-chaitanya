@@ -1,5 +1,6 @@
 import Avatar from './avatar';
 import Button from './button';
+import { BUTTON_TYPES, BUTTON_SIZES } from './button';
 import Card from './card';
 import CheckBox from './checkBox';
 import {
@@ -13,7 +14,7 @@ import Dialog from './dialog';
 import Drawer from './drawer';
 import Dropdown from './dropdown';
 import Form from './form';
-import Grid from './grid';
+import { Row, Col } from './grid';
 import { Input, Textarea } from './input';
 import Image from './image';
 import InputGroup from './inputGroup';
@@ -40,13 +41,15 @@ export {
   Avatar,
   Button,
   BrowserView,
+  BUTTON_TYPES,
+  BUTTON_SIZES,
   Card,
   CheckBox,
+  Col,
   Dialog,
   Drawer,
   Dropdown,
   Form,
-  Grid,
   isBrowser,
   isMobile,
   Image,
@@ -59,6 +62,7 @@ export {
   MobileView,
   PageNotFound,
   Progress,
+  Row,
   SearchBox,
   Select,
   Skeleton,

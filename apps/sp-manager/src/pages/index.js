@@ -1,5 +1,6 @@
 export { default as AccountSettings } from './accountSettings';
 export { default as Attendance} from './attendance';
+export { default as ChatBoardEditor} from './chatBoardEditor'
 export { default as CohortManager} from './cohortManager'
 export { default as Dashboard } from './dashboard';
 export { default as EventEditor } from './eventEditor';

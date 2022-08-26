@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 // Lodash
-import _noop from "lodash/noop";
+import _noop from 'lodash/noop';
 
 // Components
-import Logo from "../logo";
+import { Logo } from '../../atoms';
 
 // Styles
-import styles from "./appLoader.module.scss";
+import styles from './appLoader.module.scss';
 
 let setAppLoaderVisibility = _noop;
 

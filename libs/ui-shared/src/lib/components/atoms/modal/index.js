@@ -1,1 +1,1 @@
-export { Modal, Button as AntdButton } from "./Modal";
+export { default } from './Modal';

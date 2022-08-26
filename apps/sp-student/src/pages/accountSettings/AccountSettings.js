@@ -10,7 +10,7 @@ import {
   Textarea,
   InputGroup,
   Col,
-  Row
+  Row,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './accountSettings.module.scss';
 
@@ -29,10 +29,8 @@ const AccountSettings = () => {
             <div className={styles.avatarInfo}>
               <Avatar size={100} />
               <div className={styles.buttonContainer}>
-                <Button type="submit" className={styles.uploadPicture}>
-                  Upload
-                </Button>
-                <Button type="button" className={styles.removePicture}>
+                <Button htmltype="submit">Upload</Button>
+                <Button htmltype="button" type="default">
                   Remove
                 </Button>
               </div>
@@ -41,58 +39,62 @@ const AccountSettings = () => {
               <InputGroup size="large">
                 <Row gutter={8}>
                   <Col span={12}>
-                    <Input
-                      type="text"
-                      addonBefore={<Label>First Name</Label>}
-                    />
+                    <Label>First Name</Label>
+                    <Input type="text" bordered={true} />
                   </Col>
                   <Col span={12}>
-                    <Input type="text" addonBefore={<Label>Last Name</Label>} />
+                    <Label>Last Name</Label>
+                    <Input type="text" />
                   </Col>
                 </Row>
                 <Row gutter={8}>
                   <Col span={12}>
-                    <Input type="text" addonBefore={<Label>URL</Label>} />
+                    <Label>URL</Label>
+                    <Input type="text" />
                   </Col>
                   <Col span={12}>
-                    <Input type="text" addonBefore={<Label>Email</Label>} />
-                  </Col>
-                </Row>
-              </InputGroup>
-              <InputGroup size="large">
-                <Row gutter={8}>
-                  <Col span={12}>
-                    <Input type="text" addonBefore={<Label>Contact</Label>} />
-                  </Col>
-                  <Col span={12}>
-                    <Input
-                      type="text"
-                      addonBefore={<Label>Street Address</Label>}
-                    />
+                    <Label>Email</Label>
+                    <Input type="text" />
                   </Col>
                 </Row>
               </InputGroup>
               <InputGroup size="large">
                 <Row gutter={8}>
                   <Col span={12}>
-                    <Input type="text" addonBefore={<Label>City</Label>} />
+                    <Label>Contact</Label>
+                    <Input type="text" />
                   </Col>
                   <Col span={12}>
-                    <Input type="text" addonBefore={<Label>State</Label>} />
+                    <Label>Street Address</Label>
+                    <Input type="text" />
+                  </Col>
+                </Row>
+              </InputGroup>
+              <InputGroup size="large">
+                <Row gutter={8}>
+                  <Col span={12}>
+                    <Label>City</Label>
+                    <Input type="text" />
+                  </Col>
+                  <Col span={12}>
+                    <Label>State</Label>
+                    <Input type="text" />
                   </Col>
                 </Row>
                 <Row gutter={8}>
-                  <Title level={5} className={styles.textLabel}>
-                    About You :
-                  </Title>
+                  <Label>About You</Label>
                   <Textarea type="text" />
                 </Row>
               </InputGroup>
               <div className={styles.buttonContainerHorizontal}>
-                <Button type="button" className={styles.removePicture}>
+                <Button
+                  htmltype="button"
+                  className={styles.actionButtons}
+                  type="default"
+                >
                   Cancel
                 </Button>
-                <Button type="submit" className={styles.uploadPicture}>
+                <Button className={styles.actionButtons} htmltype="submit">
                   Save
                 </Button>
               </div>
@@ -111,16 +113,16 @@ const AccountSettings = () => {
           <InputGroup size="large">
             <Row gutter={8}>
               <Col span={12}>
-                <Input type="text" addonBefore={<Label>Old Password</Label>} />
+                <Label>Old Password</Label>
+                <Input type="text" />
               </Col>
               <Col span={12}>
-                <Input type="text" addonBefore={<Label>New Password</Label>} />
+                <Label>New Password</Label>
+                <Input type="text" />
               </Col>
               <Col span={12}>
-                <Input
-                  type="text"
-                  addonBefore={<Label>Confirm Password</Label>}
-                />
+                <Label>Confirm Password</Label>
+                <Input type="text" />
               </Col>
             </Row>
             <Row gutter={8}>
@@ -129,7 +131,7 @@ const AccountSettings = () => {
               <Col span={8}>
                 <div className={styles.buttonContainerHorizontal}>
                   <Button
-                    type="submit"
+                    htmltype="submit"
                     block={true}
                     className={styles.uploadPicture}
                   >

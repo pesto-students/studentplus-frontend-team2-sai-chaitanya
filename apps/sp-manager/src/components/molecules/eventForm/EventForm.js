@@ -8,7 +8,7 @@ import {
   Textarea,
   InputGroup,
 } from '../../../../../../libs/ui-shared/src/lib/components/atoms';
-import moment from 'moment';
+// import moment from 'moment';
 import styles from './eventForm.module.scss';
 
 const EventForm = () => {

@@ -135,11 +135,34 @@ table {
 html {
   font-size: 10px !important;
 }
-span.ant-input-group-addon {
-  border: 0px;
+.ant-select-selector {
+  border: none !important;
+  height: 100% !important;
 }
+.ant-select-single .ant-select-selector .ant-select-selection-item,
+.ant-select-single .ant-select-selector .ant-select-selection-placeholder{
+      line-height: 4rem;
+}
+/* span.ant-input-group-addon {
+  border: 0px;
+} */
 .anticon{
   color: blue;
   margin: 0px 10px 0px 0px;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #cac8c8;
+    border-radius: 20px;
 }
 @import 'antd/dist/antd.css';

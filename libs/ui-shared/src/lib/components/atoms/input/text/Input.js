@@ -4,21 +4,10 @@ import _noop from 'lodash/noop';
 import styles from './text.module.scss';
 import { Label } from '../../typography';
 
-const Input = ({
-  bordered,
-  className,
-  addonBefore,
-  onChange,
-  placeholder,
-  prefix,
-  size,
-  type,
-}) => {
+const Input = ({ className, onChange, placeholder, prefix, size, type }) => {
   return (
     <AntdInput
       type={type}
-      addonBefore={addonBefore}
-      bordered={bordered}
       prefix={prefix}
       className={styles[`${className}`]}
       placeholder={placeholder}
@@ -29,8 +18,6 @@ const Input = ({
 };
 
 Input.propTypes = {
-  addonBefore: PropTypes.element,
-  bordered: PropTypes.bool,
   className: PropTypes.string,
   onChange: PropTypes.func,
   label: PropTypes.string,
@@ -41,7 +28,6 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  bordered: false,
   className: 'input',
   onChange: _noop,
   label: '',
