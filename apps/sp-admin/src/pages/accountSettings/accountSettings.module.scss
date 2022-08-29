@@ -1,0 +1,50 @@
+.accountContainer{
+    display: flex;
+    flex-direction: column;
+}
+.title{
+    margin: 0 0 3rem 0;
+}
+.accountInfo{
+    flex:auto
+}
+.securityInfo{
+    flex: auto;
+}
+.cardContainer{
+    padding: 3rem;
+}
+.profileInfo{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+}
+.avatarInfo{
+    flex: 1;
+}
+.profilefields{
+    flex:2;
+    .textLabel {
+        font-size: 14px;
+        padding-left: 1.8rem;
+    }
+}
+.personalInfoFields{
+
+}
+.actionButtons{
+    flex:1
+}
+.buttonContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 19rem;
+    margin: 2rem auto;
+}
+.buttonContainerHorizontal{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    margin: 2rem auto;
+}

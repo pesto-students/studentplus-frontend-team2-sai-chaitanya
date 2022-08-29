@@ -14,7 +14,7 @@ function Routes() {
   const history = useHistory();
 
   const customAuthHandler = () => {
-    history.push(`/${PATHS.LOGIN}`);
+    history.push(PATHS.LOGIN);
   };
 
   const restoreOriginalUri = async (_oktaAuth, originalUri) => {

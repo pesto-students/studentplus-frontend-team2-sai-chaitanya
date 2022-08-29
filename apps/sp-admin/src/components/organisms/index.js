@@ -1,1 +1,3 @@
-export { default as AppSkeleton } from "./appSkeleton";
+import AppSkeleton from './appSkeleton';
+import Event from './event';
+export { AppSkeleton, Event };

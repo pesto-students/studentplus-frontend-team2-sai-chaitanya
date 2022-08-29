@@ -13,6 +13,7 @@ import {
 import Dialog from './dialog';
 import Drawer from './drawer';
 import Dropdown from './dropdown';
+import DatePicker from './datePicker';
 import Form from './form';
 import { Row, Col } from './grid';
 import { Input, Textarea } from './input';
@@ -49,6 +50,7 @@ export {
   Dialog,
   Drawer,
   Dropdown,
+  DatePicker,
   Form,
   isBrowser,
   isMobile,
