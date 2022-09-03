@@ -156,10 +156,27 @@ html {
   border: 0px;
 } */
 .anticon {
-  color: blue;
-  margin: 0px 10px 0px 0px;
+	color: blue;
+	margin: 0px 10px 0px 0px;
+}
+.anticon .anticon-key{
+	transform: rotate(179deg);
+}
+.anticon svg{
+	width: 20px;
+	height: 20px;
+	margin-left: 6px;
 }
 
+.ant-form-item{
+	margin-bottom: 0;
+}
+.ant-input-group {
+	margin-bottom: 10px;
+}
+.ant-menu-inline .ant-menu-item::after {
+	border-right: 3px solid #6521ff;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 8px;

@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-/* You can add global styles to this file, and also import other style files */
 /* http://meyerweb.com/eric/tools/css/reset/ 
 v2.0 | 20110126
 License: none (public domain)
@@ -88,13 +87,14 @@ time,
 mark,
 audio,
 video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -107,40 +107,92 @@ hgroup,
 menu,
 nav,
 section {
-  display: block;
+	display: block;
 }
+
 body {
-  line-height: 1;
-  font-family: 'Lato', sans-serif;
+	line-height: 1;
+	font-family: 'Lato', sans-serif;
 }
+
 ol,
 ul {
-  list-style: none;
+	list-style: none;
 }
+
 blockquote,
 q {
-  quotes: none;
+	quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
-  content: none;
+	content: '';
+	content: none;
 }
+
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 html {
-  font-size: 10px !important;
+	font-size: 10px !important;
 }
-span.ant-input-group-addon {
+
+.ant-select-selector {
+	border: none !important;
+	height: 100% !important;
+}
+
+.ant-select-single .ant-select-selector .ant-select-selection-item,
+.ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+	line-height: 4rem;
+}
+
+/* span.ant-input-group-addon {
   border: 0px;
+} */
+.anticon {
+	color: blue;
+	margin: 0px 10px 0px 0px;
 }
-.anticon{
-  color: blue;
-  margin: 0px 10px 0px 0px;
+
+.anticon .anticon-key {
+	transform: rotate(179deg);
 }
+
+.anticon svg {
+	width: 20px;
+	height: 20px;
+	margin-left: 6px;
+}
+
+.ant-form-item {
+	margin-bottom: 0;
+}
+.ant-input-group{
+	margin-bottom: 10px;
+}
+.ant-menu-inline .ant-menu-item::after {
+	border-right: 3px solid #6521ff;
+}
+/* width */
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #cac8c8;
+	border-radius: 20px;
+}
+
 @import 'antd/dist/antd.css';

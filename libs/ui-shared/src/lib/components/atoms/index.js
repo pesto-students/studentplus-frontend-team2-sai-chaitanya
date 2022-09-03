@@ -2,7 +2,7 @@ import Avatar from './avatar';
 import Button from './button';
 import { BUTTON_TYPES, BUTTON_SIZES } from './button';
 import Card from './card';
-import CheckBox from './checkBox';
+import Checkbox from './checkBox';
 import {
   BrowserView,
   MobileView,
@@ -23,6 +23,7 @@ import Logo from './logo';
 import Progress from './progress';
 import { Label, Title } from './typography';
 import Menu from './menu';
+import message from './message';
 import Modal from './modal';
 import PageNotFound from './pageNotFound';
 import SearchBox from './searchBox';
@@ -35,6 +36,7 @@ import Tabs from './tabs';
 import Tag from './tag';
 import ToolTip from './toolTip';
 import UserBox from './userBox';
+import Upload from './upload';
 import UserProfileImageBox from './userProfileImageBox';
 export * from './icon';
 
@@ -45,7 +47,7 @@ export {
   BUTTON_TYPES,
   BUTTON_SIZES,
   Card,
-  CheckBox,
+  Checkbox,
   Col,
   Dialog,
   Drawer,
@@ -60,6 +62,7 @@ export {
   Logo,
   Label,
   Menu,
+  message,
   Modal,
   MobileView,
   PageNotFound,
@@ -77,6 +80,7 @@ export {
   Title,
   Textarea,
   UserBox,
+  Upload,
   UserProfileImageBox,
   withOrientationChange,
 };

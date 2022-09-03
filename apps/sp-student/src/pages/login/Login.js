@@ -11,8 +11,7 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const onLoginHandler = (event) => {
-    event.preventDefault();
+  const onLoginHandler = () => {
     oktaAuth
       .signInWithCredentials({
         username: username,

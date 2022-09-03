@@ -7,6 +7,7 @@ import {
   AccountSettings,
   Assignment,
   CohortCreator,
+  CreateUser,
   Dashboard,
   LiveSessionChat,
   Profile,
@@ -20,6 +21,7 @@ function SecureRoutes() {
         <Route exact path={PATHS.DASHBOARD} component={Dashboard} />
         <Route exact path={PATHS.PROFILE} component={Profile} />
         <Route exact path={PATHS.COHORT_CREATOR} component={CohortCreator} />
+        <Route exact path={PATHS.CREATE_USER} component={CreateUser} />
         <Route
           exact
           path={PATHS.ACCOUNT_SETTINGS}

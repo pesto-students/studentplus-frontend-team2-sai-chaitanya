@@ -46,6 +46,7 @@ function SideBar() {
             borderRight: 'none',
           }}
           mode="inline"
+          inlineIndent={16}
         />
       </div>
       <div className={styles.settings}></div>
