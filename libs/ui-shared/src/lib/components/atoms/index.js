@@ -25,6 +25,7 @@ import { Label, Title } from './typography';
 import Menu from './menu';
 import Modal from './modal';
 import PageNotFound from './pageNotFound';
+import Radio from './radio';
 import SearchBox from './searchBox';
 import Select from './select';
 import Skeleton from './skeleton';
@@ -65,6 +66,7 @@ export {
   PageNotFound,
   Progress,
   Row,
+  Radio,
   SearchBox,
   Select,
   Skeleton,

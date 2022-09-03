@@ -1,1 +1,2 @@
-export { default } from './ChatBoardEditor';
+import ChatBoardEditor from './ChatBoardEditor';
+export default ChatBoardEditor;

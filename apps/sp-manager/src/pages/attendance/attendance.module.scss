@@ -1,12 +1,12 @@
 .gridHeader {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
 .selectionBar {
-    width: 25%;
+    width:40%;
 }
 
 .legend{

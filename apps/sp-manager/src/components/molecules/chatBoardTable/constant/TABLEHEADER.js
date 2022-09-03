@@ -2,7 +2,7 @@ import Space from "../../../../../../../libs/ui-shared/src/lib/components"
 const TABLEHEADER = {
   COLUMN: [
     {
-      title: 'Event Title',
+      title: 'Title',
       dataIndex: 'Event Title',
       key: 'eventTitle',
       render: (text) => <a>{text}</a>,

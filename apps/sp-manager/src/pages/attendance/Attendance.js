@@ -1,15 +1,48 @@
+import { useState, useEffect } from 'react';
 import {
   Card,
   Select,
   Button,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
-import UserGrid from '../../components/molecules/userGrid';
+import AttendanceTable from '../../components/molecules/attendanceTable';
 import styles from './attendance.module.scss';
-import { COHORTS, COHORTUSERS } from './data/DATA';
+import { COHORTS, COHORTUSERS, EVENTS } from './data/DATA';
 const Attendance = () => {
-  const COHORTUSERARR = Array.from(COHORTUSERS.DATA);
+  let COHORTUSERARR = Array.from(COHORTUSERS.DATA);
   const COHORTSARR = Array.from(COHORTS.DATA);
-  function onClickAction() {}
+  const EVENTSARR = Array.from(EVENTS.DATA);
+  const [data, setData] = useState(COHORTUSERARR);
+  const [cohort, setCohort] = useState(COHORTSARR[0]);
+  const [event, setEvent] = useState(EVENTSARR[0]);
+  function onChangeAction(record) {
+    setData((pre) => {
+      return pre.map((user) => {
+        if (user.key === record.key) return { ...user, status: record.status };
+        else return user;
+      });
+    });
+  }
+  useEffect(() => {
+    console.log(cohort, event);
+    //Add call to fetch cohort data from database
+  }, [cohort, event]);
+
+  useEffect(() => {
+    let pushData = new Array(COHORTUSERARR.length);
+    for (let i = 0; i < COHORTUSERARR.length; i++) {
+      pushData[i] = data[i];
+      pushData[i]['Event'] = event;
+    }
+    console.log(pushData);
+    //Push updated data
+  }, [data]);
+
+  function onCohortChange(value) {
+    setCohort(value);
+  }
+  function onEventChange(value) {
+    setEvent(value);
+  }
   return (
     <Card>
       <div className={styles.container}>
@@ -17,26 +50,22 @@ const Attendance = () => {
           <div className={styles.selectionBar}>
             <Select
               defaultValue={COHORTSARR[0]}
-              onChange={onClickAction}
+              onChange={onCohortChange}
               options={COHORTSARR}
             />
           </div>
-          <div className ={styles.legend}> <div className = {styles.present}></div> Present</div>
-          <div className ={styles.legend}> <div className = {styles.absent}></div>Absent</div>
-          <div className ={styles.legend}> <div className = {styles.absentNotice}></div>Absent with Notice</div>
-          <Button htmlType="button">View Cohort</Button>
+          <div className={styles.selectionBar}>
+            <Select
+              defaultValue={EVENTSARR[0]}
+              onChange={onEventChange}
+              options={EVENTSARR}
+            />
+          </div>
         </div>
-        <UserGrid
-          cohort={COHORTUSERARR}
-          onClickAction={onClickAction}
-        ></UserGrid>
-        <div className={styles.buttons}>
-          <Button htmlType="button">Save</Button>
-          <Button htmlType="button">Submit</Button>
-          <Button htmlType="button" type="default">
-            Clear
-          </Button>
-        </div>
+        <AttendanceTable
+          data={data}
+          onChangeAction={onChangeAction}
+        ></AttendanceTable>
       </div>
     </Card>
   );

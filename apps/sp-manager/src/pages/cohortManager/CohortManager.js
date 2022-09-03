@@ -1,15 +1,49 @@
+import { useState, useEffect } from 'react';
 import {
   Card,
   Select,
   Button,
+  CalendarOutlined,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
-import UserGrid from '../../components/molecules/userGrid';
+import { CohortTable } from '../../components';
 import styles from './cohortManager.module.scss';
-import { COHORTS, COHORTUSERS } from './data/DATA';
+import { COHORTS, COHORTUSERS, EVENTS } from './data/DATA';
 const CohortManager = () => {
-  const COHORTUSERARR = Array.from(COHORTUSERS.DATA);
+  let COHORTUSERARR = Array.from(COHORTUSERS.DATA);
   const COHORTSARR = Array.from(COHORTS.DATA);
-  function onClickAction() {}
+  const EVENTSARR = Array.from(EVENTS.DATA);
+  const [data, setData] = useState(COHORTUSERARR);
+  const [cohort, setCohort] = useState(COHORTSARR[0]);
+  const [event, setEvent] = useState(EVENTSARR[0]);
+  function onChangeAction(record) {
+    setData((pre) => {
+      return pre.map((user) => {
+        if (user.key === record.key) return { ...user, status: record.status };
+        else return user;
+      });
+    });
+  }
+  useEffect(() => {
+    console.log(cohort, event);
+    //Add call to fetch cohort data from database
+  }, [cohort, event]);
+
+  useEffect(() => {
+    let pushData = new Array(COHORTUSERARR.length);
+    for (let i = 0; i < COHORTUSERARR.length; i++) {
+      pushData[i] = data[i];
+      pushData[i]['Event'] = event;
+    }
+    console.log(pushData);
+    //Push updated data
+  }, [data]);
+
+  function onCohortChange(value) {
+    setCohort(value);
+  }
+  function onClickAction() {
+    setEvent(value);
+  }
   return (
     <Card>
       <div className={styles.container}>
@@ -17,31 +51,19 @@ const CohortManager = () => {
           <div className={styles.selectionBar}>
             <Select
               defaultValue={COHORTSARR[0]}
-              onChange={onClickAction}
+              onChange={onCohortChange}
               options={COHORTSARR}
             />
           </div>
-          <div className={styles.legend}>
-            {' '}
-            <div className={styles.active}></div> Active
+          <div className={styles.selectionBar}>
+            <CalendarOutlined onClick = {onClickAction}            
+            /> Cohort Calendar
           </div>
-          <div className={styles.legend}>
-            {' '}
-            <div className={styles.deferred}></div>Deferred
-          </div>
-          <div className={styles.legend}>
-            {' '}
-            <div className={styles.deferNotice}></div>Deferment Requested
-          </div>
-          <Button htmlType="button">View Cohort</Button>
         </div>
-        <UserGrid
-          cohort={COHORTUSERARR}
-          onClickAction={onClickAction}
-        ></UserGrid>
-        <div className={styles.buttons}>
-          <Button htmlType="button">Submit</Button>
-        </div>
+        <CohortTable
+          data={data}
+          onChangeAction={onChangeAction}
+        ></CohortTable>
       </div>
     </Card>
   );
