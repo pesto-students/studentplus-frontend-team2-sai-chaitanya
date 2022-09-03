@@ -1,4 +1,5 @@
 import { Select as AntDSelect } from 'antd';
+import {_noop} from 'lodash'
 import PropTypes from 'prop-types';
 import styles from './select.module.scss';
 const defaultClassName = styles.selectbox;
@@ -38,7 +39,7 @@ Select.defaultProps = {
   options: [],
   defaultValue: 'Select',
   className: defaultClassName,
-  onChange: () => {},
+  onChange: _noop,
   style: {
     width: '100%',
   },

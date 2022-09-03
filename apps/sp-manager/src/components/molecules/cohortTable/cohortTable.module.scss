@@ -1,8 +1,7 @@
 .container{
     display: flex;
     flex-direction: column;
-    width: 750px;
-    height: 800px;
+    
 }
 
 .gridContainer{
@@ -10,4 +9,13 @@
     flex-direction: row;
     flex-wrap: wrap;
     
+}
+.active {
+    color:greenyellow
+}
+.deferred {
+    color:grey
+}
+.deferredR {
+    color:red
 }
