@@ -3,17 +3,12 @@ import { Input as AntdInput } from 'antd';
 import _noop from 'lodash/noop';
 import styles from './text.module.scss';
 import { Label } from '../../typography';
+import { forwardRef } from 'react';
 
-const Input = ({
-  className,
-  disabled,
-  onChange,
-  placeholder,
-  prefix,
-  size,
-  type,
-  value,
-}) => {
+const Input = forwardRef((
+  { className, disabled, onChange, placeholder, prefix, size, type, value, ...otherProps },
+  ref
+) => {
   return (
     <AntdInput
       type={type}
@@ -24,9 +19,11 @@ const Input = ({
       size={size}
       disabled={disabled}
       value={value}
+      ref={ref}
+	  {...otherProps}
     />
   );
-};
+});
 
 Input.propTypes = {
   className: PropTypes.string,

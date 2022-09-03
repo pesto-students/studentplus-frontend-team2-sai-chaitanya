@@ -14,6 +14,7 @@ import Dialog from './dialog';
 import Drawer from './drawer';
 import Dropdown from './dropdown';
 import DatePicker from './datePicker';
+import TimePicker from './timePicker';
 import Form from './form';
 import { Row, Col } from './grid';
 import { Input, Textarea } from './input';
@@ -27,6 +28,7 @@ import message from './message';
 import Modal from './modal';
 import PageNotFound from './pageNotFound';
 import Radio from './radio';
+import RangePicker from './rangePicker';
 import SearchBox from './searchBox';
 import Select from './select';
 import Skeleton from './skeleton';
@@ -70,6 +72,7 @@ export {
   Progress,
   Row,
   Radio,
+  RangePicker,
   SearchBox,
   Select,
   Skeleton,
@@ -81,6 +84,7 @@ export {
   ToolTip,
   Title,
   Textarea,
+  TimePicker,
   UserBox,
   Upload,
   UserProfileImageBox,

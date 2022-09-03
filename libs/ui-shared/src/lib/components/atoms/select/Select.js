@@ -5,22 +5,21 @@ import styles from './select.module.scss';
 const defaultClassName = styles.selectbox;
 const Select = ({
   options,
-  defaultValue,
   className,
   onChange,
   style,
   value,
+  ...otherProps
 }) => {
   return (
     <AntDSelect
-      defaultValue={defaultValue}
+      {...otherProps}
       onChange={onChange}
       style={style}
-      // value={value}
       className={className}
     >
       {options.map((option) => (
-        <AntDSelect.Option key={option}>{option}</AntDSelect.Option>
+        <AntDSelect.Option key={option.id}>{option.name}</AntDSelect.Option>
       ))}
     </AntDSelect>
   );
@@ -28,22 +27,18 @@ const Select = ({
 
 Select.propTypes = {
   options: PropTypes.array,
-  defaultValue: PropTypes.string,
   className: PropTypes.string,
   onChange: PropTypes.func,
   style: PropTypes.object,
-  value: PropTypes.string,
 };
 
 Select.defaultProps = {
   options: [],
-  defaultValue: 'Select',
   className: defaultClassName,
   onChange: _noop,
   style: {
     width: '100%',
   },
-  value: '',
 };
 
 export default Select;

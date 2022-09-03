@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Table,Card } from '../../../../../../libs/ui-shared/src/lib/components/atoms';
+import {
+  Card,
+  Table,
+} from '../../../../../../libs/ui-shared/src/lib/components/';
 // import column from 'column';
 import styles from './eventTable.module.scss';
 // import DATA from ''

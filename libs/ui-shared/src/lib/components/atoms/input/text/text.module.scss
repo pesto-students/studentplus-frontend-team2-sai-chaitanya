@@ -1,4 +1,4 @@
-.input {
+.input:not(.ant-input-group-wrapper) {
   padding: 8px;
   border: 1px solid #b9b6b6;
   border-radius: 2rem;
@@ -8,4 +8,7 @@
   &::placeholder {
     color: #576194;
   }
+}
+.ant-input-group-wrapper{
+	margin-top: 10px;
 }
