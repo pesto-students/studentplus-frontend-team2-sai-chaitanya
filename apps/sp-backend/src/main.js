@@ -5,6 +5,7 @@ const cors = require('cors');
 const db = require('./db');
 const studentRouter = require('./routes/studentRouter');
 const cohortRouter = require('./routes/cohortRouter');
+const eventRouter = require('./routes/eventRouter');
 
 const app = express();
 const apiPort = 3000;
@@ -21,5 +22,6 @@ app.get('/', (req, res) => {
 
 app.use('/sapi', studentRouter);
 app.use('/capi', cohortRouter);
+app.use('/eapi', eventRouter);
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));

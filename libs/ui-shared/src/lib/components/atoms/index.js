@@ -34,6 +34,7 @@ import Select from './select';
 import Skeleton from './skeleton';
 import Slider from './slider';
 import Spin from './spin';
+import Space from './space';
 import Table from './table';
 import Tabs from './tabs';
 import Tag from './tag';
@@ -78,6 +79,7 @@ export {
   Skeleton,
   Slider,
   Spin,
+  Space,
   Table,
   Tabs,
   Tag,

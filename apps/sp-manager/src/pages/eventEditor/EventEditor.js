@@ -3,11 +3,14 @@ import {
   Button,
   Input,
   message,
+  Space,
   SearchOutlined,
   Tag,
 } from '../../../../../libs/ui-shared/src/lib/components';
 import { EventForm, EventTable } from '../../components';
 import styles from './eventEditor.module.scss';
+import axios from 'axios';
+import Highlighter from 'react-highlight-words';
 
 const EventEditor = () => {
   const [events, setEvents] = useState([]);
@@ -16,12 +19,14 @@ const EventEditor = () => {
   const searchInput = useRef(null);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
+	console.log('Search clicked!!');
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
 
   const handleReset = (clearFilters) => {
+	console.log('Reset clicked!!');
     clearFilters();
     setSearchText('');
   };
@@ -51,39 +56,47 @@ const EventEditor = () => {
             display: 'block',
           }}
         />
-        <Button
-          type="primary"
-          onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          icon={<SearchOutlined />}
-          size="small"
-          style={{
-            width: 90,
-          }}
-        >
-          Search
-        </Button>
-        <Button
-          onClick={() => clearFilters && handleReset(clearFilters)}
-          size="small"
-          style={{
-            width: 90,
-          }}
-        >
-          Reset
-        </Button>
-        <Button
-          type="link"
-          size="small"
-          onClick={() => {
-            confirm({
-              closeDropdown: false,
-            });
-            setSearchText(selectedKeys[0]);
-            setSearchedColumn(dataIndex);
-          }}
-        >
-          Filter
-        </Button>
+        <Space>
+          <Button
+            type="primary"
+            htmlType="button"
+            onClickHandler={() =>
+              handleSearch(selectedKeys, confirm, dataIndex)
+            }
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Search
+          </Button>
+          <Button
+            htmlType="button"
+            onClickHandler={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Reset
+          </Button>
+          <Button
+            type="link"
+            htmlType="button"
+            size="small"
+            onClickHandler={() => {
+				console.log('Filter cliked!!');
+				clearFilters();
+              confirm({
+                closeDropdown: false,
+              });
+              setSearchText(selectedKeys[0]);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            Filter
+          </Button>
+        </Space>
       </div>
     ),
     filterIcon: (filtered) => (
@@ -100,15 +113,46 @@ const EventEditor = () => {
         setTimeout(() => searchInput.current?.select(), 100);
       }
     },
-    render: (text) => (searchedColumn === dataIndex ? text.toString() : text),
+    render: (_, { cohorts }) => (
+      <>
+        {cohorts.map((cohort) => {
+          return (
+            <Tag color="blue" key={cohort}>
+              {cohort}
+            </Tag>
+          );
+        })}
+      </>
+    ),
   });
-  const onSubmitHandler = (submitedValues) => {
-    setEvents((oldValues) => oldValues.concat(submitedValues));
-    message.success('Event saved!');
+  const onSubmitHandler = async (submitedValues) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/eapi/event`,
+        submitedValues
+      );
+      console.log(response);
+      if (response.data.success == true) {
+        setEvents((oldValues) => oldValues.concat(submitedValues));
+        message.success('Event created!');
+      } else {
+        message.error('Something went wrong, please try again!');
+      }
+    } catch (err) {
+      message.error('Something went wrong, please try again!');
+    }
+  };
+  const getEvents = async () => {
+    const response = await axios.get(`http://localhost:3000/eapi/events/`);
+    return response.data;
   };
   useEffect(() => {
-    console.log('events', events);
-  }, [events]);
+    (async () => {
+      const eve = await getEvents();
+      setEvents(eve);
+      console.log(eve);
+    })();
+  }, []);
   const columnArr = [
     {
       title: 'Event Title',
@@ -119,23 +163,6 @@ const EventEditor = () => {
       title: 'Cohorts',
       dataIndex: 'cohorts',
       key: 'cohorts',
-      render: (_, { cohorts }) => (
-        <>
-          {cohorts.map((cohort) => {
-            let color = cohort.length > 5 ? 'geekblue' : 'green';
-
-            if (cohort === 'loser') {
-              color = 'volcano';
-            }
-
-            return (
-              <Tag color={color} key={cohort}>
-                {cohort}
-              </Tag>
-            );
-          })}
-        </>
-      ),
       ...getColumnSearchProps('cohorts'),
     },
     {

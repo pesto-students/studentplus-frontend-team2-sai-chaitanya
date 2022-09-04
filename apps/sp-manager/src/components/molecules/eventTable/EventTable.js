@@ -15,7 +15,10 @@ const EventTable = ({dataSource, columns}) => {
   return (
     <div className={styles.container}>
       <Card className={styles.table}>
-      <Table columns={columnArr} dataSource={dataSourceArr} />
+        <Table
+          columns={columnArr}
+          dataSource={dataSourceArr}
+        />
       </Card>
     </div>
   );
