@@ -23,7 +23,7 @@ Textarea.propTypes = {
 };
 
 Textarea.defaultProps = {
-  bordered: false,
+  bordered: true,
   className: 'textarea',
   placeHolder: 'Add Description'
 };

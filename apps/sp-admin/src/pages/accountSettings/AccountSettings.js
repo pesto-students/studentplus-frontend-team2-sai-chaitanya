@@ -47,7 +47,7 @@ const AccountSettings = () => {
   const [form] = Form.useForm();
 
   const handleChange = (uploadObj) => {
-	console.log(uploadObj);
+    console.log(uploadObj);
     const formData = new FormData();
 
     if (uploadObj.file.status == 'done') {
@@ -62,8 +62,8 @@ const AccountSettings = () => {
           )
           .then((res) => {
             setImageUrl(res.data.secure_url);
+            console.log('Cloudinary Resp :', res);
           });
-        console.log('Cloudinary Resp :', response);
       } catch (err) {
         console.log('Cloudinary Error :', err);
       }
@@ -82,7 +82,11 @@ const AccountSettings = () => {
       </div>
     </div>
   );
-
+  useEffect(() => {
+    form.setFieldsValue({
+      img: imageUrl,
+    });
+  }, [imageUrl]);
   useEffect(() => {
     getUserInfo().then((resp) => {
       console.log(resp);
@@ -96,7 +100,9 @@ const AccountSettings = () => {
         streetAddr: resp.streetAddr,
         url: resp.url,
         about: resp.about,
+        img: resp.img,
       });
+      setImageUrl(resp.img);
     });
   }, []);
 
@@ -109,9 +115,11 @@ const AccountSettings = () => {
   const onFinish = async (values) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/sapi/student/${authState.idToken.claims.studentid}`, values
+        `http://localhost:3000/sapi/student/${authState.idToken.claims.studentid}`,
+        values
       );
       console.log('Cloudinary Resp :', response);
+      message.success('Profile Updated!');
     } catch (err) {
       console.log('Cloudinary Error :', err);
     }
@@ -216,10 +224,17 @@ const AccountSettings = () => {
                     </Col>
                     <Col span={12}>
                       <Form.Item
-                        name="url"
-                        label="URL"
+                        name="phone"
+                        label="Contact"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your contact number!',
+                            type: 'number',
+                          },
+                        ]}
                       >
-                        <Input />
+                        <Input disabled={true} />
                       </Form.Item>
                     </Col>
                   </Row>
@@ -227,21 +242,7 @@ const AccountSettings = () => {
 
                 <InputGroup size="large">
                   <Row gutter={8}>
-                    <Col span={12}>
-                      <Form.Item
-                        name="phone"
-                        label="Contact"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please input your contact number!',
-                          },
-                        ]}
-                      >
-                        <Input disabled={true} />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
+                    <Col span={24}>
                       <Form.Item name="streetAddr" label="Street Address">
                         <Input />
                       </Form.Item>
@@ -286,8 +287,8 @@ const AccountSettings = () => {
                     <Col span={12}></Col>
                     <Col span={12}>
                       <Form.Item>
-                        <Form.Item name="profileImage" hidden={true}>
-                          <Input/>
+                        <Form.Item name="img" hidden={true}>
+                          <Input />
                         </Form.Item>
                         <Button
                           type="primary"
@@ -296,7 +297,7 @@ const AccountSettings = () => {
                             width: '100%',
                           }}
                         >
-                          Register
+                          Update
                         </Button>
                       </Form.Item>
                     </Col>

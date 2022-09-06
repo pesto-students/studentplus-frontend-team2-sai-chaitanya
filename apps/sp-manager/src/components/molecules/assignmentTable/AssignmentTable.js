@@ -6,13 +6,13 @@ import {TABLEHEADER} from './constant/TABLEHEADER'
 import styles from './assignmentTable.module.scss';
 
 
-const AssignmentTable = ({dataSource, columns}) => {
-  const columnArr= Array.from(TABLEHEADER.COLUMN);
-  const dataSourceArr= Array.from(dataSource);
+const AssignmentTable = ({ dataSource, columns, ...otherProps }) => {
+  const columnArr = Array.from(columns);
+  const dataSourceArr = Array.from(dataSource);
   return (
     <div className={styles.container}>
       <Card className={styles.table}>
-      <Table columns={columnArr} dataSource={dataSourceArr} />
+        <Table columns={columnArr} dataSource={dataSourceArr} {...otherProps} />
       </Card>
     </div>
   );

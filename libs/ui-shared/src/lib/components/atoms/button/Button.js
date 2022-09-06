@@ -54,7 +54,7 @@ Button.defaultProps = {
   htmlType: 'submit',
   onClickHandler: _noop,
   type: BUTTON_TYPES.PRIMARY,
-  shape: 'round',
+  shape: '',
   size: BUTTON_SIZES.MEDIUM,
 };
 

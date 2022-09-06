@@ -10,29 +10,51 @@ import {
   Row,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './profile.module.scss';
+import { useOktaAuth } from '@okta/okta-react';
+import axios from 'axios';
 
 function Profile() {
+  const { oktaAuth, authState } = useOktaAuth();
+  const [userDetails, setUserDetails] = useState({});
+  const [userAddress, setUserAddress] = useState('');
+  const getUserInfo = async () => {
+    const response = await axios.get(
+      `http://localhost:3000/sapi/student/${authState.idToken.claims.studentid}`
+    );
+    return response.data;
+  };
+  useEffect(() => {
+    getUserInfo().then((resp) => {
+      setUserDetails(resp);
+	  const address = `${resp.streetAddr}, ${resp.city}, ${resp.state}, ${resp.country}`;
+	  setUserAddress(address);
+    });
+  }, []);
   return (
     <div className={styles.profileContainer}>
       <div className={styles.userInfo}>
         <Card>
           <div className={styles.avatarCover}>
-            <Avatar size={150} />
+            <Avatar size={150} src={userDetails.img} />
             <Label strong={false} className={styles.label}>
-              Username
+              {userDetails.email}
             </Label>
           </div>
           <div className={styles.userInfoCover}>
             <InputGroup>
               <Row gutter={8}>
                 <Col span={24}>
-                  <Label className={styles.profileLabel}>Address</Label>
+                  <Label className={styles.profileLabel}>{userAddress}</Label>
                 </Col>
                 <Col span={24}>
-                  <Label className={styles.profileLabel}>Contact</Label>
+                  <Label className={styles.profileLabel}>
+                    {userDetails.phone}
+                  </Label>
                 </Col>
                 <Col span={24}>
-                  <Label className={styles.profileLabel}>Email</Label>
+                  <Label className={styles.profileLabel}>
+                    {userDetails.email}
+                  </Label>
                 </Col>
               </Row>
             </InputGroup>

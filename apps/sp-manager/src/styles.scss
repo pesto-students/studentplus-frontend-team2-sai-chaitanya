@@ -205,12 +205,22 @@ html {
 	margin-top: 3px;
 	margin-right: 5px;
 }
-.ant-picker-range{
-	border-radius: 2rem;
-	padding: 0.8rem;
-	margin-top: 10px;
+.ant-picker-range {
 	width: 100%;
-	border: 1px solid #b9b6b6;
+	overflow: hidden;
+	box-shadow: 1px 3px 10px #eee;
+	height: 50px;
+	font-weight: 400;
+	color: #8b8888;
+	padding: 8px;
+	border: 1px solid #eee;
+	border-radius: 8px;
+	margin-top: 10px;
+	margin-bottom: 2rem !important;
+	font-size: small;
+}
+.ant-table-thead>tr>th {
+	font-weight: 600;
 }
 .ant-input-group-addon {
 	position: relative;

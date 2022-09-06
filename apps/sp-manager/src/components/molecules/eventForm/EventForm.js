@@ -26,34 +26,6 @@ const cohorts = [
     name: 'Cohort 2',
   },
 ];
-const prefixOpts = [
-  {
-    id: 'http://',
-    name: 'http://',
-  },
-  {
-    id: 'https://',
-    name: 'https://',
-  },
-];
-const selectBefore = (
-  <Form.Item
-    name="linkPrefix"
-    rules={[
-      {
-        required: true,
-        message: 'Please select prefix!',
-      },
-    ]}
-    noStyle
-  >
-    <Select
-      placeholder="http://"
-      className="select-before"
-      options={prefixOpts}
-    />
-  </Form.Item>
-);
 const EventForm = ({ onSubmitHandler }) => {
   const [form] = Form.useForm();
 
@@ -130,10 +102,7 @@ const EventForm = ({ onSubmitHandler }) => {
                           },
                         ]}
                       >
-                        <Input
-                          addonBefore={selectBefore}
-                          className="ant-input-group-wrapper"
-                        />
+                        <Input />
                       </Form.Item>
                     </Col>
                     <Col span={12}>
@@ -186,18 +155,23 @@ const EventForm = ({ onSubmitHandler }) => {
                     </Col>
                   </Row>
                 </InputGroup>
-                <div className={styles.buttonContainerHorizontal}>
-                  <Button
-                    htmltype="button"
-                    type="default"
-                    className={styles.clear}
-                  >
-                    Clear
-                  </Button>
-                  <Button htmltype="submit" className={styles.save}>
-                    Save
-                  </Button>
-                </div>
+                <InputGroup size="large">
+                  <Row gutter={8}>
+                    <Col span={12}></Col>
+                    <Col span={12}>
+                      <Button
+                        htmltype="submit"
+                        className={styles.save}
+                        style={{
+                          width: '100%',
+						  marginTop: '20px',
+                        }}
+                      >
+                        Save
+                      </Button>
+                    </Col>
+                  </Row>
+                </InputGroup>
               </Form>
             </div>
           </div>

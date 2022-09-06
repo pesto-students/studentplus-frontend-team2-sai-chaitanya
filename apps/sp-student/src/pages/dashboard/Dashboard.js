@@ -1,70 +1,106 @@
 import { Event } from '../../components';
 import {
   ClockCircleFilled,
+  InputGroup,
+  Row,
+  Col,
+  Space,
   Title,
-} from '../../../../../libs/ui-shared/src/lib/components/atoms';
+  Skeleton,
+} from '../../../../../libs/ui-shared/src/lib/components/';
 import styles from './dashboard.module.scss';
-
-const pestoAnnouncmentEvents = [
-  {
-    date: '07-09-2022 12:00PM',
-    title: 'Introduction to Web3',
-    excerpt: 'How To Get Started With Web3',
-  },
-  {
-    date: '10-09-2022 12:00PM',
-    title: 'Introduction to Web3',
-    excerpt: 'How To Get Started With Web3',
-  },
-  {
-    date: '15-09-2022 12:00PM',
-    title: 'Introduction to Web3',
-    excerpt: 'How To Get Started With Web3',
-  },
-];
-const pestoCohortEvents = [
-  {
-    date: '07-09-2022 12:00PM',
-    title: 'Introduction to Web3',
-    excerpt: 'How To Get Started With Web3',
-  },
-  {
-    date: '27-09-2022 12:00PM',
-    title: 'Introduction to Web3',
-    excerpt: 'How To Get Started With Web3',
-  },
-];
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useOktaAuth } from '@okta/okta-react';
 
 const Dashboard = () => {
-  const pestoAevents = pestoAnnouncmentEvents.map((Aevent, index) => {
-    return <Event
-      key={index}
-      icon={<ClockCircleFilled />}
-      date={Aevent.date}
-      title={Aevent.title}
-      excerpt={Aevent.excerpt}
-    />;
-  });
-  const pestoCevents = pestoCohortEvents.map((Cevent, index) => {
-    return <Event
-      key={index}
-      icon={<ClockCircleFilled />}
-      date={Cevent.date}
-      title={Cevent.title}
-      excerpt={Cevent.excerpt}
-    />;
-  });
-  console.log(pestoCevents);
+  const { oktaAuth, authState } = useOktaAuth();
+  const [events, setEvents] = useState();
+  const [loading, setLoading] = useState(true);
+  const getUserInfo = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/sapi/student/${authState.idToken.claims.studentid}`
+      );
+      return response.data;
+    } catch (err) {
+      console.log('Erro', err.message);
+    }
+  };
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+  useEffect(() => {
+    getUserInfo().then(async (resp) => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/capi/student-cohort/${resp.cohort}`
+        );
+        setEvents(response.data.events);
+        setLoading(false);
+      } catch (err) {
+        console.log('Erro', err.message);
+      }
+    });
+  }, []);
+
   return (
     <div className={styles.dashboardContent}>
-      <div className={styles.eventsCover}>
-        <Title level={4}>Pesto Announcement Events</Title>
-        {pestoAevents}
-      </div>
-      <div className={styles.eventsCover}>
-        <Title level={4}>Cohort Announcement Events</Title>
-        {pestoCevents}
-      </div>
+      <Space
+        direction="vertical"
+        size={20}
+        style={{
+          display: 'flex',
+        }}
+      >
+        <div className={styles.eventsCover}>
+          <Title level={4}>Pesto Announcement Events</Title>
+          <InputGroup size="large">
+            <Row gutter={8}>
+              <Skeleton loading={loading} active>
+                {events &&
+                  events.map((Cevent, index) => {
+                    return (
+                      <Col span={12}>
+                        <Event
+                          key={index}
+                          icon={<ClockCircleFilled />}
+                          date={formatDate(Cevent.date)}
+                          title={Cevent.event}
+                          link="http://localhost:4200/"
+                        />
+                      </Col>
+                    );
+                  })}
+              </Skeleton>
+            </Row>
+          </InputGroup>
+        </div>
+        <div className={styles.eventsCover}>
+          <Title level={4}>Cohort Announcement Events</Title>
+          <InputGroup size="large">
+            <Row gutter={8}>
+              <Skeleton loading={loading} active>
+                {events &&
+                  events.map((Cevent, index) => {
+                    return (
+                      <Col span={12}>
+                        <Event
+                          key={index}
+                          icon={<ClockCircleFilled />}
+                          date={formatDate(Cevent.date)}
+                          title={Cevent.event}
+                          link="http://localhost:4200/"
+                        />
+                      </Col>
+                    );
+                  })}
+              </Skeleton>
+            </Row>
+          </InputGroup>
+        </div>
+      </Space>
     </div>
   );
 };

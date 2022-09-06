@@ -33,11 +33,42 @@ createCohort = (req, res) => {
     .catch((error) => {
       return res.status(400).json({
         error,
-        message: 'Student not created!',
+        message: 'Cohort not created!',
       });
     });
 };
 
+getCohortById = asyncHandler(async (req, res) => {
+  const cohort = await Cohort.findById({ _id: ObjectId(req.params.id) });
+  if (cohort) {
+    res.json(cohort);
+  } else {
+    res.status(404).json({ message: 'Cohort not found' });
+    res.status(404);
+    throw new Error('Cohort not found');
+  }
+});
+
+getCohortByStudent = asyncHandler(async (req, res) => {
+  const query = { cohortId: req.params.cohortId };
+  const cohort = await Cohort.findOne(query);
+  if (cohort) {
+    res.json(cohort);
+  } else {
+    res.status(404).json({ message: 'Cohort not found' });
+    res.status(404);
+    throw new Error('Cohort not found');
+  }
+});
+
+getCohorts = asyncHandler(async (req, res) => {
+  const cohorts = await Cohort.find({});
+  res.json(cohorts);
+});
+
 module.exports = {
   createCohort,
+  getCohorts,
+  getCohortById,
+  getCohortByStudent,
 };

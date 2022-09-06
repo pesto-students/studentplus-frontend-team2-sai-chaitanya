@@ -80,6 +80,7 @@ updateStudent = asyncHandler(async (req, res) => {
   student.state = body.state;
   student.streetAddr = body.streetAddr;
   student.about = body.about;
+  student.img = body.img;
   student
     .save()
     .then(() => {
@@ -113,9 +114,37 @@ getStudents = asyncHandler(async (req, res) => {
   res.json(students);
 });
 
+changePassword = asyncHandler(async (req, res) => {
+  client.getUser(req.body.email).then((user) => {
+	console.log('orginal', req.body.confirmPassword);
+	console.log('entered', req.body.password);
+	if (req.body.confirmPassword == req.body.password) {
+    user.credentials.password = req.body.password;
+    user.update().then(() => {
+		 res.status(200).json({ message: 'Password Updated!' });
+	}
+	);
+  } else {
+    res.status(400).json({ message: 'Password and confirm password didnot match!' });
+  }
+  });
+});
+
+/* getOktaUser = asyncHandler(async (req, res) => {
+	const students = await Student.find({});
+	students.map((student)=>{
+		  client.getUser(student.email).then((user) => {
+       user.credentials.password = '8K29fAv5@123'; 
+	   user.profile.studentid = student._id;
+        user.update().then(() => console.log(`${student.email} user's password changed`));
+      });
+	});
+}); */
+
 module.exports = {
   createStudent,
   updateStudent,
   getStudentById,
   getStudents,
+  changePassword,
 };

@@ -6,10 +6,20 @@ import {
   InputGroup,
   Col,
   Row,
+  Select,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './createUser.module.scss';
 import axios from 'axios';
-
+const cohorts = [
+  {
+    id: '001',
+    name: 'Cohort 1',
+  },
+  {
+    id: '002',
+    name: 'Cohort 2',
+  },
+];
 const CreateUser = () => {
   const [form] = Form.useForm();
 
@@ -39,7 +49,7 @@ const CreateUser = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your first name!',
+                        message: 'Please input first name!',
                         whitespace: false,
                       },
                     ]}
@@ -77,7 +87,7 @@ const CreateUser = () => {
                       },
                       {
                         required: true,
-                        message: 'Please input your E-mail!',
+                        message: 'Please input E-mail!',
                       },
                     ]}
                   >
@@ -91,7 +101,7 @@ const CreateUser = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your phone number!',
+                        message: 'Please input phone number!',
                       },
                     ]}
                   >
@@ -100,7 +110,71 @@ const CreateUser = () => {
                 </Col>
               </Row>
             </InputGroup>
-
+            <InputGroup size="large">
+              <Row gutter={8}>
+                <Col span={12}>
+                  <Form.Item
+                    name="streetAddr"
+                    label="Street Address"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input street address!',
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item
+                    name="city"
+                    label="City"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input city!',
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </InputGroup>
+            <InputGroup size="large">
+              <Row gutter={8}>
+                <Col span={12}>
+                  <Form.Item
+                    name="state"
+                    label="State"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input state!',
+                        whitespace: false,
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item
+                    name="cohort"
+                    label="Cohort"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select cohort!',
+                      },
+                    ]}
+                  >
+                    <Select options={cohorts}/>
+                  </Form.Item>
+                </Col>
+              </Row>
+            </InputGroup>
             <InputGroup size="large">
               <Row gutter={8}>
                 <Col span={12}>
@@ -110,7 +184,7 @@ const CreateUser = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your password!',
+                        message: 'Please input password!',
                       },
                     ]}
                     hasFeedback
@@ -127,7 +201,7 @@ const CreateUser = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Please confirm your password!',
+                        message: 'Please confirm password!',
                       },
                       ({ getFieldValue }) => ({
                         validator(_, value) {
