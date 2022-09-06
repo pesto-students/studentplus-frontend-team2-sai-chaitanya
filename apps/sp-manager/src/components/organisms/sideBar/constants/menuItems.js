@@ -26,9 +26,9 @@ const PROFILE = {
   label: 'Profile',
 };
 const CHATBOARD_EDITOR = {
-  key: 'CHATBOARD_EDITOR',
+  key: 'DISCUSSION_EDITOR',
   icon: <CommentOutlined />,
-  label: 'Chatboard Editor',
+  label: 'Discussion Editor',
 };
 const ASSIGNMENT_EDITOR = {
   key: 'ASSIGNMENT_EDITOR',

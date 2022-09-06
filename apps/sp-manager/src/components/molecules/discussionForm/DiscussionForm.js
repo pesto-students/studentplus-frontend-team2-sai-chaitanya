@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import {
   Button,
   Card,
-  RangePicker,
+  Col,
   Form,
   Input,
   Label,
-  Title,
   Row,
-  Col,
   Select,
+  Space,
+  Title,
   Textarea,
   InputGroup,
-} from '../../../../../../libs/ui-shared/src/lib/components/';
+} from '../../../../../../libs/ui-shared/src/lib/components';
 // import moment from 'moment';
-import styles from './eventForm.module.scss';
+import styles from './discussionForm.module.scss';
 
 const cohorts = [
   {
@@ -24,6 +24,16 @@ const cohorts = [
   {
     id: '002',
     name: 'Cohort 2',
+  },
+];
+const assignments = [
+  {
+    id: '001',
+    name: 'Assignment 1',
+  },
+  {
+    id: '002',
+    name: 'Assignment 2',
   },
 ];
 const prefixOpts = [
@@ -54,32 +64,46 @@ const selectBefore = (
     />
   </Form.Item>
 );
-const EventForm = ({ onSubmitHandler }) => {
+
+const DiscussionForm = ({ initialValues, onSubmitHandler }) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    const startTime = values.startEndTime[0].format('YYYY-MM-DD HH:mm:ss');
-    const endTime = values.startEndTime[1].format('YYYY-MM-DD HH:mm:ss');
-    values.startTime = startTime;
-    values.endTime = endTime;
+    console.log(values);
     onSubmitHandler(values);
     form.resetFields();
   };
+
+  useEffect(() => {
+    const cohortArray = initialValues.cohorts;
+    initialValues.cohorts ? console.log([...cohortArray]) : '';
+    form.setFieldsValue({
+      _id: initialValues._id,
+      discussionTitle: initialValues.discussionTitle,
+      cohorts: initialValues.cohorts,
+      boardDesc: initialValues.boardDesc,
+      deckLink: initialValues.deckLink,
+      assignments: initialValues.assignments,
+    });
+  }, [initialValues]);
+
   //state
   const isEdit = false;
   return (
-    <div className={styles.eventContainer}>
-      <Card className={styles.eventForm}>
+    <div className={styles.container}>
+      <Card className={styles.form}>
         <div className={styles.cardContainer}>
           <div className={styles.title}>
-            <Title level={5}>Events Editor</Title>
-            <Label strong={false}>{isEdit ? 'Edit Event' : 'Add Event'}</Label>
+            <Title level={5}>Discussion Editor</Title>
+            <Label strong={false}>
+              {isEdit ? 'Edit Discussion' : 'Add Discussion'}
+            </Label>
           </div>
           <div className={styles.profileInfo}>
             <div className={styles.profilefields}>
               <Form
                 form={form}
-                name="createuser"
+                name="creatediscussion"
                 onFinish={onFinish}
                 scrollToFirstError
                 labelWrap
@@ -89,13 +113,12 @@ const EventForm = ({ onSubmitHandler }) => {
                   <Row gutter={8}>
                     <Col span={12}>
                       <Form.Item
-                        name="eventTitle"
-                        label="Event Title"
+                        name="discussionTitle"
+                        label="Discussion Title"
                         rules={[
                           {
                             required: true,
-                            message: 'Please input event title!',
-                            whitespace: false,
+                            message: 'Please input discussion title!',
                           },
                         ]}
                       >
@@ -117,15 +140,32 @@ const EventForm = ({ onSubmitHandler }) => {
                       </Form.Item>
                     </Col>
                   </Row>
+                  <Space
+                    direction="vertical"
+                    size={20}
+                    style={{
+                      display: 'flex',
+                    }}
+                  >
+                    <Row gutter={8}>
+                      <Col span={24}>
+                        <Form.Item name="boardDesc" label="Description">
+                          <Textarea />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+
+                    <Title level={5}>Resource</Title>
+                  </Space>
                   <Row gutter={8}>
                     <Col span={12}>
                       <Form.Item
-                        name="eventLink"
-                        label="Event Link"
+                        name="deckLink"
+                        label="Deck Link"
                         rules={[
                           {
                             required: true,
-                            message: 'Please input event link!',
+                            message: 'Please input deck link!',
                             whitespace: false,
                           },
                         ]}
@@ -138,54 +178,23 @@ const EventForm = ({ onSubmitHandler }) => {
                     </Col>
                     <Col span={12}>
                       <Form.Item
-                        name="password"
-                        label="Event Password"
+                        name="assignments"
+                        label="Assignments"
                         rules={[
                           {
                             required: true,
-                            message: 'Please input event password!',
-                            whitespace: false,
+                            message: 'Please select cohort/s!',
                           },
                         ]}
                       >
-                        <Input />
+                        <Select options={assignments} mode="tags" />
                       </Form.Item>
                     </Col>
                   </Row>
                 </InputGroup>
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={12}>
-                      <Form.Item
-                        name="startEndTime"
-                        label="Start/End Time"
-                        rules={[
-                          {
-                            type: 'array',
-                            required: true,
-                            message: 'Please input start date and time!',
-                          },
-                        ]}
-                      >
-                        <RangePicker showTime />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item name="docSource" label="Document Source">
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={24}>
-                      <Form.Item name="eventDesc" label="Event Description">
-                        <Textarea />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
+                <Form.Item name="_id" hidden>
+                  <Input />
+                </Form.Item>
                 <div className={styles.buttonContainerHorizontal}>
                   <Button
                     htmltype="button"
@@ -207,4 +216,4 @@ const EventForm = ({ onSubmitHandler }) => {
   );
 };
 
-export default EventForm;
+export default DiscussionForm;

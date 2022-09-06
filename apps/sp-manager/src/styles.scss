@@ -179,6 +179,14 @@ html {
 .ant-menu-inline .ant-menu-item::after {
 	border-right: 3px solid #6521ff;
 }
+.ant-input-group-wrapper {
+	margin-top: 10px;
+
+	.ant-input {
+		border: 1px solid #b9b6b6;
+		border-radius: 2rem;
+	}
+}
 /* .ant-select-auto-complete input{
 	border-radius: 2rem;
 	margin-top: 10px;
@@ -186,6 +194,7 @@ html {
 } */
 .ant-input-group-addon:first-child {
 	border-radius: 2em 0 0 2em;
+	border: 1px solid #b9b6b6;
 }
 .ant-input-group-addon:last-child {
 	border-radius: 0 2em 2em 0;

@@ -1,4 +1,4 @@
-import Space from "../../../../../../../libs/ui-shared/src/lib/components"
+import { Space } from "../../../../../../../libs/ui-shared/src/lib/components"
 const TABLEHEADER = {
   COLUMN: [
     {

@@ -7,7 +7,7 @@ import {
   AccountSettings,
   AssignmentEditor,
   Attendance,
-  ChatBoardEditor,
+  DiscussionEditor,
   CohortManager,
   Dashboard,
   EventEditor,
@@ -29,8 +29,8 @@ function SecureRoutes() {
         <Route exact path={PATHS.EVENT_EDITOR} component={EventEditor} />
         <Route
           exact
-          path={PATHS.CHATBOARD_EDITOR}
-          component={ChatBoardEditor}
+          path={PATHS.DISCUSSION_EDITOR}
+          component={DiscussionEditor}
         />
         <Route
           exact

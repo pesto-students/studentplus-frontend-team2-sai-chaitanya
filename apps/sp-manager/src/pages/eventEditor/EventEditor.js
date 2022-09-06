@@ -139,7 +139,7 @@ const EventEditor = () => {
         message.error('Something went wrong, please try again!');
       }
     } catch (err) {
-      message.error('Something went wrong, please try again!');
+      console.log('Error', err);
     }
   };
   const getEvents = async () => {
