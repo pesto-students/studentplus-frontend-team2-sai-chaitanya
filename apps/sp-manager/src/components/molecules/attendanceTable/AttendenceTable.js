@@ -33,7 +33,7 @@ const AttendanceTable = ({ data, onChangeAction }) => {
   return (
     <div className={styles.container}>
       <Card className={styles.table}>
-        <Table columns={[...columnArr, OPTIONS]} dataSource={[...data]} />
+        <Table columns={[...columnArr, OPTIONS]} dataSource={[...data]} scroll= {{}} pagination={false} />
       </Card>
     </div>
   );

@@ -5,10 +5,13 @@ flex-direction: row;
 }
 
 .flexItem{
-flex: 1;
-display: flex;
-align-items: center;
-justify-content: center;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+
 }
 
 .leftBox {

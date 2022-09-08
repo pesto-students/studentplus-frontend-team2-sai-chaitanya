@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { LoginForm } from '../../../../../libs/ui-shared/src/lib/components';
 import styles from './login.module.scss';
 import IMAGE_PATHS from '../../../../../libs/ui-shared/public/images/constants';
-import { Image } from '../../../../../libs/ui-shared/src/lib/components/atoms';
+import { Image, Title } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import { useState } from 'react';
 
 const Login = () => {
@@ -49,6 +49,7 @@ const Login = () => {
           <Image src={IMAGE_PATHS.WHITE_LOGO} alt="" />
         </div>
         <div className={`${styles.flexItem} ${styles.rightBox}`}>
+          <Title level={3}>Manager</Title>
           <LoginForm
             onLogin={onLoginHandler}
             setUsername={setUsername}
