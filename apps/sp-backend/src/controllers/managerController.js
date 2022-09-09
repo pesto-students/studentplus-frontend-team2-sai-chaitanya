@@ -109,12 +109,12 @@ getManagerById = asyncHandler(async (req, res) => {
   }
 });
 
-getStudents = asyncHandler(async (req, res) => {
-  const students = await Manager.find({});
-  res.json(students);
-});
+/* getManagers = asyncHandler(async (req, res) => {
+  const managers = await Manager.find({});
+  res.json(managers);
+}); */
 
-changePassword = asyncHandler(async (req, res) => {
+/* changePassword = asyncHandler(async (req, res) => {
   client.getUser(req.body.email).then((user) => {
 	console.log('orginal', req.body.confirmPassword);
 	console.log('entered', req.body.password);
@@ -128,7 +128,7 @@ changePassword = asyncHandler(async (req, res) => {
     res.status(400).json({ message: 'Password and confirm password did not match!' });
   }
   });
-});
+}); */
 
 /* getOktaUser = asyncHandler(async (req, res) => {
 	const students = await Student.find({});
@@ -145,6 +145,4 @@ module.exports = {
   createManager,
   updateManager,
   getManagerById,
-  getManagers,
-  changePassword,
 };

@@ -293,17 +293,17 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./apps/sp-backend/src/controllers/managerController.js":
+/***/ "./apps/sp-backend/src/controllers/studentController.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const tslib_1 = __webpack_require__("tslib");
-const Manager = __webpack_require__("./apps/sp-backend/src/models/managerModel.js");
+const Student = __webpack_require__("./apps/sp-backend/src/models/studentModel.js");
 const okta = __webpack_require__("@okta/okta-sdk-nodejs");
 const asyncHandler = __webpack_require__("express-async-handler");
 const { ObjectId } = __webpack_require__("mongodb");
 // Assumes configuration is loaded via yaml or environment variables
 const client = new okta.Client();
-createManager = (req, res) => {
+createStudent = (req, res) => {
     const body = req.body;
     if (!body) {
         return res.status(400).json({
@@ -311,11 +311,11 @@ createManager = (req, res) => {
             error: 'You must provide a student',
         });
     }
-    const manager = new Manager(body);
-    if (!manager) {
+    const student = new Student(body);
+    if (!student) {
         return res.status(400).json({ success: false, error: err });
     }
-    manager
+    student
         .save()
         .then(() => {
         const newUser = {
@@ -324,7 +324,7 @@ createManager = (req, res) => {
                 lastName: body.lastName,
                 email: body.email,
                 login: body.email,
-                studentid: manager._id,
+                studentid: student._id,
             },
             credentials: {
                 password: {
@@ -333,23 +333,23 @@ createManager = (req, res) => {
             },
         };
         client.createUser(newUser).then((user) => {
-            const studentId = manager._id;
+            const studentId = student._id;
             return res.status(200).json({
                 success: true,
                 studentId: studentId,
                 user: user,
-                message: 'Manager created!',
+                message: 'Student created!',
             });
         });
     })
         .catch((error) => {
         return res.status(400).json({
             error,
-            message: 'Manager not created!',
+            message: 'Student not created!',
         });
     });
 };
-updateManager = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+updateStudent = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
     if (!body) {
         return res.status(400).json({
@@ -357,40 +357,40 @@ updateManager = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, voi
             error: 'You must provide a body to update',
         });
     }
-    const manager = yield Manager.findById({ _id: ObjectId(req.params.id) });
-    if (!manager) {
+    const student = yield Student.findById({ _id: ObjectId(req.params.id) });
+    if (!student) {
         return res.status(400).json({ success: false, error: err });
     }
-    manager.firstName = body.firstName;
-    manager.lastName = body.lastName;
-    manager.email = body.email;
-    manager.url = body.url;
-    manager.phone = body.phone;
-    manager.city = body.city;
-    manager.state = body.state;
-    manager.streetAddr = body.streetAddr;
-    manager.about = body.about;
-    manager.img = body.img;
-    manager
+    student.firstName = body.firstName;
+    student.lastName = body.lastName;
+    student.email = body.email;
+    student.url = body.url;
+    student.phone = body.phone;
+    student.city = body.city;
+    student.state = body.state;
+    student.streetAddr = body.streetAddr;
+    student.about = body.about;
+    student.img = body.img;
+    student
         .save()
         .then(() => {
         return res.status(200).json({
             success: true,
-            id: manager._id,
-            message: 'Manager updated!',
+            id: student._id,
+            message: 'Student updated!',
         });
     })
         .catch((error) => {
         return res.status(404).json({
             error,
-            message: 'Manager not updated!',
+            message: 'Student not updated!',
         });
     });
 }));
-getManagerById = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-    const manager = yield Manager.findById({ _id: ObjectId(req.params.id) });
-    if (manager) {
-        res.json(manager);
+getStudentById = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    const student = yield Student.findById({ _id: ObjectId(req.params.id) });
+    if (student) {
+        res.json(student);
     }
     else {
         res.status(404).json({ message: 'Student not found' });
@@ -399,7 +399,7 @@ getManagerById = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, vo
     }
 }));
 getStudents = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-    const students = yield Manager.find({});
+    const students = yield Student.find({});
     res.json(students);
 }));
 changePassword = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
@@ -413,7 +413,7 @@ changePassword = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, vo
             });
         }
         else {
-            res.status(400).json({ message: 'Password and confirm password did not match!' });
+            res.status(400).json({ message: 'Password and confirm password didnot match!' });
         }
     });
 }));
@@ -428,10 +428,10 @@ changePassword = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, vo
     });
 }); */
 module.exports = {
-    createManager,
-    updateManager,
-    getManagerById,
-    getManagers,
+    createStudent,
+    updateStudent,
+    getStudentById,
+    getStudents,
     changePassword,
 };
 
@@ -534,16 +534,16 @@ module.exports = mongoose.model('event', Event);
 
 /***/ }),
 
-/***/ "./apps/sp-backend/src/models/managerModel.js":
+/***/ "./apps/sp-backend/src/models/studentModel.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const mongoose = __webpack_require__("mongoose");
 const Schema = mongoose.Schema;
-const Manager = new Schema({
+const Student = new Schema({
     email: { type: String, required: true },
     alternateId: { type: String, required: false },
     firstName: { type: String, required: true },
-    cohort: { type: Array, required: true },
+    cohort: { type: String, required: true },
     lastName: { type: String, required: true },
     displayName: { type: String, required: false },
     url: { type: String, required: false },
@@ -556,13 +556,13 @@ const Manager = new Schema({
     country: { type: String, required: false },
     img: { type: String, required: false },
     password: { type: String, required: true },
-    // isActive: { type: Boolean, required: false },
-    // isDeffered: { type: Boolean, required: false },
-    // status:{ type: String, required:false},
-    // assignment: { type: Array, required: false },
-    // attendance: { type: Array, required: false },
+    isActive: { type: Boolean, required: false },
+    isDeffered: { type: Boolean, required: false },
+    status: { type: String, required: false },
+    assignment: { type: Array, required: false },
+    attendance: { type: Array, required: false },
 }, { timestamps: true });
-module.exports = mongoose.model('manager', Manager);
+module.exports = mongoose.model('students', Student);
 
 
 /***/ }),
@@ -629,9 +629,9 @@ module.exports = eventRouter;
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const express = __webpack_require__("express");
-const StudentCtrl = __webpack_require__("./apps/sp-backend/src/controllers/managerController.js");
+const StudentCtrl = __webpack_require__("./apps/sp-backend/src/controllers/studentController.js");
 const router = express.Router();
-router.post('/manager', StudentCtrl.createStudent);
+router.post('/student', StudentCtrl.createStudent);
 router.post('/change-password', StudentCtrl.changePassword);
 router.get('/student/:id', StudentCtrl.getStudentById);
 router.put('/student/:id', StudentCtrl.updateStudent);
