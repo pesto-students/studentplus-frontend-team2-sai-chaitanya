@@ -15,7 +15,7 @@
         "main": "apps/sp-admin/src/main.js",
         "polyfills": "apps/sp-admin/src/polyfills.js",
         "tsConfig": "apps/sp-admin/tsconfig.app.json",
-        "assets": ["apps/sp-admin/src/favicon.ico", "apps/sp-admin/src/assets"],
+        "assets": ["apps/sp-admin/src/favicon.ico", "apps/sp-admin/src/assets", "apps/sp-admin/src/netlify.toml"],
         "styles": ["apps/sp-admin/src/styles.scss"],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
