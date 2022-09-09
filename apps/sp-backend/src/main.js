@@ -10,7 +10,7 @@ const discussionRouter = require('./routes/discussionRouter');
 const assignmentRouter = require('./routes/assignmentRouter');
 
 const app = express();
-const apiPort = 3000;
+const apiPort = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
