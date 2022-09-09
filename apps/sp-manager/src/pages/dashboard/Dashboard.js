@@ -20,7 +20,7 @@ const Dashboard = () => {
   const getUserInfo = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/sapi/student/${authState.idToken.claims.studentid}`
+        `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`
       );
       return response.data;
     } catch (err) {
@@ -35,7 +35,7 @@ const Dashboard = () => {
     getUserInfo().then(async (resp) => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/capi/student-cohort/${resp.cohort}`
+          `https://studentplus-backend.herokuapp.com/capi/student-cohort/${resp.cohort}`
         );
         setEvents(response.data.events);
         setLoading(false);
@@ -68,7 +68,7 @@ const Dashboard = () => {
                           icon={<ClockCircleFilled />}
                           date={formatDate(Cevent.date)}
                           title={Cevent.event}
-                          link="http://localhost:4200/"
+                          link={window.location.origin}
                         />
                       </Col>
                     );
@@ -91,7 +91,7 @@ const Dashboard = () => {
                           icon={<ClockCircleFilled />}
                           date={formatDate(Cevent.date)}
                           title={Cevent.event}
-                          link="http://localhost:4200/"
+                          link={window.location.origin}
                         />
                       </Col>
                     );

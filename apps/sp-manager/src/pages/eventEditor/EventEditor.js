@@ -128,7 +128,7 @@ const EventEditor = () => {
   const onSubmitHandler = async (submitedValues) => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/eapi/event`,
+        `https://studentplus-backend.herokuapp.com/eapi/event`,
         submitedValues
       );
       console.log(response);
@@ -143,7 +143,9 @@ const EventEditor = () => {
     }
   };
   const getEvents = async () => {
-    const response = await axios.get(`http://localhost:3000/eapi/events/`);
+    const response = await axios.get(
+      `https://studentplus-backend.herokuapp.com/eapi/events/`
+    );
     return response.data;
   };
   useEffect(() => {

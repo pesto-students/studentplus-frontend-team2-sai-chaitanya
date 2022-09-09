@@ -113,7 +113,7 @@ const AccountSettings = () => {
   const getUserInfo = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/sapi/student/${authState.idToken.claims.studentid}`
+        `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`
       );
       return response.data;
     } catch (err) {
@@ -126,7 +126,7 @@ const AccountSettings = () => {
   const onFinish = async (values) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/sapi/student/${authState.idToken.claims.studentid}`,
+        `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`,
         values
       );
       console.log('Cloudinary Resp :', response);
@@ -139,7 +139,7 @@ const AccountSettings = () => {
     values.email = authState.idToken.claims.email;
     try {
       const response = await axios.post(
-        `http://localhost:3000/sapi/change-password/`,
+        `https://studentplus-backend.herokuapp.com/sapi/change-password/`,
         values
       );
       console.log('Cloudinary Resp :', response);

@@ -5,55 +5,88 @@ import {
   Button,
 } from 'libs/ui-shared/src/lib/components';
 import ReactPlayer from 'react-player';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './liveVideoSession.module.scss';
 import PropTypes from 'prop-types';
 const messageListReferance = React.createRef();
 
-const LiveVideoSession = ({ title, date, videoUrl }) => {
+const LiveVideoSession = ({ discussions, ondiscussionChange }) => {
+  console.log(discussions);
+  const [selectedDiscussion, setSelectedDiscussion] = useState();
+  const onChangeHandler = (id) => {
+    const selected = discussions.filter((res) => {
+      return res._id == id ? res : '';
+    });
+    console.log(selected);
+    setSelectedDiscussion(selected);
+    ondiscussionChange(selected);
+  };
   return (
     <div className={styles.videoChatCover}>
       <div className={styles.videoSection}>
         <div className={styles.videoSectionHeader}>
           <div className={styles.sectionLeft}>
-            <Title level={5}>{title}</Title>
-            <Label>{date}</Label>
+            <Title level={5}>
+              {selectedDiscussion ? selectedDiscussion[0].discussionTitle : ''}
+            </Title>
+            <Label>
+              {selectedDiscussion ? selectedDiscussion[0].createdAt : ''}
+            </Label>
           </div>
           <div className={styles.sectionRight}>
-            <Select value="Select Chatboard" />
+            <Select
+              options={
+                discussions !== undefined
+                  ? discussions.map((res) => {
+                      return {
+                        id: res._id,
+                        name: res.discussionTitle,
+                      };
+                    })
+                  : []
+              }
+              onChange={onChangeHandler}
+            />
           </div>
         </div>
-        <ReactPlayer
-          url={videoUrl}
-          style={{
-            borderRadius: 20,
-            overflow: 'hidden',
-          }}
-        />
+        <div className={styles.videoPlayer}>
+          <ReactPlayer
+            url={selectedDiscussion ? selectedDiscussion[0].media : ''}
+            style={{
+              borderRadius: 20,
+              overflow: 'hidden',
+            }}
+          />
+        </div>
         <div className={styles.videoSectionHeader}>
           <div className={styles.sectionLeft}>
-            <Button type="link">Deck Hyperlink</Button>
-          </div>
-          <div className={styles.sectionRight}>
-            <Select value="Select Assignment" />
+            <Button
+              type="link"
+              href={
+                selectedDiscussion
+                  ? `http://${selectedDiscussion[0].deckLink}`
+                  : ''
+              }
+            >
+              Deck Hyperlink
+            </Button>
           </div>
         </div>
       </div>
-      <div className={styles.chatSection}></div>
     </div>
   );
 };
 
 LiveVideoSession.propTypes = {
-  title: PropTypes.string,
-  date: PropTypes.string,
-  videoUrl: PropTypes.string,
+  discussions: PropTypes.array,
+  selectedDiscussion: PropTypes.array,
+  selectHandler: PropTypes.func,
 };
 
 LiveVideoSession.defaultProps = {
-  title: 'Life Skill Session - Week 5',
-  date: '27 May 2022',
-  videoUrl: 'https://www.youtube.com/watch?v=ysz5S6PUM-U',
+  discussions: [],
+  selectedDiscussion: [],
+  selectHandler: () => {},
 };
 
 export default LiveVideoSession;

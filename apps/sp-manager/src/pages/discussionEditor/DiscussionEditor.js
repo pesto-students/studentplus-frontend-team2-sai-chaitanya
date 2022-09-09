@@ -128,7 +128,7 @@ const DiscussionEditor = () => {
     try {
       if (submitedValues._id !== undefined && submitedValues._id !== null) {
         const response = await axios.put(
-          `http://localhost:3000/dapi/discussion/${submitedValues._id}`,
+          `https://studentplus-backend.herokuapp.com/dapi/discussion/${submitedValues._id}`,
           submitedValues
         );
         console.log(response);
@@ -153,7 +153,7 @@ const DiscussionEditor = () => {
         }
       } else {
         const response = await axios.post(
-          `http://localhost:3000/dapi/discussion`,
+          `https://studentplus-backend.herokuapp.com/dapi/discussion`,
           submitedValues
         );
         console.log(response);
@@ -169,7 +169,9 @@ const DiscussionEditor = () => {
     }
   };
   const getDiscussions = async () => {
-    const response = await axios.get(`http://localhost:3000/dapi/discussions/`);
+    const response = await axios.get(
+      `https://studentplus-backend.herokuapp.com/dapi/discussions/`
+    );
     return response.data;
   };
   useEffect(() => {
@@ -187,7 +189,7 @@ const DiscussionEditor = () => {
   const onDeleteHandler = async (record) => {
     console.log(record);
     const response = await axios.delete(
-      `http://localhost:3000/dapi/discussion/${record._id}`
+      `https://studentplus-backend.herokuapp.com/dapi/discussion/${record._id}`
     );
     console.log(response);
   };

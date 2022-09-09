@@ -126,7 +126,7 @@ const AssignmentEditor = () => {
      try {
        if (submitedValues._id !== undefined && submitedValues._id !== null) {
          const response = await axios.put(
-           `http://localhost:3000/aapi/assignment/${submitedValues._id}`,
+           `https://studentplus-backend.herokuapp.com/aapi/assignment/${submitedValues._id}`,
            submitedValues
          );
          console.log(response);
@@ -151,7 +151,7 @@ const AssignmentEditor = () => {
          }
        } else {
          const response = await axios.post(
-           `http://localhost:3000/aapi/assignment`,
+           `https://studentplus-backend.herokuapp.com/aapi/assignment`,
            submitedValues
          );
          console.log(response);
@@ -168,7 +168,7 @@ const AssignmentEditor = () => {
    };
    const getAssignments = async () => {
      const response = await axios.get(
-       `http://localhost:3000/aapi/assignments/`
+       `https://studentplus-backend.herokuapp.com/aapi/assignments/`
      );
      return response.data;
    };
@@ -188,7 +188,7 @@ const AssignmentEditor = () => {
    const onDeleteHandler = async (record) => {
      console.log(record);
      const response = await axios.delete(
-       `http://localhost:3000/aapi/assignment/${record._id}`
+       `https://studentplus-backend.herokuapp.com/aapi/assignment/${record._id}`
      );
      console.log(response);
    };
