@@ -443,7 +443,7 @@ module.exports = {
 
 const mongoose = __webpack_require__("mongoose");
 mongoose
-    .connect('mongodb+srv://student-plus:student-plus@clustersp.lbmqpcv.mongodb.net/?retryWrites=true&w=majority', {
+    .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
 })
     .catch((e) => {
