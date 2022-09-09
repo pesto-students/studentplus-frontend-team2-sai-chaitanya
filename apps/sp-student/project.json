@@ -17,7 +17,8 @@
         "tsConfig": "apps/sp-student/tsconfig.app.json",
         "assets": [
           "apps/sp-student/src/favicon.ico",
-          "apps/sp-student/src/assets"
+          "apps/sp-student/src/assets",
+		  "apps/sp-student/src/netlify.toml"
         ],
         "styles": ["apps/sp-student/src/styles.scss"],
         "scripts": [],
