@@ -4,9 +4,9 @@ import Routes from '../routes';
 
 const App = () => {
   return (
-    <HashRouter>
-      <Routes />
-    </HashRouter>
+      <BrowserRouter >
+        <Routes />
+      </BrowserRouter>
   );
 };
 
