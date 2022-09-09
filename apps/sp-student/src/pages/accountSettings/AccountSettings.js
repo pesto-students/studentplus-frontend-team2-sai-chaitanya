@@ -109,6 +109,7 @@ const AccountSettings = () => {
   }, []);
 
   const getUserInfo = async () => {
+	console.log(authState);
     const response = await axios.get(
       `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`
     );
