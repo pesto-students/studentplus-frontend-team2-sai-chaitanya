@@ -1,37 +1,37 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
-  Table
-} from '../../../../../../libs/ui-shared/src/lib/components/atoms';
-// import moment from 'moment';
+  Card,
+  Table,
+} from '../../../../../../libs/ui-shared/src/lib/components/';
+// import column from 'column';
 import styles from './eventTable.module.scss';
-import TABLEHEADER from './constant'
-// import DATA from './constant'
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-  },
-];
+// import DATA from ''
 
-const EventTable = () => {
-  //state
-  const isEdit = false;
+const EventTable = ({dataSource, columns}) => {
+  const columnArr= Array.from(columns);
+  const dataSourceArr= Array.from(dataSource);
   return (
-    <div className={styles.eventContainer}>
-      {/* <Table columns={TABLEHEADER.COLUMN} dataSource={data} /> */}
+    <div className={styles.container}>
+      <Card className={styles.table}>
+        <Table
+          columns={columnArr}
+          dataSource={dataSourceArr}
+        />
+      </Card>
     </div>
   );
 };
 
 export default EventTable;
+
+EventTable.propTypes = {
+  dataSource: PropTypes.array,
+  columns: PropTypes.array,
+};
+
+EventTable.defaultProps = {
+  dataSource: [],
+  columns: [],
+};

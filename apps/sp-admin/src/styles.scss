@@ -94,6 +94,7 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -108,18 +109,22 @@ nav,
 section {
   display: block;
 }
+
 body {
   line-height: 1;
   font-family: 'Lato', sans-serif;
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -127,6 +132,7 @@ q:after {
   content: '';
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -134,6 +140,75 @@ table {
 
 html {
   font-size: 10px !important;
+}
+
+.ant-select-selector {
+  border: none !important;
+  height: 100% !important;
+}
+
+.ant-select-single .ant-select-selector .ant-select-selection-item,
+.ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+  line-height: 4rem;
+}
+
+/* span.ant-input-group-addon {
+  border: 0px;
+} */
+.anticon {
+	color: blue;
+	margin: 0px 10px 0px 0px;
+}
+.anticon .anticon-key{
+	transform: rotate(179deg);
+}
+.anticon svg{
+	width: 20px;
+	height: 20px;
+	margin-left: 6px;
+}
+
+.ant-form-item{
+	margin-bottom: 0;
+}
+.ant-input-group {
+	margin-bottom: 10px;
+}
+.ant-menu-inline .ant-menu-item::after {
+	border-right: 3px solid #6521ff;
+}
+.ant-picker-range {
+	width: 100%;
+	overflow: hidden;
+	box-shadow: 1px 3px 10px #eee;
+	height: 50px;
+	font-weight: 400;
+	color: #8b8888;
+	padding: 8px;
+	border: 1px solid #eee;
+	border-radius: 8px;
+	margin-top: 10px;
+	margin-bottom: 2rem !important;
+	font-size: small;
+}
+
+.ant-table-thead>tr>th {
+	font-weight: 600;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #cac8c8;
+  border-radius: 20px;
 }
 
 @import 'antd/dist/antd.css';

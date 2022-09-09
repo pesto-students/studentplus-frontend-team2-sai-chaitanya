@@ -3,7 +3,7 @@ import {
   Card,
   Label,
   Title,
-} from '../../../../../../libs/ui-shared/src/lib/components/atoms';
+} from '../../../../../../libs/ui-shared/src/lib/components/';
 import styles from './event.module.scss';
 
 const Event = ({ cardTitle, date, excerpt, icon, title }) => {

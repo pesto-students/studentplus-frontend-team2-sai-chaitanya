@@ -1,42 +1,73 @@
-import { useOktaAuth } from '@okta/okta-react';
-import { Redirect } from 'react-router-dom';
-import { Event } from '../../components';
+import { useState, useEffect } from 'react';
 import {
-  ClockCircleFilled,
-  Label,
-  Title,
+  Card,
+  Select,
+  Button,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
-
+import AttendanceTable from '../../components/molecules/attendanceTable';
+import styles from './attendance.module.scss';
+import { COHORTS, COHORTUSERS, EVENTS } from './data/DATA';
 const Attendance = () => {
+  let COHORTUSERARR = Array.from(COHORTUSERS.DATA);
+  const COHORTSARR = Array.from(COHORTS.DATA);
+  const EVENTSARR = Array.from(EVENTS.DATA);
+  const [data, setData] = useState(COHORTUSERARR);
+  const [cohort, setCohort] = useState(COHORTSARR[0]);
+  const [event, setEvent] = useState(EVENTSARR[0]);
+  function onChangeAction(record) {
+    setData((pre) => {
+      return pre.map((user) => {
+        if (user.key === record.key) return { ...user, status: record.status };
+        else return user;
+      });
+    });
+  }
+  useEffect(() => {
+    console.log(cohort, event);
+    //Add call to fetch cohort data from database
+  }, [cohort, event]);
+
+  useEffect(() => {
+    let pushData = new Array(COHORTUSERARR.length);
+    for (let i = 0; i < COHORTUSERARR.length; i++) {
+      pushData[i] = data[i];
+      pushData[i]['Event'] = event;
+    }
+    console.log(pushData);
+    //Push updated data
+  }, [data]);
+
+  function onCohortChange(value) {
+    setCohort(value);
+  }
+  function onEventChange(value) {
+    setEvent(value);
+  }
   return (
-    <>
-      <Title level={4}>Pesto Announcement Events</Title>
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
-      <Title level={4}>Cohort Announcement Events</Title>
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
-    </>
+    <Card>
+      <div className={styles.container}>
+        <div className={styles.gridHeader}>
+          <div className={styles.selectionBar}>
+            <Select
+              defaultValue={COHORTSARR[0]}
+              onChange={onCohortChange}
+              options={COHORTSARR}
+            />
+          </div>
+          <div className={styles.selectionBar}>
+            <Select
+              defaultValue={EVENTSARR[0]}
+              onChange={onEventChange}
+              options={EVENTSARR}
+            />
+          </div>
+        </div>
+        <AttendanceTable
+          data={data}
+          onChangeAction={onChangeAction}
+        ></AttendanceTable>
+      </div>
+    </Card>
   );
 };
 

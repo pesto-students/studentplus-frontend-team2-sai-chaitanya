@@ -4,7 +4,7 @@ import {
   CommentOutlined,
   FolderOpenOutlined,
   SettingOutlined,
-  PieChartOutlined,
+  StockOutlined,
 } from '../../../../../../../libs/ui-shared/src/lib/components/atoms';
 
 const ACCOUNT_SETTINGS = {
@@ -36,7 +36,7 @@ const PROFILE = {
 };
 const STATISTICS = {
   key: 'STATISTICS',
-  icon: <PieChartOutlined />,
+  icon: <StockOutlined />,
   label: 'Statistics',
 };
 

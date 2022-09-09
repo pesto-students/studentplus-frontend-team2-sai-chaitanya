@@ -1,8 +1,20 @@
 import {
   DashboardOutlined,
   ProfileOutlined,
-  WechatOutlined,
+  SettingOutlined,
+  TeamOutlined,
 } from '../../../../../../../libs/ui-shared/src/lib/components/atoms';
+
+const ACCOUNT_SETTINGS = {
+  key: 'ACCOUNT_SETTINGS',
+  icon: <SettingOutlined />,
+  label: 'Settings',
+};
+const COHORT_CREATOR = {
+  key: 'COHORT_CREATOR',
+  icon: <TeamOutlined />,
+  label: 'Cohot Creator',
+};
 
 const DASHBOARD = {
   key: 'DASHBOARD',
@@ -16,13 +28,7 @@ const PROFILE = {
   label: 'Profile',
 };
 
-const RECENT_CHATBOARDS = {
-  key: 'RECENT_CHATBOARDS',
-  icon: <WechatOutlined />,
-  label: 'Recent Chatboards',
-};
-
-const MENU_ITEMS = [DASHBOARD, PROFILE, RECENT_CHATBOARDS];
+const MENU_ITEMS = [DASHBOARD, PROFILE, COHORT_CREATOR, ACCOUNT_SETTINGS];
 const DEFAULT_SELECTED_ITEM_KEY = DASHBOARD.key;
 
 export { DEFAULT_SELECTED_ITEM_KEY, MENU_ITEMS };

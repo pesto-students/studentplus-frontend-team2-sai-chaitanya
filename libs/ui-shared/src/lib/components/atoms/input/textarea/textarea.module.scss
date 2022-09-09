@@ -1,11 +1,16 @@
 .textarea {
-  padding: 8px;
-  border: 1px solid #b9b6b6;
-  border-radius: 2rem;
-  margin-top: 10px;
-  margin-bottom: 2rem;
-  font-size: small;
+	padding: 8px;
+	border: 1px solid #eee;
+	border-radius: 8px;
+	margin-top: 10px;
+	margin-bottom: 2rem;
+	font-size: small !important;
+	box-shadow: 1px 3px 10px #eee;
+	height: 7rem !important;
   &::placeholder {
     color: #576194;
+  }
+  &::hover{
+	border: 1px solid #eee;
   }
 }

@@ -1,7 +1,8 @@
 const PATHS = {
   ACCOUNT_SETTINGS: '/account-settings',
+  ASSIGNMENT_EDITOR: '/assignment-editor',
   ATTENDANCE:'/attendance',
-  CHATBOARD_EDITOR:'/Chatboard-Editor',
+  DISCUSSION_EDITOR:'/discussion-Editor',
   COHORT_MANAGER:'/cohort-manager',
   DASHBOARD: '/',
   ERROR: '/error',

@@ -1,41 +1,63 @@
-import { useOktaAuth } from '@okta/okta-react';
-import { Redirect } from 'react-router-dom';
-import { Event } from '../../components';
-import {
-  ClockCircleFilled,
-  Label,
-  Title,
-} from '../../../../../libs/ui-shared/src/lib/components/atoms';
+import React from 'react';
+import { Chart } from '../../components';
+import { Table } from 'antd';
+
+const columns = [
+  {
+    title: 'ID',
+    dataIndex: 'id',
+    sortDirections: ['descend'],
+  },
+  {
+    title: 'Week',
+    dataIndex: 'week',
+    defaultSortOrder: 'descend',
+  },
+  {
+    title: 'Session Title',
+    dataIndex: 'session_title',
+  },
+  {
+    title: 'Attendence',
+    dataIndex: 'attendence',
+  },
+];
+const data = [
+  {
+    key: '1',
+    id: '8992',
+    week: '1st',
+    session_title: 'Life Skill Session - Week 1',
+    attendence: 'Present',
+  },
+  {
+    key: '1',
+    id: '8992',
+    week: '1st',
+    session_title: 'Life Skill Session - Week 1',
+    attendence: 'Present',
+  },
+  {
+    key: '1',
+    id: '8992',
+    week: '1st',
+    session_title: 'Life Skill Session - Week 1',
+    attendence: 'Present',
+  },
+  {
+    key: '1',
+    id: '8992',
+    week: '1st',
+    session_title: 'Life Skill Session - Week 1',
+    attendence: 'Present',
+  },
+];
 
 const Statistics = () => {
   return (
     <>
-      <Title level={4}>Pesto Announcement Events</Title>
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
-      <Title level={4}>Cohort Announcement Events</Title>
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
-      <Event
-        icon={<ClockCircleFilled />}
-        date="27-07-2022 12:00PM"
-        title="Introduction to Web3"
-        excerpt="How To Get Started With Web3"
-      />
+      <Chart />
+      <Table columns={columns} dataSource={data} />
     </>
   );
 };

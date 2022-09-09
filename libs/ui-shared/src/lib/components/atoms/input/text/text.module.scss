@@ -1,11 +1,19 @@
-.input {
-  padding: 8px;
-  border: 1px solid #b9b6b6;
-  border-radius: 2rem;
-  margin-top: 10px;
-  margin-bottom: 2rem !important;
-  font-size: small;
+.input:not(.ant-input-group-wrapper) {
+	box-shadow: 1px 3px 10px #eee;
+	height: 50px;
+	font-size: 15px;
+	font-weight: 400;
+	color: #8b8888;
+	padding: 8px;
+	border: 1px solid #eee;
+	border-radius: 8px;
+	margin-top: 10px;
+	margin-bottom: 2rem !important;
+	font-size: small;
   &::placeholder {
     color: #576194;
   }
+}
+.ant-input-group-wrapper{
+	margin-top: 10px;
 }

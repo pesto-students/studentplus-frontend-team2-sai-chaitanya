@@ -1,25 +1,47 @@
-import { Row, Col, DatePicker, TimePicker } from 'antd';
+import { useState } from 'react';
 import {
   Button,
   Card,
+  RangePicker,
+  Form,
   Input,
   Label,
   Title,
+  Row,
+  Col,
+  Select,
   Textarea,
   InputGroup,
-} from '../../../../../../libs/ui-shared/src/lib/components/atoms';
+} from '../../../../../../libs/ui-shared/src/lib/components/';
 // import moment from 'moment';
 import styles from './eventForm.module.scss';
 
-const EventForm = () => {
+const cohorts = [
+  {
+    id: '001',
+    name: 'Cohort 1',
+  },
+  {
+    id: '002',
+    name: 'Cohort 2',
+  },
+];
+const EventForm = ({ onSubmitHandler }) => {
+  const [form] = Form.useForm();
+
+  const onFinish = (values) => {
+    const startTime = values.startEndTime[0].format('YYYY-MM-DD HH:mm:ss');
+    const endTime = values.startEndTime[1].format('YYYY-MM-DD HH:mm:ss');
+    values.startTime = startTime;
+    values.endTime = endTime;
+    onSubmitHandler(values);
+    form.resetFields();
+  };
   //state
   const isEdit = false;
   return (
     <div className={styles.eventContainer}>
-      <Card
-        className={styles.eventForm}
-        title={isEdit ? 'Edit Event' : 'Add Event'}
-      >
+      <Card className={styles.eventForm}>
         <div className={styles.cardContainer}>
           <div className={styles.title}>
             <Title level={5}>Events Editor</Title>
@@ -27,57 +49,130 @@ const EventForm = () => {
           </div>
           <div className={styles.profileInfo}>
             <div className={styles.profilefields}>
-              <InputGroup size="large">
-                <Row gutter={8}>
-                  <Col span={12}>
-                    <Input type="text" label="Event Title: " />
-                  </Col>
-                  <Col span={12}>
-                    <Input type="text" label="Cohort: " />
-                  </Col>
-                </Row>
-                <Row gutter={8}>
-                  <Col span={12}>
-                    <Input type="text" label="Meeting Link: " />
-                  </Col>
-                  <Col span={12}>
-                    <Input type="text" label="Meeting Password: " />
-                  </Col>
-                </Row>
-              </InputGroup>
-              <InputGroup size="large">
-                <Row gutter={8}>
-                  <Col span={12}>
-                    <p> Start</p>
-                    <DatePicker />
-                    <TimePicker />
-                  </Col>
-                  <Col span={12}>
-                    <p> End</p>
-                    <DatePicker />
-                    <TimePicker />
-                  </Col>
-                </Row>
-              </InputGroup>
-              <InputGroup size="large">
-                <Row gutter={8}>
-                  <Input type="text" label="Meeting Resources: " />
-                </Row>
-                <Row gutter={8}>
-                  <Title level={5} className={styles.textLabel}>
-                    Event Description:
-                  </Title>
-                  <Textarea type="text" />
-                </Row>
-              </InputGroup>
-              <div className={styles.buttonContainerHorizontal}>
-                <Button type="button" className={styles.clear}>
-                  Clear
-                </Button>
-                <Button type="submit" className={styles.save}>
-                  Save
-                </Button>
-              </div>
+              <Form
+                form={form}
+                name="createuser"
+                onFinish={onFinish}
+                scrollToFirstError
+                labelWrap
+                layout="vertical"
+              >
+                <InputGroup size="large">
+                  <Row gutter={8}>
+                    <Col span={12}>
+                      <Form.Item
+                        name="eventTitle"
+                        label="Event Title"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input event title!',
+                            whitespace: false,
+                          },
+                        ]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="cohorts"
+                        label="Cohorts"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please select cohort/s!',
+                          },
+                        ]}
+                      >
+                        <Select options={cohorts} mode="tags" />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row gutter={8}>
+                    <Col span={12}>
+                      <Form.Item
+                        name="eventLink"
+                        label="Event Link"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input event link!',
+                            whitespace: false,
+                          },
+                        ]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        name="password"
+                        label="Event Password"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input event password!',
+                            whitespace: false,
+                          },
+                        ]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </InputGroup>
+                <InputGroup size="large">
+                  <Row gutter={8}>
+                    <Col span={12}>
+                      <Form.Item
+                        name="startEndTime"
+                        label="Start/End Time"
+                        rules={[
+                          {
+                            type: 'array',
+                            required: true,
+                            message: 'Please input start date and time!',
+                          },
+                        ]}
+                      >
+                        <RangePicker showTime />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item name="docSource" label="Document Source">
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </InputGroup>
+                <InputGroup size="large">
+                  <Row gutter={8}>
+                    <Col span={24}>
+                      <Form.Item name="eventDesc" label="Event Description">
+                        <Textarea />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </InputGroup>
+                <InputGroup size="large">
+                  <Row gutter={8}>
+                    <Col span={12}></Col>
+                    <Col span={12}>
+                      <Button
+                        htmltype="submit"
+                        className={styles.save}
+                        style={{
+                          width: '100%',
+						  marginTop: '20px',
+                        }}
+                      >
+                        Save
+                      </Button>
+                    </Col>
+                  </Row>
+                </InputGroup>
+              </Form>
             </div>
           </div>
         </div>

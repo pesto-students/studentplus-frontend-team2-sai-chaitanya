@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Menu } from '../../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './sideBar.module.scss';
-import { DEFAULT_SELECTED_ITEM_KEY, MENU_ITEMS } from './constants';
+import { DEFAULT_OPEN_ITEM_KEY, DEFAULT_SELECTED_ITEM_KEY, MENU_ITEMS } from './constants';
 import { useHistory } from 'react-router-dom';
 import { PATHS } from '../../../constants';
 function SideBar() {
@@ -14,8 +14,8 @@ function SideBar() {
     if (key === 'DASHBOARD') {
       history.push(`${PATHS.DASHBOARD}`);
     }
-    if (key === 'CHATBOARD_EDITOR') {
-      history.push(`${PATHS.CHATBOARD_EDITOR}`);
+    if (key === 'DISCUSSION_EDITOR') {
+      history.push(`${PATHS.DISCUSSION_EDITOR}`);
     }
     if (key === 'ACCOUNT_SETTINGS') {
       history.push(`${PATHS.ACCOUNT_SETTINGS}`);
@@ -25,6 +25,9 @@ function SideBar() {
     }
     if (key === 'COHORT_MANAGER') {
       history.push(`${PATHS.COHORT_MANAGER}`);
+    }
+    if (key === 'ASSIGNMENT_EDITOR') {
+      history.push(`${PATHS.ASSIGNMENT_EDITOR}`);
     }
     if (key === 'ATTENDANCE') {
       history.push(`${PATHS.ATTENDANCE}`);
@@ -40,11 +43,14 @@ function SideBar() {
       <div className={styles.menu}>
         <Menu
           defaultSelectedKeys={[DEFAULT_SELECTED_ITEM_KEY]}
+          defaultOpenKeys={[DEFAULT_OPEN_ITEM_KEY]}
           items={MENU_ITEMS}
           onClick={handleMenuItemClick}
           style={{
             borderRight: 'none',
           }}
+          mode="inline"
+          inlineIndent={16}
         />
       </div>
       <div className={styles.settings}></div>

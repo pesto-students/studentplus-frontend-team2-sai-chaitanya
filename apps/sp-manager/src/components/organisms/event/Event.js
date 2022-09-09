@@ -3,17 +3,17 @@ import {
   Card,
   Label,
   Title,
-} from '../../../../../../libs/ui-shared/src/lib/components/atoms';
+} from '../../../../../../libs/ui-shared/src/lib/components/';
 import styles from './event.module.scss';
 
-const Event = ({ cardTitle, date, excerpt, icon, title }) => {
+const Event = ({ cardTitle, date, link, icon, title }) => {
   return (
     <div className={styles.event}>
-      <Card className={styles.eventCard} title={cardTitle}>
+      <Card title={cardTitle}>
         {icon}
         <Label>{date}</Label>
         <Title level={4}>{title}</Title>
-        <Label>{excerpt}</Label>
+        <a href="#">{link}</a>
       </Card>
     </div>
   );
