@@ -17,7 +17,8 @@
         "tsConfig": "apps/sp-manager/tsconfig.app.json",
         "assets": [
           "apps/sp-manager/src/favicon.ico",
-          "apps/sp-manager/src/assets"
+          "apps/sp-manager/src/assets",
+		  "apps/sp-manager/src/netlify.toml"
         ],
         "styles": ["apps/sp-manager/src/styles.scss"],
         "scripts": [],
