@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
-import { LoginCallback, Security, SecureRoute } from '@okta/okta-react';
+import { Security, SecureRoute } from '@okta/okta-react';
+import { LoginCallback } from '../../../../libs/ui-shared/src/lib/components';
 
 import { PATHS } from '../constants';
 import SecureRoutes from './SecureRoutes';
