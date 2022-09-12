@@ -3,6 +3,8 @@ import PDFViewer from 'pdf-viewer-reactjs';
 import PropTypes from 'prop-types';
 import {
   Button,
+  Row,
+  Col,
   Select,
 } from '../../../../../libs/ui-shared/src/lib/components';
 import Pdf from '../../../../../libs/ui-shared/public/sample.pdf';
@@ -37,20 +39,26 @@ const Assignment = ({ hideNavbar, scale, url }) => {
   const newUrl = useMemo(() => ({ url: pdfUrl }));
   return (
     <div className={styles.assignmentCover}>
-      <div className={styles.assignmentFilter}>
-        <Select
-          defaultValue={weekData[0]}
-          onChange={handleWeekChange}
-          options={weekData}
-          value={selectedWeek}
-        />
-        <Select
-          onChange={onSecondWeekChange}
-          options={assignments}
-          value={secondAssignment}
-        />
-        <Button htmlType="button">View Assignment</Button>
-      </div>
+        <Row>
+          <Col span={8} xs={24} md={8}>
+            <Select
+              defaultValue={weekData[0]}
+              onChange={handleWeekChange}
+              options={weekData}
+              value={selectedWeek}
+            />
+          </Col>
+          <Col span={8} xs={24} md={8}>
+            <Select
+              onChange={onSecondWeekChange}
+              options={assignments}
+              value={secondAssignment}
+            />
+          </Col>
+          <Col span={8} xs={24} md={8}>
+            <Button htmlType="button" className={styles.viewButton}>View Assignment</Button>
+          </Col>
+        </Row>
       <div clasName={styles.assignmentContent}>
         <PDFViewer document={newUrl} scale={scale} hideNavbar={hideNavbar} />
       </div>

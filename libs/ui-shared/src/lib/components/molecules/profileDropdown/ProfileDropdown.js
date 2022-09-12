@@ -38,7 +38,7 @@ const ProfileDropdown = ({ paths }) => {
       arrow={true}
       placement="bottomRight"
     >
-      <Avatar size={40} onClick={(e) => e.preventDefault()} />
+      <Avatar size={40} onClick={(e) => e.preventDefault()} style={ { display: 'block', marginLeft: 'auto' } }/>
     </Dropdown>
   );
 };

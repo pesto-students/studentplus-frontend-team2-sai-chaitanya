@@ -1,9 +1,19 @@
 .assignmentCover{
     display: flex;
     flex-direction: column;
+	:global{
+		canvas {
+			width: 100%
+		}
+	}
+
 }
 .assignmentFilter{
     display: flex;
     column-gap: 28px;
     margin: 20px 0px;
+}
+.viewButton{
+	margin: 1.5rem 0.8rem;
+	width: 100%;
 }

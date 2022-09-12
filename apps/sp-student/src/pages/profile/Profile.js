@@ -48,74 +48,82 @@ function Profile() {
   };
   return (
     <div className={styles.profileContainer}>
-      <div className={styles.userInfo}>
-        <Card>
-          <div className={styles.avatarCover}>
-            <Avatar size={150} src={userDetails.img} />
-            <Label strong={false} className={styles.label}>
-              {userDetails.firstName} {userDetails.lastName}
-            </Label>
-          </div>
-          <div className={styles.userInfoCover}>
-            <InputGroup>
-              <Row gutter={8}>
-                <Col span={24}>
-                  <Label className={styles.profileLabel}>
-                    <HomeOutlined />
-                    {userAddress}
-                  </Label>
-                </Col>
-                <Col span={24}>
-                  <Label className={styles.profileLabel}>
-                    <PhoneOutlined />
-                    {userDetails.phone}
-                  </Label>
-                </Col>
-                <Col span={24}>
-                  <Label className={styles.profileLabel}>
-                    <MailOutlined />
-                    {userDetails.email}
-                  </Label>
-                </Col>
-              </Row>
-            </InputGroup>
-            <div className={styles.buttonCover}>
-              <Button
-                htmltype="button"
-                className={styles.editProfileBtn}
-                onClickHandler={onEditClickHandler}
-              >
-                Edit
-              </Button>
+      <Row>
+        <Col span={14} xs={24} sm={24} md={24} lg={12} xl={12}>
+          <Card>
+            <div className={styles.avatarCover}>
+              <Avatar size={150} src={userDetails.img} />
+              <Label strong={false} className={styles.label}>
+                {userDetails.firstName} {userDetails.lastName}
+              </Label>
             </div>
-          </div>
-        </Card>
-      </div>
-      <div className={styles.otherInfo}>
-        <div className={styles.info}>
-          <Card title="Assignments">
-            <div className={styles.cardContainer}>
-              {userAssignments.map((assignment, index) => {
-                return (
-                  <Listing
-                    key={index}
-                    title={assignment.title}
-                    excerpt="This is a test excerpt"
-                    percent={assignment.progress}
-                  />
-                );
-              })}
+            <div className={styles.userInfoCover}>
+              <InputGroup>
+                <Row gutter={8}>
+                  <Col span={24}>
+                    <Label className={styles.profileLabel}>
+                      <HomeOutlined />
+                      {userAddress}
+                    </Label>
+                  </Col>
+                  <Col span={24}>
+                    <Label className={styles.profileLabel}>
+                      <PhoneOutlined />
+                      {userDetails.phone}
+                    </Label>
+                  </Col>
+                  <Col span={24}>
+                    <Label className={styles.profileLabel}>
+                      <MailOutlined />
+                      {userDetails.email}
+                    </Label>
+                  </Col>
+                </Row>
+              </InputGroup>
+              <div className={styles.buttonCover}>
+                <Button
+                  htmltype="button"
+                  className={styles.editProfileBtn}
+                  onClickHandler={onEditClickHandler}
+                >
+                  Edit
+                </Button>
+              </div>
             </div>
           </Card>
-        </div>
-        <div className={styles.info}>
-          <Card title="Discussions">
-            <div className={styles.cardContainer}>
-              <Listing percent={20} type="link" />
-            </div>
-          </Card>
-        </div>
-      </div>
+        </Col>
+        <Col span={10} xs={24} sm={24} md={24} lg={12} xl={12}>
+          <Row>
+            <Col span={24}>
+              <div className={styles.info}>
+                <Card title="Assignments">
+                  <div className={styles.cardContainer}>
+                    {userAssignments.map((assignment, index) => {
+                      return (
+                        <Listing
+                          key={index}
+                          title={assignment.title}
+                          excerpt="This is a test excerpt"
+                          percent={assignment.progress}
+                        />
+                      );
+                    })}
+                  </div>
+                </Card>
+              </div>
+            </Col>
+            <Col span={24}>
+              <div className={styles.info}>
+                <Card title="Discussions">
+                  <div className={styles.cardContainer}>
+                    <Listing percent={20} type="link" />
+                  </div>
+                </Card>
+              </div>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     </div>
   );
 }

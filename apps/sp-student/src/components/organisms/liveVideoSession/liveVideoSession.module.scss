@@ -16,3 +16,11 @@
 .sectionRight{
     flex:1;
 }
+.videoPlayer{
+	:global{
+		div{
+			width:100% !important;
+			height: 600px !important;
+		}
+	}
+}

@@ -6,7 +6,7 @@ const ChatMessageBox = () => {
   return (
     <div className={styles.chatBoxCover}>
       <Title level={2} className={styles.chatBoxTitle}>
-        Chat
+        Comments
       </Title>
       <div className={styles.chatMessageList}>
         <ChatMessage

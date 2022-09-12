@@ -203,6 +203,30 @@ html {
 .ant-table-thead>tr>th {
 	font-weight: 600;
 }
+.MobileMenuTrigger {
+	display: none;
+	position: absolute;
+	right: -57px;
+	top: 2px;
+	z-index: 99;
+	background: #ffff;
+	padding: 2.3rem 1rem;
+}
+/* .ant-menu-inline.ant-menu-root .ant-menu-item,
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title {
+	padding: 0 calc(50% - 230px / 2) !important;
+} */
+@media (max-width: "786px") {
+	.MobileMenuTrigger {
+		display: block;
+	}
+	.ant-menu.ant-menu-inline-collapsed>.ant-menu-item,
+	.ant-menu.ant-menu-inline-collapsed>.ant-menu-item-group>.ant-menu-item-group-list>.ant-menu-item,
+	.ant-menu.ant-menu-inline-collapsed>.ant-menu-item-group>.ant-menu-item-group-list>.ant-menu-submenu>.ant-menu-submenu-title,
+	.ant-menu.ant-menu-inline-collapsed>.ant-menu-submenu>.ant-menu-submenu-title{
+		padding: 0 calc(50% - 36px / 2);
+	}
+}
 /* width */
 ::-webkit-scrollbar {
 	width: 8px;

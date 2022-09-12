@@ -6,9 +6,6 @@ import {
   Form,
   Input,
   Label,
-  LoadingOutlined,
-  PlusOutlined,
-  Space,
   Title,
   Textarea,
   InputGroup,
@@ -19,6 +16,7 @@ import {
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './accountSettings.module.scss';
 import axios from 'axios';
+import IMAGE_PATHS from '../../../../../libs/ui-shared/public/images/constants'
 
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -74,13 +72,16 @@ const AccountSettings = () => {
 
   const uploadButton = (
     <div>
-      <PlusOutlined />
       <div
         style={{
           marginTop: 8,
+          backgroundImage: `url(${IMAGE_PATHS.USERIMAGE})`,
+		  width:"200px",
+		  height: "200px",
+		  backgroundRepeat: "no-repeat",
+		  backgroundSize: "contain"
         }}
       >
-        Upload
       </div>
     </div>
   );
@@ -150,176 +151,182 @@ const AccountSettings = () => {
               This information will be displayed publically.
             </Label>
           </div>
-          <div className={styles.profileInfo}>
-            <div className={styles.avatarInfo}>
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                customRequest={changeRequestStatus}
-                beforeUpload={beforeUpload}
-                onChange={(obj) => handleChange(obj)}
-                action=""
-              >
-                {imageUrl ? (
-                  <img
-                    src={imageUrl}
-                    alt="avatar"
-                    style={{
-                      width: '100%',
-                    }}
-                  />
-                ) : (
-                  uploadButton
-                )}
-              </Upload>
-            </div>
-            <div className={styles.profilefields}>
-              <Form
-                form={form}
-                name="createuser"
-                onFinish={onFinish}
-                scrollToFirstError
-                labelWrap
-                layout="vertical"
-              >
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={12}>
-                      <Form.Item
-                        name="firstName"
-                        label="First Name"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please input your first name!',
-                            whitespace: false,
-                          },
-                        ]}
-                      >
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item
-                        name="lastName"
-                        label="Last Name"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please input last name!',
-                            whitespace: false,
-                          },
-                        ]}
-                      >
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={12}>
-                      <Form.Item
-                        name="email"
-                        label="E-mail"
-                        rules={[
-                          {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                          },
-                          {
-                            required: true,
-                            message: 'Please input your E-mail!',
-                          },
-                        ]}
-                      >
-                        <Input disabled={true} />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item
-                        name="phone"
-                        label="Contact"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please input your contact number!',
-                          },
-                        ]}
-                      >
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={24}>
-                      <Form.Item name="streetAddr" label="Street Address">
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={12}>
-                      <Form.Item
-                        name="city"
-                        label="City"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please input your city!',
-                          },
-                        ]}
-                        disabled
-                      >
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item name="state" label="State">
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={24}>
-                      <Form.Item name="about" label="About You">
-                        <Textarea />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-                <InputGroup size="large">
+          <Row>
+            <Col span={12} xs={24} sm={24} md={24} lg={24} xl={8}>
+              <div className={styles.avatarInfo}>
+                <Upload
+                  name="avatar"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  showUploadList={false}
+                  customRequest={changeRequestStatus}
+                  beforeUpload={beforeUpload}
+                  onChange={(obj) => handleChange(obj)}
+                  action=""
+                >
+                  {imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt="avatar"
+                      style={{
+                        width: '100%',
+                      }}
+                    />
+                  ) : (
+                    uploadButton
+                  )}
+                </Upload>
+              </div>
+            </Col>
+            <Col span={12} xs={24} sm={24} md={24} lg={24} xl={16}>
+              <div className={styles.profilefields}>
+                <Form
+                  form={form}
+                  name="createuser"
+                  onFinish={onFinish}
+                  scrollToFirstError
+                  labelWrap
+                  layout="vertical"
+                >
+                  <InputGroup size="large">
+                    <Row gutter={8}>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item
+                          name="firstName"
+                          label="First Name"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input your first name!',
+                              whitespace: false,
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item
+                          name="lastName"
+                          label="Last Name"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input last name!',
+                              whitespace: false,
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </InputGroup>
+                  <InputGroup size="large">
+                    <Row gutter={8}>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item
+                          name="email"
+                          label="E-mail"
+                          rules={[
+                            {
+                              type: 'email',
+                              message: 'The input is not valid E-mail!',
+                            },
+                            {
+                              required: true,
+                              message: 'Please input your E-mail!',
+                            },
+                          ]}
+                        >
+                          <Input disabled={true} />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item
+                          name="phone"
+                          label="Contact"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input your contact number!',
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </InputGroup>
+                  <InputGroup size="large">
+                    <Row gutter={8}>
+                      <Col span={24} xs={24} md={12}>
+                        <Form.Item name="streetAddr" label="Street Address">
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </InputGroup>
+                  <InputGroup size="large">
+                    <Row gutter={8}>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item
+                          name="city"
+                          label="City"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input your city!',
+                            },
+                          ]}
+                          disabled
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item name="state" label="State">
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </InputGroup>
+                  <InputGroup size="large">
+                    <Row gutter={8}>
+                      <Col span={24} xs={24} md={12}>
+                        <Form.Item name="about" label="About You">
+                          <Textarea />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </InputGroup>
+                  <InputGroup size="large">
                     <Row gutter={8}>
                       <Col span={12}></Col>
-                      <Col span={12}>
+                      <Col span={12} xs={24} md={12}>
                         <Form.Item name="img" hidden={true}>
                           <Input />
                         </Form.Item>
                         <Form.Item>
-                          <Button
-                            type="primary"
-                            htmlType="submit"
-                            style={{
-                              width: '100%',
-                            }}
-                          >
-                            Update
-                          </Button>
+                          <div className={styles.buttonContainerHorizontal}>
+                            <Button
+                              type="primary"
+                              htmlType="submit"
+                              style={{
+                                width: '100%',
+                              }}
+                            >
+                              Update
+                            </Button>
+                          </div>
                         </Form.Item>
                       </Col>
                     </Row>
-                </InputGroup>
-              </Form>
-            </div>
-          </div>
+                  </InputGroup>
+                </Form>
+              </div>
+            </Col>
+          </Row>
         </div>
       </Card>
       <Card title="Security Settings">
@@ -340,7 +347,7 @@ const AccountSettings = () => {
           >
             <InputGroup size="large">
               <Row gutter={8}>
-                <Col span={12}>
+                <Col span={12} xs={24} md={12}>
                   <Form.Item
                     name="password"
                     label="New Password"
@@ -355,7 +362,7 @@ const AccountSettings = () => {
                     <Input />
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col span={12} xs={24} md={12}>
                   <Form.Item
                     name="confirmPassword"
                     label="Confirm Password"
@@ -386,9 +393,8 @@ const AccountSettings = () => {
                 </Col>
               </Row>
               <Row gutter={8}>
-                <Col span={8}></Col>
-                <Col span={8}></Col>
-                <Col span={8}>
+                <Col span={12}></Col>
+                <Col span={12}>
                   <div className={styles.buttonContainerHorizontal}>
                     <Button
                       htmlType="submit"

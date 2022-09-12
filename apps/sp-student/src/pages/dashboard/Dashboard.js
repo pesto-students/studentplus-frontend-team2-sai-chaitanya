@@ -62,7 +62,7 @@ const Dashboard = () => {
                 {events &&
                   events.map((Cevent, index) => {
                     return (
-                      <Col span={12}>
+                      <Col span={12} xs={24} sm={12} md={12} lg={8} xl={6}>
                         <Event
                           key={index}
                           icon={<ClockCircleFilled />}
@@ -85,7 +85,7 @@ const Dashboard = () => {
                 {events &&
                   events.map((Cevent, index) => {
                     return (
-                      <Col span={12}>
+                      <Col span={12} xs={24} sm={12} md={12} lg={8} xl={6}>
                         <Event
                           key={index}
                           icon={<ClockCircleFilled />}
