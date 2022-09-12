@@ -14,22 +14,18 @@ import {
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './profile.module.scss';
 import { useOktaAuth } from '@okta/okta-react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { getUserInfo } from '../../routes/serverCalls';
+
 function Profile() {
   const { oktaAuth, authState } = useOktaAuth();
   const [userDetails, setUserDetails] = useState({});
   const [userAddress, setUserAddress] = useState('');
   const [userAssignments, setUserAssignments] = useState([]);
   const history = useHistory();
-  const getUserInfo = async () => {
-    const response = await axios.get(
-      `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`
-    );
-    return response.data;
-  };
+
   useEffect(() => {
-    getUserInfo().then((resp) => {
+    getUserInfo(authState.idToken.claims.studentid).then((resp) => {
       setUserDetails(resp);
       const address = `${resp.streetAddr}, ${resp.city}, ${resp.state}, ${
         resp.country ? resp.country : ''
@@ -37,15 +33,18 @@ function Profile() {
       setUserAddress(address);
     });
   }, []);
+
   useEffect(() => {
     console.log('UserD', userDetails);
-	console.log(userDetails.assignment);
-	const assignments = !!userDetails.assignment?userDetails.assignment:[];
-	setUserAssignments(assignments);
+    console.log(userDetails.assignment);
+    const assignments = !!userDetails.assignment ? userDetails.assignment : [];
+    setUserAssignments(assignments);
   }, [userDetails]);
+
   const onEditClickHandler = () => {
     history.push('/account-settings');
   };
+  
   return (
     <div className={styles.profileContainer}>
       <Row>

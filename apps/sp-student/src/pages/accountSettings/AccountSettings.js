@@ -15,8 +15,13 @@ import {
   Upload,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import styles from './accountSettings.module.scss';
-import axios from 'axios';
-import IMAGE_PATHS from '../../../../../libs/ui-shared/public/images/constants'
+import IMAGE_PATHS from '../../../../../libs/ui-shared/public/images/constants';
+import {
+  getUserInfo,
+  uploadProfileImage,
+  updateProfile,
+  updatePassword,
+} from '../../routes/serverCalls';
 
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -54,19 +59,7 @@ const AccountSettings = () => {
       formData.append('file', uploadObj.fileList[0].originFileObj);
       formData.append('upload_preset', 'twivocmt');
       formData.append('api_key', '447634538816736');
-      try {
-        const response = axios
-          .post(
-            'https://api.cloudinary.com/v1_1/dhibsuxt9/image/upload',
-            formData
-          )
-          .then((res) => {
-            setImageUrl(res.data.secure_url);
-            console.log('Cloudinary Resp :', res);
-          });
-      } catch (err) {
-        console.log('Cloudinary Error :', err);
-      }
+      uploadProfileImage(formData, setImageUrl);
     }
   };
 
@@ -76,13 +69,12 @@ const AccountSettings = () => {
         style={{
           marginTop: 8,
           backgroundImage: `url(${IMAGE_PATHS.USERIMAGE})`,
-		  width:"200px",
-		  height: "200px",
-		  backgroundRepeat: "no-repeat",
-		  backgroundSize: "contain"
+          width: '200px',
+          height: '200px',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'contain',
         }}
-      >
-      </div>
+      ></div>
     </div>
   );
   useEffect(() => {
@@ -91,7 +83,7 @@ const AccountSettings = () => {
     });
   }, [imageUrl]);
   useEffect(() => {
-    getUserInfo().then((resp) => {
+    getUserInfo(authState.idToken.claims.studentid).then((resp) => {
       console.log(resp);
       form.setFieldsValue({
         firstName: resp.firstName,
@@ -109,38 +101,13 @@ const AccountSettings = () => {
     });
   }, []);
 
-  const getUserInfo = async () => {
-	console.log(authState);
-    const response = await axios.get(
-      `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`
-    );
-    return response.data;
-  };
   const onFinish = async (values) => {
-    try {
-      const response = await axios.put(
-        `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`,
-        values
-      );
-      console.log('Cloudinary Resp :', response);
-      message.success('Profile Updated!');
-    } catch (err) {
-      console.log('Cloudinary Error :', err);
-    }
+    updateProfile(authState.idToken.claims.studentid, values);
   };
   const onUpdatePassword = async (values) => {
-    values.email = authState.idToken.claims.email;
-    try {
-      const response = await axios.post(
-        `http://localhost:3000/sapi/change-password/`,
-        values
-      );
-      console.log('Cloudinary Resp :', response);
-      message.success('Password Updated!');
-    } catch (err) {
-      console.log('Error :', err);
-    }
+    updatePassword(authState.idToken.claims.email, values);
   };
+
   return (
     <div className={styles.accountContainer}>
       <Card title="Account Settings">

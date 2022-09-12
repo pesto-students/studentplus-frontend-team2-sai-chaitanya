@@ -8,6 +8,7 @@ const cohortRouter = require('./routes/cohortRouter');
 const eventRouter = require('./routes/eventRouter');
 const discussionRouter = require('./routes/discussionRouter');
 const assignmentRouter = require('./routes/assignmentRouter');
+const commentRouter = require('./routes/commentRouter');
 
 const app = express();
 const apiPort = process.env.PORT || 3000;
@@ -30,5 +31,7 @@ app.use('/capi', cohortRouter);
 app.use('/eapi', eventRouter);
 app.use('/dapi', discussionRouter);
 app.use('/aapi', assignmentRouter);
+//Comment
+app.use('/coapi', commentRouter);
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));

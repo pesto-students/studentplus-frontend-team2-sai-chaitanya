@@ -30,7 +30,7 @@ import PageNotFound from './pageNotFound';
 import Radio from './radio';
 import RangePicker from './rangePicker';
 import SearchBox from './searchBox';
-import Select from './select';
+import { Select, Option } from './select';
 import Skeleton from './skeleton';
 import Slider from './slider';
 import Spin from './spin';
@@ -76,6 +76,7 @@ export {
   RangePicker,
   SearchBox,
   Select,
+  Option,
   Skeleton,
   Slider,
   Spin,

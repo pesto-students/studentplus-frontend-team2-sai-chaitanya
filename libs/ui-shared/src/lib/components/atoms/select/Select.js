@@ -2,13 +2,13 @@ import { Select as AntDSelect } from 'antd';
 import {_noop} from 'lodash'
 import PropTypes from 'prop-types';
 import styles from './select.module.scss';
+const { Option } = AntDSelect;
 const defaultClassName = styles.selectbox;
 const Select = ({
-  options,
   className,
   onChange,
   style,
-  value,
+  children,
   ...otherProps
 }) => {
   return (
@@ -18,22 +18,18 @@ const Select = ({
       style={style}
       className={className}
     >
-      {options.map((option) => (
-        <AntDSelect.Option key={option.id}>{option.name}</AntDSelect.Option>
-      ))}
+      {children}
     </AntDSelect>
   );
 };
 
 Select.propTypes = {
-  options: PropTypes.array,
   className: PropTypes.string,
   onChange: PropTypes.func,
   style: PropTypes.object,
 };
 
 Select.defaultProps = {
-  options: [],
   className: defaultClassName,
   onChange: _noop,
   style: {
@@ -41,4 +37,4 @@ Select.defaultProps = {
   },
 };
 
-export default Select;
+export { Select, Option };

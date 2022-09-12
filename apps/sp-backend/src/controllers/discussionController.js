@@ -80,9 +80,16 @@ deleteDiscussion = async (req, res) => {
   res.json(response);
 };
 
+getDiscussionsByCohort = asyncHandler(async (req, res) => {
+	const query = { cohorts: req.params.cohortId };
+  const discussions = await Discussion.find(query);
+  res.json(discussions);
+});
+
 module.exports = {
   createDiscussion,
   updateDiscussion,
   getDiscussions,
   deleteDiscussion,
+  getDiscussionsByCohort,
 };
