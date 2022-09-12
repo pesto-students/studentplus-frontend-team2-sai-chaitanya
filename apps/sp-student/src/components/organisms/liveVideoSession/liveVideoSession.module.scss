@@ -1,3 +1,10 @@
+ $xs: '480px';
+ $sm: '576px';
+ $md: '768px';
+ $lg: '992px';
+ $xl: '1200px';
+ $xxl: '1600px';
+
 .videoChatCover{
     display: flex;
     flex:1;
@@ -15,12 +22,23 @@
 }
 .sectionRight{
     flex:1;
+	:global {
+			.ant-select {
+				@media (max-width: $md) {
+					margin-top: 0;
+				}
+			}
+		}
 }
 .videoPlayer{
 	:global{
 		div{
 			width:100% !important;
 			height: 600px !important;
-		}
+			@media (max-width: $md) {
+				width: auto !important;
+				height: 360px !important;
+			}
+		}			  
 	}
 }

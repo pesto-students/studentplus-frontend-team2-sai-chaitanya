@@ -15,6 +15,9 @@
 		font-weight: 600;
 		font-size: 1.5rem;
 	}
+	.ant-layout-sider-zero-width-trigger{
+		top: 15px;
+	}
   }
 }
 .content {
@@ -38,7 +41,7 @@
 	background-color: #f6f7ff;
 	margin-left: 288px;
 	@media (max-width: $md) {
-			margin-left: 80px;
+			margin-left: 0;
 		}
 }
 .siteHeaderBackground{

@@ -45,10 +45,8 @@ const Login = () => {
         <div className={`${styles.flexItem} ${styles.leftBox} ${styles.ld}`}>
           <Image src={IMAGE_PATHS.LOGO} alt="" />
         </div>
-        <div className={`${styles.flexItem} ${styles.leftBox} ${styles.sd}`}>
-          <Image src={IMAGE_PATHS.WHITE_LOGO} alt="" />
-        </div>
         <div className={`${styles.flexItem} ${styles.rightBox}`}>
+          <Image src={IMAGE_PATHS.WHITE_LOGO} alt="" className={styles.responsiveLogo}/>
           <LoginForm
             onLogin={onLoginHandler}
             setUsername={setUsername}

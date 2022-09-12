@@ -47,14 +47,12 @@ function SideBar({ collapsed, onCollapse }) {
       breakpoint="lg"
       className={styles.sidebar}
       collapsed={collapsed}
+      onCollapse={(value) => onCollapse(value)}
+      collapsedWidth={0}
       theme="light"
       width="288px"
     >
       <Logo src={logo} />
-      {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-        className: 'MobileMenuTrigger',
-        onClick: () => onCollapse(!collapsed),
-      })}
       <div className={styles.menu}>
         <Menu
           defaultSelectedKeys={[DEFAULT_SELECTED_ITEM_KEY]}
