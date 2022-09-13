@@ -1,11 +1,23 @@
 .chatMessageCover{
-    display: flex;
-    flex-direction: row;
-    column-gap: 10px;
-    margin: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	margin: 1rem 0;
+	max-width: 300px;
+	gap: 10px;
 }
 .avatarCover{
-    flex:1;
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	gap: 9px;
+	:global{
+		.ant-avatar-image{
+			margin: 0px !important;
+		}
+		.ant-typography{
+			align-self: flex-start;
+		}
+	}
 }
 .messageTextCover {
     flex: 9;
@@ -16,4 +28,11 @@
     border-radius: 3rem;
     display: block;
     font-size: 1.3rem;
+}
+.chatMeta{
+	display: flex;
+	flex-direction: column;
+}
+.messageDate{
+	margin-top: -5px;
 }

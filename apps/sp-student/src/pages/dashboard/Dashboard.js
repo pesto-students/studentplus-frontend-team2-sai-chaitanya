@@ -10,38 +10,20 @@ import {
 } from '../../../../../libs/ui-shared/src/lib/components/';
 import styles from './dashboard.module.scss';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getUserInfo, getStudentCohorts } from '../../routes/serverCalls';
 import { useOktaAuth } from '@okta/okta-react';
 
 const Dashboard = () => {
   const { oktaAuth, authState } = useOktaAuth();
   const [events, setEvents] = useState();
   const [loading, setLoading] = useState(true);
-  const getUserInfo = async () => {
-    try {
-      const response = await axios.get(
-        `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`
-      );
-      return response.data;
-    } catch (err) {
-      console.log('Erro', err.message);
-    }
-  };
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
   useEffect(() => {
-    getUserInfo().then(async (resp) => {
-      try {
-        const response = await axios.get(
-          `https://studentplus-backend.herokuapp.com/capi/student-cohort/${resp.cohort}`
-        );
-        setEvents(response.data.events);
-        setLoading(false);
-      } catch (err) {
-        console.log('Erro', err.message);
-      }
+    getUserInfo(authState.idToken.claims.studentid).then((resp) => {
+      getStudentCohorts(resp, setEvents, setLoading);
     });
   }, []);
 

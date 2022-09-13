@@ -162,6 +162,62 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./apps/sp-backend/src/controllers/commentController.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const tslib_1 = __webpack_require__("tslib");
+const Comment = __webpack_require__("./apps/sp-backend/src/models/commentModel.js");
+const asyncHandler = __webpack_require__("express-async-handler");
+const { ObjectId } = __webpack_require__("mongodb");
+createComment = (req, res) => {
+    const body = req.body;
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide comment data',
+        });
+    }
+    const comment = new Comment(body);
+    if (!comment) {
+        return res.status(400).json({ success: false, error: err });
+    }
+    comment
+        .save()
+        .then(() => {
+        return res.status(200).json({
+            success: true,
+            message: 'Comment created!',
+        });
+    })
+        .catch((error) => {
+        return res.status(400).json({
+            error,
+            message: 'Comment not created!',
+        });
+    });
+};
+getComments = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    const query = { discussionId: req.params.discussionId };
+    console.log(query);
+    const comments = yield Comment.find(query);
+    console.log(comments);
+    if (comments) {
+        res.json(comments);
+    }
+    else {
+        res.status(404).json({ message: 'comments not found' });
+        res.status(404);
+        throw new Error('comments not found');
+    }
+}));
+module.exports = {
+    createComment,
+    getComments,
+};
+
+
+/***/ }),
+
 /***/ "./apps/sp-backend/src/controllers/discussionController.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -237,11 +293,17 @@ deleteDiscussion = (req, res) => tslib_1.__awaiter(void 0, void 0, void 0, funct
     const response = yield Discussion.findOneAndDelete({ _id: ObjectId(req.params.id) });
     res.json(response);
 });
+getDiscussionsByCohort = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    const query = { cohorts: req.params.cohortId };
+    const discussions = yield Discussion.find(query);
+    res.json(discussions);
+}));
 module.exports = {
     createDiscussion,
     updateDiscussion,
     getDiscussions,
     deleteDiscussion,
+    getDiscussionsByCohort,
 };
 
 
@@ -640,6 +702,21 @@ module.exports = mongoose.model('cohort', Cohort);
 
 /***/ }),
 
+/***/ "./apps/sp-backend/src/models/commentModel.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const mongoose = __webpack_require__("mongoose");
+const Schema = mongoose.Schema;
+const Comment = new Schema({
+    discussionId: { type: String, required: true },
+    textMessage: { type: Array, required: false },
+    user: { type: Object, required: false },
+}, { timestamps: true });
+module.exports = mongoose.model('comment', Comment);
+
+
+/***/ }),
+
 /***/ "./apps/sp-backend/src/models/discussionModel.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -773,6 +850,19 @@ module.exports = cohortRouter;
 
 /***/ }),
 
+/***/ "./apps/sp-backend/src/routes/commentRouter.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const express = __webpack_require__("express");
+const CommentCtrl = __webpack_require__("./apps/sp-backend/src/controllers/commentController.js");
+const commentRouter = express.Router();
+commentRouter.post('/comment', CommentCtrl.createComment);
+commentRouter.get('/comments/:discussionId', CommentCtrl.getComments);
+module.exports = commentRouter;
+
+
+/***/ }),
+
 /***/ "./apps/sp-backend/src/routes/discussionRouter.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -781,6 +871,7 @@ const DiscussionCtrl = __webpack_require__("./apps/sp-backend/src/controllers/di
 const discussionRouter = express.Router();
 discussionRouter.post('/discussion', DiscussionCtrl.createDiscussion);
 discussionRouter.get('/discussions', DiscussionCtrl.getDiscussions);
+discussionRouter.get('/discussions/:cohortId', DiscussionCtrl.getDiscussionsByCohort);
 discussionRouter.put('/discussion/:id', DiscussionCtrl.updateDiscussion);
 discussionRouter.delete('/discussion/:id', DiscussionCtrl.deleteDiscussion);
 module.exports = discussionRouter;
@@ -936,6 +1027,7 @@ const cohortRouter = __webpack_require__("./apps/sp-backend/src/routes/cohortRou
 const eventRouter = __webpack_require__("./apps/sp-backend/src/routes/eventRouter.js");
 const discussionRouter = __webpack_require__("./apps/sp-backend/src/routes/discussionRouter.js");
 const assignmentRouter = __webpack_require__("./apps/sp-backend/src/routes/assignmentRouter.js");
+const commentRouter = __webpack_require__("./apps/sp-backend/src/routes/commentRouter.js");
 const managerRouter = __webpack_require__("./apps/sp-backend/src/routes/managerRouter.js");
 const app = express();
 const apiPort = process.env.PORT || 3000;
@@ -955,6 +1047,8 @@ app.use('/eapi', eventRouter);
 app.use('/mapi', managerRouter);
 app.use('/dapi', discussionRouter);
 app.use('/aapi', assignmentRouter);
+//Comment
+app.use('/coapi', commentRouter);
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
 
 })();

@@ -1,46 +1,93 @@
-import { Button, Input, Title } from 'libs/ui-shared/src/lib/components';
+import {
+  InputGroup,
+  Textarea,
+  Row,
+  Col,
+  Form,
+  Title,
+  Button,
+} from 'libs/ui-shared/src/lib/components';
 import { ChatMessage } from '../../molecules';
 import styles from './chatMessageBox.module.scss';
-
-const ChatMessageBox = () => {
+import { useOktaAuth } from '@okta/okta-react';
+import {
+  pushComment,
+} from '../../../routes/serverCalls';
+const ChatMessageBox = ({ discussionId, comments }) => {
+  const { oktaAuth, authState } = useOktaAuth();
+  const [commentForm] = Form.useForm();
+  console.log('cstcomment', comments.data);
+  const onFinish = async (values) => {
+    pushComment(authState.idToken.claims.studentid, discussionId, values);
+  };
   return (
     <div className={styles.chatBoxCover}>
-      <Title level={2} className={styles.chatBoxTitle}>
+      <Title level={4} className={styles.chatBoxTitle}>
         Comments
       </Title>
       <div className={styles.chatMessageList}>
-        <ChatMessage
-          user={{
-            userName: 'Navneet',
-          }}
-          textMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ulla"
-        />
-        <ChatMessage
-          user={{
-            userName: 'Naveen',
-          }}
-          textMessage="laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate"
-        />
-        <ChatMessage
-          user={{
-            userName: 'Navneet',
-          }}
-          textMessage="Sed ut perspiciatis unde omnis iste natus"
-        />
-        <ChatMessage
-          user={{
-            userName: 'Naveen',
-          }}
-          textMessage="Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-        />
+        {comments
+          ? comments.data.map((comment) => {
+              return (
+                <ChatMessage
+                  user={{
+                    userName: comment.user.userName,
+                  }}
+                  textMessage={comment.textMessage}
+                  align={
+                    authState.idToken.claims.studentid == comment.user.userId
+                      ? 'end'
+                      : 'start'
+                  }
+                  date={comment.createdAt}
+                />
+              );
+            })
+          : ''}
       </div>
       <div className={styles.messageTextBoxCover}>
-        <div className={styles.messageInputBoxCover}>
-          <Input />
-        </div>
-        <div className={styles.messagesendButtonCover}>
-          <Button className={styles.messagesendButton}>Send</Button>
-        </div>
+        <Form
+          form={commentForm}
+          name="comment"
+          onFinish={onFinish}
+          scrollToFirstError
+          labelWrap
+          layout="vertical"
+        >
+          <InputGroup size="large">
+            <Row gutter={8}>
+              <Col span={20}>
+                <Form.Item
+                  name="textMessage"
+                  label="Enter your comment here"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please enter text!',
+                    },
+                  ]}
+                >
+                  <Textarea />
+                </Form.Item>
+              </Col>
+              <Col
+                span={4}
+                style={{
+                  alignSelf: 'end',
+                }}
+              >
+                <Button
+                  htmlType="submit"
+                  style={{
+                    width: '100%',
+                  }}
+                >
+                  Send
+                </Button>
+              </Col>
+            </Row>
+          </InputGroup>
+        </Form>
       </div>
     </div>
   );

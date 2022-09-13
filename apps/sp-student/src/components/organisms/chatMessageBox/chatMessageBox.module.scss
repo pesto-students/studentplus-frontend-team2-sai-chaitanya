@@ -6,6 +6,8 @@
     padding: 2rem;
     background: #fff;
     border-radius: 2rem;
+	width: 60%;
+	margin: auto;
 }
 .chatMessageList{
     display: flex;
@@ -19,6 +21,12 @@
 }
 .messageTextBoxCover{
     display: flex;
+	:global{
+		#comment {
+			width: 100%;
+		}
+	}
+
 }
 .messageInputBoxCover{
     flex:7

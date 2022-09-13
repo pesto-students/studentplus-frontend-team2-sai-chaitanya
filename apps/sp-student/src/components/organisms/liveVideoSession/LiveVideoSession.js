@@ -2,6 +2,7 @@ import {
   Label,
   Title,
   Select,
+  Option,
   Button,
 } from 'libs/ui-shared/src/lib/components';
 import ReactPlayer from 'react-player';
@@ -12,7 +13,7 @@ const messageListReferance = React.createRef();
 
 const LiveVideoSession = ({ discussions, ondiscussionChange }) => {
   console.log(discussions);
-  const [selectedDiscussion, setSelectedDiscussion] = useState();
+  const [selectedDiscussion, setSelectedDiscussion] = useState(false);
   const onChangeHandler = (id) => {
     const selected = discussions.filter((res) => {
       return res._id == id ? res : '';
@@ -21,6 +22,14 @@ const LiveVideoSession = ({ discussions, ondiscussionChange }) => {
     setSelectedDiscussion(selected);
     ondiscussionChange(selected);
   };
+  useEffect(() => {
+   discussions?discussions.map((res, index) => {
+     console.log('index', index);
+	 console.log('res', res);
+	 const resp = {0:res}
+	 if(index==0)setSelectedDiscussion(resp);
+   }):'';
+  }, [discussions]);
   return (
     <div className={styles.videoChatCover}>
       <div className={styles.videoSection}>
@@ -35,18 +44,31 @@ const LiveVideoSession = ({ discussions, ondiscussionChange }) => {
           </div>
           <div className={styles.sectionRight}>
             <Select
-              options={
-                discussions !== undefined
-                  ? discussions.map((res) => {
-                      return {
-                        id: res._id,
-                        name: res.discussionTitle,
-                      };
-                    })
-                  : []
-              }
               onChange={onChangeHandler}
-            />
+              defaultValue={{
+                value: selectedDiscussion ? selectedDiscussion[0]._id : '',
+                label: selectedDiscussion
+                  ? selectedDiscussion[0].discussionTitle
+                  : '',
+              }}
+            >
+              {discussions !== undefined ? (
+                discussions.map((res) => {
+                  return (
+                    <Option key={res._id} value={res._id}>
+                      {res.discussionTitle}
+                    </Option>
+                  );
+                })
+              ) : (
+                <Option
+                  key={selectedDiscussion._id}
+                  value={selectedDiscussion._id}
+                >
+                  {selectedDiscussion.discussionTitle}
+                </Option>
+              )}
+            </Select>
           </div>
         </div>
         <div className={styles.videoPlayer}>
