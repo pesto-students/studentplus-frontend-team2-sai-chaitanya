@@ -103,9 +103,9 @@ getManagerById = asyncHandler(async (req, res) => {
   if (manager) {
     res.json(manager);
   } else {
-    res.status(404).json({ message: 'Student not found' });
+    res.status(404).json({ message: 'User not found' });
     res.status(404);
-    throw new Error('Student not found');
+    throw new Error('User not found');
   }
 });
 

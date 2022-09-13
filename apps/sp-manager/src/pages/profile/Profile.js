@@ -23,9 +23,17 @@ function Profile() {
   const [userAssignments, setUserAssignments] = useState([]);
   const history = useHistory();
   const getUserInfo = async () => {
-    const response = await axios.get(
-      `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`
-    );
+    console.log(authState);
+    let response;
+    try{response = await axios.get(
+      `https://studentplus-backend.herokuapp.com/mapi/manager/${authState.idToken.claims.studentid}`
+    );} catch (e) {
+      console.log(e);
+    } finally {
+      response = await axios.get(
+        `http://localhost:3000/mapi/manager/${authState.idToken.claims.studentid}`
+      );
+    }
     return response.data;
   };
   useEffect(() => {

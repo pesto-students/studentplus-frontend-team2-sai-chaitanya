@@ -28,4 +28,4 @@ const Manager = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('manager', Manager);
+module.exports = mongoose.model('managers', Manager);

@@ -293,6 +293,149 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./apps/sp-backend/src/controllers/managerController.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const tslib_1 = __webpack_require__("tslib");
+const Manager = __webpack_require__("./apps/sp-backend/src/models/managerModel.js");
+const okta = __webpack_require__("@okta/okta-sdk-nodejs");
+const asyncHandler = __webpack_require__("express-async-handler");
+const { ObjectId } = __webpack_require__("mongodb");
+// Assumes configuration is loaded via yaml or environment variables
+const client = new okta.Client();
+createManager = (req, res) => {
+    const body = req.body;
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a student',
+        });
+    }
+    const manager = new Manager(body);
+    if (!manager) {
+        return res.status(400).json({ success: false, error: err });
+    }
+    manager
+        .save()
+        .then(() => {
+        const newUser = {
+            profile: {
+                firstName: body.firstName,
+                lastName: body.lastName,
+                email: body.email,
+                login: body.email,
+                studentid: manager._id,
+            },
+            credentials: {
+                password: {
+                    value: body.password,
+                },
+            },
+        };
+        client.createUser(newUser).then((user) => {
+            const studentId = manager._id;
+            return res.status(200).json({
+                success: true,
+                studentId: studentId,
+                user: user,
+                message: 'Manager created!',
+            });
+        });
+    })
+        .catch((error) => {
+        return res.status(400).json({
+            error,
+            message: 'Manager not created!',
+        });
+    });
+};
+updateManager = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    const body = req.body;
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a body to update',
+        });
+    }
+    const manager = yield Manager.findById({ _id: ObjectId(req.params.id) });
+    if (!manager) {
+        return res.status(400).json({ success: false, error: err });
+    }
+    manager.firstName = body.firstName;
+    manager.lastName = body.lastName;
+    manager.email = body.email;
+    manager.url = body.url;
+    manager.phone = body.phone;
+    manager.city = body.city;
+    manager.state = body.state;
+    manager.streetAddr = body.streetAddr;
+    manager.about = body.about;
+    manager.img = body.img;
+    manager
+        .save()
+        .then(() => {
+        return res.status(200).json({
+            success: true,
+            id: manager._id,
+            message: 'Manager updated!',
+        });
+    })
+        .catch((error) => {
+        return res.status(404).json({
+            error,
+            message: 'Manager not updated!',
+        });
+    });
+}));
+getManagerById = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    const manager = yield Manager.findById({ _id: ObjectId(req.params.id) });
+    if (manager) {
+        res.json(manager);
+    }
+    else {
+        res.status(404).json({ message: 'User not found' });
+        res.status(404);
+        throw new Error('User not found');
+    }
+}));
+/* getManagers = asyncHandler(async (req, res) => {
+  const managers = await Manager.find({});
+  res.json(managers);
+}); */
+/* changePassword = asyncHandler(async (req, res) => {
+  client.getUser(req.body.email).then((user) => {
+    console.log('orginal', req.body.confirmPassword);
+    console.log('entered', req.body.password);
+    if (req.body.confirmPassword == req.body.password) {
+    user.credentials.password = req.body.password;
+    user.update().then(() => {
+         res.status(200).json({ message: 'Password Updated!' });
+    }
+    );
+  } else {
+    res.status(400).json({ message: 'Password and confirm password did not match!' });
+  }
+  });
+}); */
+/* getOktaUser = asyncHandler(async (req, res) => {
+    const students = await Student.find({});
+    students.map((student)=>{
+          client.getUser(student.email).then((user) => {
+       user.credentials.password = '8K29fAv5@123';
+       user.profile.studentid = student._id;
+        user.update().then(() => console.log(`${student.email} user's password changed`));
+      });
+    });
+}); */
+module.exports = {
+    createManager,
+    updateManager,
+    getManagerById,
+};
+
+
+/***/ }),
+
 /***/ "./apps/sp-backend/src/controllers/studentController.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -534,6 +677,39 @@ module.exports = mongoose.model('event', Event);
 
 /***/ }),
 
+/***/ "./apps/sp-backend/src/models/managerModel.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const mongoose = __webpack_require__("mongoose");
+const Schema = mongoose.Schema;
+const Manager = new Schema({
+    email: { type: String, required: true },
+    alternateId: { type: String, required: false },
+    firstName: { type: String, required: true },
+    cohort: { type: Array, required: true },
+    lastName: { type: String, required: true },
+    displayName: { type: String, required: false },
+    url: { type: String, required: false },
+    about: { type: String, required: false },
+    phone: { type: Number, required: false },
+    language: { type: String, required: false },
+    state: { type: String, required: false },
+    city: { type: String, required: false },
+    streetAddr: { type: String, required: false },
+    country: { type: String, required: false },
+    img: { type: String, required: false },
+    password: { type: String, required: true },
+    // isActive: { type: Boolean, required: false },
+    // isDeffered: { type: Boolean, required: false },
+    // status:{ type: String, required:false},
+    // assignment: { type: Array, required: false },
+    // attendance: { type: Array, required: false },
+}, { timestamps: true });
+module.exports = mongoose.model('managers', Manager);
+
+
+/***/ }),
+
 /***/ "./apps/sp-backend/src/models/studentModel.js":
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -621,6 +797,21 @@ const eventRouter = express.Router();
 eventRouter.post('/event', EventCtrl.createEvent);
 eventRouter.get('/events', EventCtrl.getEvents);
 module.exports = eventRouter;
+
+
+/***/ }),
+
+/***/ "./apps/sp-backend/src/routes/managerRouter.js":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const express = __webpack_require__("express");
+const ManagerCtrl = __webpack_require__("./apps/sp-backend/src/controllers/managerController.js");
+const router = express.Router();
+router.post('/manager', ManagerCtrl.createManager);
+router.get('/manager/:id', ManagerCtrl.getManagerById);
+router.put('/manager/:id', ManagerCtrl.updateManager);
+/* router.post('/okta-student/', StudentCtrl.getOktaUser); */
+module.exports = router;
 
 
 /***/ }),
@@ -745,6 +936,7 @@ const cohortRouter = __webpack_require__("./apps/sp-backend/src/routes/cohortRou
 const eventRouter = __webpack_require__("./apps/sp-backend/src/routes/eventRouter.js");
 const discussionRouter = __webpack_require__("./apps/sp-backend/src/routes/discussionRouter.js");
 const assignmentRouter = __webpack_require__("./apps/sp-backend/src/routes/assignmentRouter.js");
+const managerRouter = __webpack_require__("./apps/sp-backend/src/routes/managerRouter.js");
 const app = express();
 const apiPort = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -760,6 +952,7 @@ app.use('/sapi', studentRouter);
 app.use('/capi', cohortRouter);
 //Manager
 app.use('/eapi', eventRouter);
+app.use('/mapi', managerRouter);
 app.use('/dapi', discussionRouter);
 app.use('/aapi', assignmentRouter);
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));

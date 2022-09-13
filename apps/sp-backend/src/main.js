@@ -8,6 +8,7 @@ const cohortRouter = require('./routes/cohortRouter');
 const eventRouter = require('./routes/eventRouter');
 const discussionRouter = require('./routes/discussionRouter');
 const assignmentRouter = require('./routes/assignmentRouter');
+const managerRouter = require('./routes/managerRouter');
 
 const app = express();
 const apiPort = process.env.PORT || 3000;
@@ -28,6 +29,7 @@ app.use('/sapi', studentRouter);
 app.use('/capi', cohortRouter);
 //Manager
 app.use('/eapi', eventRouter);
+app.use('/mapi', managerRouter);
 app.use('/dapi', discussionRouter);
 app.use('/aapi', assignmentRouter);
 
