@@ -23,6 +23,7 @@ createComment = (req, res) => {
       return res.status(200).json({
         success: true,
         message: 'Comment created!',
+        comment: comment,
       });
     })
     .catch((error) => {

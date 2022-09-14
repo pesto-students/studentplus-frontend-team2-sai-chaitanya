@@ -22,7 +22,7 @@ function SecureRoutes() {
         <Route exact path={PATHS.STATISTICS} component={Statistics} />
         <Route
           exact
-          path={PATHS.LIVE_SESSION_CHAT}
+          path={PATHS.DISCUSSIONS}
           component={LiveSessionChat}
         />
         <Route

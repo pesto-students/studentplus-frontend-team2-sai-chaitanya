@@ -11,7 +11,7 @@ import styles from './liveVideoSession.module.scss';
 import PropTypes from 'prop-types';
 const messageListReferance = React.createRef();
 
-const LiveVideoSession = ({ discussions, ondiscussionChange }) => {
+const LiveVideoSession = ({ discussions, ondiscussionChange, dateFormat }) => {
   console.log(discussions);
   const [selectedDiscussion, setSelectedDiscussion] = useState(false);
   const onChangeHandler = (id) => {
@@ -23,12 +23,14 @@ const LiveVideoSession = ({ discussions, ondiscussionChange }) => {
     ondiscussionChange(selected);
   };
   useEffect(() => {
-   discussions?discussions.map((res, index) => {
-     console.log('index', index);
-	 console.log('res', res);
-	 const resp = {0:res}
-	 if(index==0)setSelectedDiscussion(resp);
-   }):'';
+    discussions
+      ? discussions.map((res, index) => {
+          console.log('index', index);
+          console.log('res', res);
+          const resp = { 0: res };
+          if (index == 0) setSelectedDiscussion(resp);
+        })
+      : '';
   }, [discussions]);
   return (
     <div className={styles.videoChatCover}>
@@ -39,18 +41,15 @@ const LiveVideoSession = ({ discussions, ondiscussionChange }) => {
               {selectedDiscussion ? selectedDiscussion[0].discussionTitle : ''}
             </Title>
             <Label>
-              {selectedDiscussion ? selectedDiscussion[0].createdAt : ''}
+              {selectedDiscussion
+                ? dateFormat(selectedDiscussion[0].createdAt)
+                : ''}
             </Label>
           </div>
           <div className={styles.sectionRight}>
             <Select
               onChange={onChangeHandler}
-              defaultValue={{
-                value: selectedDiscussion ? selectedDiscussion[0]._id : '',
-                label: selectedDiscussion
-                  ? selectedDiscussion[0].discussionTitle
-                  : '',
-              }}
+              defaultValue="Select Discussion"
             >
               {discussions !== undefined ? (
                 discussions.map((res) => {
@@ -75,24 +74,9 @@ const LiveVideoSession = ({ discussions, ondiscussionChange }) => {
           <ReactPlayer
             url={selectedDiscussion ? selectedDiscussion[0].media : ''}
             style={{
-              borderRadius: 20,
               overflow: 'hidden',
             }}
           />
-        </div>
-        <div className={styles.videoSectionHeader}>
-          <div className={styles.sectionLeft}>
-            <Button
-              type="link"
-              href={
-                selectedDiscussion
-                  ? `http://${selectedDiscussion[0].deckLink}`
-                  : ''
-              }
-            >
-              Deck Hyperlink
-            </Button>
-          </div>
         </div>
       </div>
     </div>

@@ -18,6 +18,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import { useHistory } from 'react-router-dom';
 import { getUserInfo, getDiscussionsByCohort } from '../../routes/serverCalls';
 import { List, Segmented } from 'antd';
+import { PATHS } from '../../constants';
 
 function Profile() {
   const { oktaAuth, authState } = useOktaAuth();
@@ -48,6 +49,7 @@ function Profile() {
   }, [userDetails]);
 
   const onEditClickHandler = () => {
+	window.sessionStorage.setItem('currentPage', 'ACCOUNT_SETTINGS');
     history.push('/account-settings');
   };
 

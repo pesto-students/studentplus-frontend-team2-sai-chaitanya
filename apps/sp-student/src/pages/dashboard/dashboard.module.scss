@@ -3,4 +3,9 @@
 }
 .eventsCover{
     margin-bottom:4rem;
+	:global{
+		.ant-segmented-item-label{
+			font-weight: 600;
+		}
+	}
 }

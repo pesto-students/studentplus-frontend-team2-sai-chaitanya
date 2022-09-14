@@ -71,12 +71,12 @@ const updatePassword = async (userId, values) => {
   }
 };
 
-const getCommentsByDiscussionId = async (discussionId, setComments) => {
+const getCommentsByDiscussionId = async (discussionId) => {
   try {
     const response = await axios.get(
       `https://studentplus-backend.herokuapp.com/coapi/comments/${discussionId}`
     );
-    setComments(response);
+    return response
   } catch (err) {
     console.log('Error :', err);
   }
@@ -95,7 +95,7 @@ const getDiscussionsByCohort = async (cohortId) => {
   return response.data;
 };
 
-const pushComment = async (userId, discussionId, values) => {
+const pushComment = async (userId, discussionId, values, setAllComments) => {
   getUserInfo(userId).then(async (resp) => {
     values.user = {
       userId: userId,
@@ -109,7 +109,9 @@ const pushComment = async (userId, discussionId, values) => {
         `https://studentplus-backend.herokuapp.com/coapi/comment/`,
         values
       );
-      console.log('commentSta', response);
+	  console.log('pucomm', response);
+	  
+      setAllComments((comments) => comments.concat(response.data.comment));
     } catch (err) {
       console.log('Error :', err);
     }

@@ -2,12 +2,16 @@
     display: flex;
     flex-direction: column;
     flex:1;
-    border: 1px solid #eee;
-    padding: 2rem;
+    padding: 3rem;
     background: #fff;
-    border-radius: 2rem;
-	width: 60%;
-	margin: auto;
+    border-radius: 0.8rem;
+	width: 100%;
+	:global{
+		textarea.ant-input {
+			border: 0px;
+			border-bottom: 1px solid #d5d2d2;
+		}
+	}
 }
 .chatMessageList{
     display: flex;
@@ -15,12 +19,41 @@
     height: 400px;
     overflow: auto;
     padding: 0 2rem;
+	:global{
+		.ant-comment-inner {
+			display: flex;
+			padding: 16px 0;
+			border-bottom: 1px solid #fbf6f6;
+			margin-bottom: 10px;
+		}
+		.ant-comment-avatar img {
+			width: 52px;
+			height: 52px;
+		}
+		.ant-avatar-image {
+			width: 60px !important;
+			height: 60px !important;
+			margin: 0px !important;
+		}
+		.ant-comment-content-author-name {
+			color: rgb(0 0 0);
+			font-size: 14px !important;
+			transition: color 0.3s;
+		}
+		.ant-comment-content-detail p {
+			margin-bottom: inherit;
+			white-space: pre-wrap;
+			font-size: 16px;
+			margin-top: 10px;
+		}
+	}
 }
 .chatBoxTitle{
     overflow: visible;
 }
 .messageTextBoxCover{
     display: flex;
+	margin-bottom: 25px;
 	:global{
 		#comment {
 			width: 100%;

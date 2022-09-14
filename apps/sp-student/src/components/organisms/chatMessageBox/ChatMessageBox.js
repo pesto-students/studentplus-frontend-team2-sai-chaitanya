@@ -6,45 +6,39 @@ import {
   Form,
   Title,
   Button,
+  Avatar,
 } from 'libs/ui-shared/src/lib/components';
 import { ChatMessage } from '../../molecules';
 import styles from './chatMessageBox.module.scss';
 import { useOktaAuth } from '@okta/okta-react';
-import {
-  pushComment,
-} from '../../../routes/serverCalls';
-const ChatMessageBox = ({ discussionId, comments }) => {
+import { pushComment } from '../../../routes/serverCalls';
+import { Comment } from 'antd';
+import { useEffect, useState } from 'react';
+import { getCommentsByDiscussionId } from '../../../routes/serverCalls';
+const ChatMessageBox = ({ discussionId, comments, dateFormat }) => {
   const { oktaAuth, authState } = useOktaAuth();
+  const [allComments, setAllComments] = useState([]);
   const [commentForm] = Form.useForm();
-  console.log('cstcomment', comments.data);
+  console.log('discussionId', discussionId);
+  useEffect(() => {
+    setAllComments(comments.data);
+  }, [comments]);
+
   const onFinish = async (values) => {
-    pushComment(authState.idToken.claims.studentid, discussionId, values);
+      await pushComment(
+        authState.idToken.claims.studentid,
+        discussionId,
+        values,
+        setAllComments
+      )
+//setAllComments((comments) => comments.data.concat(resp.comment));
+    commentForm.resetFields();
   };
   return (
     <div className={styles.chatBoxCover}>
       <Title level={4} className={styles.chatBoxTitle}>
         Comments
       </Title>
-      <div className={styles.chatMessageList}>
-        {comments
-          ? comments.data.map((comment) => {
-              return (
-                <ChatMessage
-                  user={{
-                    userName: comment.user.userName,
-                  }}
-                  textMessage={comment.textMessage}
-                  align={
-                    authState.idToken.claims.studentid == comment.user.userId
-                      ? 'end'
-                      : 'start'
-                  }
-                  date={comment.createdAt}
-                />
-              );
-            })
-          : ''}
-      </div>
       <div className={styles.messageTextBoxCover}>
         <Form
           form={commentForm}
@@ -88,6 +82,26 @@ const ChatMessageBox = ({ discussionId, comments }) => {
             </Row>
           </InputGroup>
         </Form>
+      </div>
+      <div className={styles.chatMessageList}>
+        {console.log('asdf', allComments)}
+        {allComments && allComments.length
+          ? allComments.map((comment) => {
+              return (
+                <Comment
+                  author={comment.user.userName}
+                  avatar={
+                    <Avatar
+                      src={comment.user.avatarImg}
+                      alt={comment.user.userName}
+                    />
+                  }
+                  content={<p>{comment.textMessage}</p>}
+                  datetime={<span>{dateFormat(comment.createdAt)}</span>}
+                />
+              );
+            })
+          : console.log(allComments)}
       </div>
     </div>
   );

@@ -21,7 +21,9 @@ const Listing = ({ excerpt, percent, title, type, link }) => {
           {type == 'progress' ? (
             <Progress percent={percent} size="small" />
           ) : (
-            <Button>View</Button>
+            <Button style={{
+				width:"100%"
+			}}>View</Button>
           )}
         </Col>
       </Row>

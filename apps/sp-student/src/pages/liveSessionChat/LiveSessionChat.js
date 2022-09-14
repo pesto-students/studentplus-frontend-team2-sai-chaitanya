@@ -8,12 +8,17 @@ import {
   getDiscussionsByCohort,
 } from '../../routes/serverCalls';
 import { useOktaAuth } from '@okta/okta-react';
+import { CompassOutlined } from '@ant-design/icons';
 
 const LiveSessionChat = () => {
   const { oktaAuth, authState } = useOktaAuth();
   const [discussions, setDiscussions] = useState();
-  const [comments, setComments] = useState(false);
-  const [currentDiscussion, setCurrentDiscussion] = useState({});
+  const [comments, setComments] = useState([]);
+  const [currentDiscussion, setCurrentDiscussion] = useState();
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
   useEffect(() => {
     getUserInfo(authState.idToken.claims.studentid).then(async (response) => {
       getDiscussionsByCohort(response.cohort).then((res) => {
@@ -24,16 +29,24 @@ const LiveSessionChat = () => {
   useEffect(() => {
     if (discussions) {
       discussions.filter((discussion, index) => {
-        if (index == 0) getCommentsByDiscussionId(discussion._id, setComments);
+        if (index == 0) {
+          getCommentsByDiscussionId(discussion._id).then((response)=>{
+			console.log('REsp1', response);
+			setComments(response);
+		  });
+          setCurrentDiscussion(discussion._id);
+        }
       });
-    } else {
-      setComments(false);
     }
   }, [discussions]);
   const ondiscussionChangeHandler = (discussion) => {
     console.log('disc', discussion);
-    const resp = getCommentsByDiscussionId(discussion[0]._id, setComments);
-    console.log(resp);
+    const resp = getCommentsByDiscussionId(discussion[0]._id).then(
+      (response) => {
+        console.log('REsp3', response);
+        setComments(response);
+      }
+    );
     setCurrentDiscussion(discussion[0]._id);
   };
   return (
@@ -41,10 +54,12 @@ const LiveSessionChat = () => {
       <LiveVideoSession
         discussions={discussions}
         ondiscussionChange={ondiscussionChangeHandler}
+        dateFormat={formatDate}
       />
       <ChatMessageBox
         discussionId={currentDiscussion ? currentDiscussion : ''}
         comments={comments}
+        dateFormat={formatDate}
       />
     </div>
   );
