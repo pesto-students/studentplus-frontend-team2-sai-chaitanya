@@ -5,7 +5,7 @@ const PATHS = {
   ERROR: '/error',
   FORGOT_PASSWORD: '/forgot-password',
   LOGIN: '/login',
-  LIVE_SESSION_CHAT: '/live-session',
+  DISCUSSIONS: '/discussions',
   LOGIN_CALLBACK: '/login/callback',
   PROFILE: '/profile',
   STATISTICS: '/statistics',

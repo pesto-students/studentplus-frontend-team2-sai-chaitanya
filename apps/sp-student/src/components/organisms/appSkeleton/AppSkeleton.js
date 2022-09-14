@@ -24,8 +24,8 @@ function AppSkeleton({ children }) {
     if (key === 'ACCOUNT_SETTINGS') {
       history.push(PATHS.ACCOUNT_SETTINGS);
     }
-    if (key === 'LIVE_SESSION_CHAT') {
-      history.push(PATHS.LIVE_SESSION_CHAT);
+    if (key === 'DISCUSSIONS') {
+      history.push(PATHS.DISCUSSIONS);
     }
     if (key === 'ASSIGNMENT') {
       history.push(PATHS.ASSIGNMENT);

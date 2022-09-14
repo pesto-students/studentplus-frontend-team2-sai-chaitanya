@@ -15,11 +15,7 @@ const Label = (props) => {
   const labelClassName = cx(styles.textWhite, className);
   return (
     <Text {...restProps} type={type} className={labelClassName}>
-      {children ? (
-        children
-      ) : (
-        <Skeleton.Input className={styles.rowWidthLabel} />
-      )}
+      {children ? children : <Skeleton.Input active title={true} />}
     </Text>
   );
 };

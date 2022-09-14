@@ -40,22 +40,16 @@ const STATISTICS = {
   label: 'Statistics',
 };
 
-const RECENT_CHATBOARDS = {
-  key: 'RECENT_CHATBOARDS',
+const DISCUSSIONS = {
+  key: 'DISCUSSIONS',
   icon: <CommentOutlined />,
-  label: 'Recent Chatboards',
-  children: [
-    {
-      key: 'LIVE_SESSION_CHAT',
-      label: 'Live Session Chat',
-    },
-  ],
+  label: 'Discussions',
 };
 
 const MENU_ITEMS = [
   DASHBOARD,
   PROFILE,
-  RECENT_CHATBOARDS,
+  DISCUSSIONS,
   RESOURCES,
   STATISTICS,
   ACCOUNT_SETTINGS,
