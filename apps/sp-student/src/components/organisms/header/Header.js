@@ -13,15 +13,14 @@ import {
   getUserInfo,
 } from '../../../routes/serverCalls';
 
-const removeAllSlash = function (str) {
-  return str.replace(/\//g, '');
-};
-
 const Header = ({ ...otherProps }) => {
   const [avatar, setAvatar] = useState(false);
   const { oktaAuth, authState } = useOktaAuth();
 
   const currentPage = window.sessionStorage.getItem('currentPage');
+  const signOut = ()=>{
+	oktaAuth.signOut('/');
+  }
   useEffect(() => {
     getUserInfo(authState.idToken.claims.studentid).then((resp) => {
       setAvatar(resp.img);
@@ -36,9 +35,11 @@ const Header = ({ ...otherProps }) => {
           fontSize: '2rem',
         }}
       >
-        {currentPage ? currentPage.replaceAll('_', ' ') : DEFAULT_SELECTED_ITEM_KEY}
+        {currentPage
+          ? currentPage.replaceAll('_', ' ')
+          : DEFAULT_SELECTED_ITEM_KEY}
       </Title>
-      <ProfileDropdown paths={PATHS} avatar = {avatar} />
+      <ProfileDropdown paths={PATHS} avatar={avatar} signOut={signOut} />
     </Layout.Header>
   );
 };

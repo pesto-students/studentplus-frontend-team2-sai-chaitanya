@@ -3,12 +3,12 @@ import { Avatar, Dropdown, Menu } from '../../atoms';
 import { MENU_ITEMS } from './constants';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-const ProfileDropdown = ({ paths, avatar }) => {
-const history = useHistory();
-const [activeMenu, setActiveMenu] = useState();
-const handleMenuItemClick = ({ key }) => {
+const ProfileDropdown = ({ paths, avatar, signOut }) => {
+  const history = useHistory();
+  const [activeMenu, setActiveMenu] = useState();
+  const handleMenuItemClick = ({ key }) => {
     if (key === 'LOGOUT') {
-      logoutHandler();
+      signOut();
     }
     if (key === 'PROFILE') {
       history.push(paths.PROFILE);
@@ -21,8 +21,7 @@ const handleMenuItemClick = ({ key }) => {
     console.log(activeMenu);
   };
 
-  const logoutHandler = () => oktaAuth.signOut('/');
-  return ( 
+  return (
     <Dropdown
       overlay={
         <Menu
