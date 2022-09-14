@@ -8,5 +8,9 @@ cohortRouter.post('/cohort', CohortCtrl.createCohort);
 cohortRouter.get('/cohorts', CohortCtrl.getCohorts);
 cohortRouter.get('/cohort/:id', CohortCtrl.getCohortById);
 cohortRouter.get('/student-cohort/:cohortId', CohortCtrl.getCohortByStudent);
+cohortRouter.get(
+  '/cohort-events/:cohortId/:offset/:number',
+  CohortCtrl.getEventsByCohort
+);
 
 module.exports = cohortRouter;

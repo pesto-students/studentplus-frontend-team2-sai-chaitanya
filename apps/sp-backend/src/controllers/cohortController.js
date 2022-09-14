@@ -61,6 +61,23 @@ getCohortByStudent = asyncHandler(async (req, res) => {
   }
 });
 
+getEventsByCohort = asyncHandler(async (req, res) => {
+  const query = { cohortId: req.params.cohortId };
+  const cohort = await Cohort.findOne(query);
+  if (cohort) {
+    var events = cohort.events
+      .slice(req.params.offset, req.params.number)
+      .map((event) => {
+        return event;
+      });
+    res.json(events);
+  } else {
+    res.status(404).json({ message: 'Cohort not found' });
+    res.status(404);
+    throw new Error('Cohort not found');
+  }
+});
+
 getCohorts = asyncHandler(async (req, res) => {
   const cohorts = await Cohort.find({});
   res.json(cohorts);
@@ -71,4 +88,5 @@ module.exports = {
   getCohorts,
   getCohortById,
   getCohortByStudent,
+  getEventsByCohort,
 };
