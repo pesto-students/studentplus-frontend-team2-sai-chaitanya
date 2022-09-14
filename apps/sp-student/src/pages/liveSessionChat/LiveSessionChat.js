@@ -43,7 +43,11 @@ const LiveSessionChat = () => {
     console.log('disc', discussion);
     const resp = getCommentsByDiscussionId(discussion[0]._id).then(
       (response) => {
+
+        
+
         console.log('REsp3', response);
+
         setComments(response);
       }
     );

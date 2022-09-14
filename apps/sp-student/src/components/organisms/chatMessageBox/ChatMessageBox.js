@@ -89,6 +89,7 @@ const ChatMessageBox = ({ discussionId, comments, dateFormat }) => {
           ? allComments.map((comment) => {
               return (
                 <Comment
+                  key = {comment._id}
                   author={comment.user.userName}
                   avatar={
                     <Avatar
