@@ -1,6 +1,7 @@
 import React from 'react';
 import { Chart } from '../../components';
 import { Table } from 'antd';
+import { Title } from 'libs/ui-shared/src/lib/components';
 
 const columns = [
   {
@@ -56,6 +57,7 @@ const data = [
 const Statistics = () => {
   return (
     <>
+	<Title level={4}>Attendence</Title>
       <Chart />
       <Table columns={columns} dataSource={data} />
     </>
