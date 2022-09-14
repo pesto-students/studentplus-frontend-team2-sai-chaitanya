@@ -1,3 +1,9 @@
+  $xs: '480px';
+  $sm: '576px';
+  $md: '768px';
+  $lg: '992px';
+  $xl: '1200px';
+  $xxl: '1600px';
 .chatBoxCover{
     display: flex;
     flex-direction: column;
@@ -11,6 +17,9 @@
 			border: 0px;
 			border-bottom: 1px solid #d5d2d2;
 		}
+	}
+	@media (max-width: $md) {
+		padding: 1rem;
 	}
 }
 .chatMessageList{
