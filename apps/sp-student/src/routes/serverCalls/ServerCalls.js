@@ -25,7 +25,7 @@ const getStudentCohorts = async (resp) => {
 const getStudentCohortEvents = async (resp, offset, numberOfEvents) => {
   try {
     const events = await axios.get(
-      `http://localhost:3000/capi/cohort-events/${resp.cohort}/${offset}/${numberOfEvents}`
+      `https://studentplus-backend.herokuapp.com/capi/cohort-events/${resp.cohort}/${offset}/${numberOfEvents}`
     );
     return events;
   } catch (err) {
