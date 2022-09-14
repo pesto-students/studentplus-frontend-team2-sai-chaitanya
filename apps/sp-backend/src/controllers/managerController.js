@@ -12,7 +12,7 @@ createManager = (req, res) => {
   if (!body) {
     return res.status(400).json({
       success: false,
-      error: 'You must provide a student',
+      error: 'You must provide a User',
     });
   }
 
@@ -31,7 +31,7 @@ createManager = (req, res) => {
           lastName: body.lastName,
           email: body.email,
           login: body.email,
-          studentid: manager._id,
+          managerid: manager._id,
         },
         credentials: {
           password: {
@@ -40,10 +40,10 @@ createManager = (req, res) => {
         },
       };
       client.createUser(newUser).then((user) => {
-        const studentId = manager._id;
+        const managerId = manager._id;
         return res.status(200).json({
           success: true,
-          studentId: studentId,
+          managerId: managerId,
           user: user,
           message: 'Manager created!',
         });

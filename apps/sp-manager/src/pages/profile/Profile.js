@@ -25,14 +25,19 @@ function Profile() {
   const getUserInfo = async () => {
     console.log(authState);
     let response;
-    try{response = await axios.get(
-      `https://studentplus-backend.herokuapp.com/mapi/manager/${authState.idToken.claims.studentid}`
-    );} catch (e) {
-      console.log(e);
-    } finally {
+    try {
       response = await axios.get(
-        `http://localhost:3000/mapi/manager/${authState.idToken.claims.studentid}`
+        `https://studentplus-backend.herokuapp.com/mapi/manager/${authState.idToken.claims.studentid}`
       );
+    } catch (e) {
+      console.log(e);
+      try {
+        response = await axios.get(
+          `http://localhost:3000/mapi/manager/${authState.idToken.claims.studentid}`
+        );
+      } catch (e) {
+        console.log(e);
+      }
     }
     return response.data;
   };
@@ -47,9 +52,9 @@ function Profile() {
   }, []);
   useEffect(() => {
     console.log('UserD', userDetails);
-	console.log(userDetails.assignment);
-	const assignments = !!userDetails.assignment?userDetails.assignment:[];
-	setUserAssignments(assignments);
+    console.log(userDetails.assignment);
+    const assignments = !!userDetails.assignment ? userDetails.assignment : [];
+    setUserAssignments(assignments);
   }, [userDetails]);
   const onEditClickHandler = () => {
     history.push('/account-settings');

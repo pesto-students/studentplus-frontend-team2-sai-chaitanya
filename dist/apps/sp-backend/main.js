@@ -370,7 +370,7 @@ createManager = (req, res) => {
     if (!body) {
         return res.status(400).json({
             success: false,
-            error: 'You must provide a student',
+            error: 'You must provide a User',
         });
     }
     const manager = new Manager(body);
@@ -386,7 +386,7 @@ createManager = (req, res) => {
                 lastName: body.lastName,
                 email: body.email,
                 login: body.email,
-                studentid: manager._id,
+                managerid: manager._id,
             },
             credentials: {
                 password: {
@@ -395,10 +395,10 @@ createManager = (req, res) => {
             },
         };
         client.createUser(newUser).then((user) => {
-            const studentId = manager._id;
+            const managerId = manager._id;
             return res.status(200).json({
                 success: true,
-                studentId: studentId,
+                managerId: managerId,
                 user: user,
                 message: 'Manager created!',
             });
@@ -1027,8 +1027,8 @@ const cohortRouter = __webpack_require__("./apps/sp-backend/src/routes/cohortRou
 const eventRouter = __webpack_require__("./apps/sp-backend/src/routes/eventRouter.js");
 const discussionRouter = __webpack_require__("./apps/sp-backend/src/routes/discussionRouter.js");
 const assignmentRouter = __webpack_require__("./apps/sp-backend/src/routes/assignmentRouter.js");
-const commentRouter = __webpack_require__("./apps/sp-backend/src/routes/commentRouter.js");
 const managerRouter = __webpack_require__("./apps/sp-backend/src/routes/managerRouter.js");
+const commentRouter = __webpack_require__("./apps/sp-backend/src/routes/commentRouter.js");
 const app = express();
 const apiPort = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {
   Card,
   Select,
-  Button,
+  Option,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import AttendanceTable from '../../components/molecules/attendanceTable';
 import styles from './attendance.module.scss';
@@ -51,15 +51,35 @@ const Attendance = () => {
             <Select
               defaultValue={COHORTSARR[0]}
               onChange={onCohortChange}
-              options={COHORTSARR}
-            />
+              // options={COHORTSARR}
+            >
+              {
+                COHORTSARR.map((cohort)=>{
+                  return (
+                    <Option key={cohort._id} value={cohort._id}>
+                      {cohort.cohortID}
+                    </Option>
+                  )
+                })
+              }
+            </Select>
           </div>
           <div className={styles.selectionBar}>
             <Select
               defaultValue={EVENTSARR[0]}
               onChange={onEventChange}
-              options={EVENTSARR}
-            />
+              // options={EVENTSARR}
+              >
+              {
+                EVENTSARR.map((event)=>{
+                  return (
+                    <Option key={event._id} value={event._id}>
+                      {event.title}
+                    </Option>
+                  )
+                })
+              }
+            </Select>
           </div>
         </div>
         <AttendanceTable
