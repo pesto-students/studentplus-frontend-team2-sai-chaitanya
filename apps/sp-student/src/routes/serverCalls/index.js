@@ -1,6 +1,7 @@
 import {
   getUserInfo,
   getStudentCohorts,
+  getStudentCohortEvents,
   uploadProfileImage,
   updateProfile,
   updatePassword,
@@ -12,6 +13,7 @@ import {
 export {
   getUserInfo,
   getStudentCohorts,
+  getStudentCohortEvents,
   uploadProfileImage,
   updateProfile,
   updatePassword,

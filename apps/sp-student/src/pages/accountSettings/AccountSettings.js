@@ -227,7 +227,7 @@ const AccountSettings = () => {
                   </InputGroup>
                   <InputGroup size="large">
                     <Row gutter={8}>
-                      <Col span={24} xs={24} md={12}>
+                      <Col span={24} xs={24} md={24}>
                         <Form.Item name="streetAddr" label="Street Address">
                           <Input />
                         </Form.Item>
@@ -260,7 +260,7 @@ const AccountSettings = () => {
                   </InputGroup>
                   <InputGroup size="large">
                     <Row gutter={8}>
-                      <Col span={24} xs={24} md={12}>
+                      <Col span={24} xs={24} md={24}>
                         <Form.Item name="about" label="About You">
                           <Textarea />
                         </Form.Item>
@@ -326,7 +326,7 @@ const AccountSettings = () => {
                     ]}
                     hasFeedback
                   >
-                    <Input />
+                    <Input type="password" />
                   </Form.Item>
                 </Col>
                 <Col span={12} xs={24} md={12}>
@@ -355,7 +355,7 @@ const AccountSettings = () => {
                       }),
                     ]}
                   >
-                    <Input />
+                    <Input type="password" />
                   </Form.Item>
                 </Col>
               </Row>

@@ -9,14 +9,19 @@ padding: 3.5rem 1.5rem;
 		.ant-menu-item.ant-menu-item-selected {
 			background-color: #f5f6ff;
 			border-radius: 0.8rem;
-			color: #565676;
 		}
 
-		.ant-menu-item {
-			color: #a6a7b2;
+		.ant-menu-item, .ant-menu-submenu {
+			color: #8c8d95;
 		}
-
-		.ant-menu-item.ant-menu-item-selected>.ant-menu-item-icon {
+		.anticon {
+			color: #8c8d95;
+		}
+		.ant-menu-submenu-selected, .ant-menu-item-selected{
+			color: #5c5fee;
+		}
+		.ant-menu-item.ant-menu-item-selected .ant-menu-item-icon, 
+		.ant-menu-submenu-selected .ant-menu-item-icon{
 			color: #5c5fee;
 		}
 		.ant-menu-vertical .ant-menu-item-selected::after {
