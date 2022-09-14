@@ -25,8 +25,9 @@ const Login = () => {
             originalUri: '/',
             sessionToken,
           });
+          setAuthFailed(false);
         }
-      })
+      }) 
       .catch(function (err) {
         console.log("user",err);
         setAuthFailed(true);

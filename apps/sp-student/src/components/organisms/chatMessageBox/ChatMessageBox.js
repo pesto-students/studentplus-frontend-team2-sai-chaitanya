@@ -8,34 +8,42 @@ import {
   Button,
   Avatar,
 } from 'libs/ui-shared/src/lib/components';
-import { ChatMessage } from '../../molecules';
+
 import styles from './chatMessageBox.module.scss';
 import { useOktaAuth } from '@okta/okta-react';
-import { pushComment } from '../../../routes/serverCalls';
+import { pushComment, deleteComment } from '../../../routes/serverCalls';
 import { Comment } from 'antd';
 import { useEffect, useState } from 'react';
-import { getCommentsByDiscussionId } from '../../../routes/serverCalls';
+
 const ChatMessageBox = ({ discussionId, comments, dateFormat }) => {
   const { oktaAuth, authState } = useOktaAuth();
   const [allComments, setAllComments] = useState(comments);
   const [commentForm] = Form.useForm();
-  console.log('discussionId', discussionId);
-  console.log("comments", comments)
-  console.log("allcomments", allComments)
+  
   useEffect(() => {
     setAllComments(comments);
   }, [comments]);
 
   const onFinish = async (values) => {
-      await pushComment(
-        authState.idToken.claims.studentid,
-        discussionId,
-        values,
-        setAllComments
-      )
-//setAllComments((comments) => comments.data.concat(resp.comment));
+    await pushComment(
+      authState.idToken.claims.studentid,
+      discussionId,
+      values,
+      setAllComments
+    );
+    //setAllComments((comments) => comments.data.concat(resp.comment));
     commentForm.resetFields();
   };
+
+  const onDeleteClick = async (value) => {
+    console.log("value", value);
+    await deleteComment(value,
+      
+    );
+    //setAllComments((comments) => comments.data.concat(resp.comment));
+    commentForm.resetFields();
+  };
+
   return (
     <div className={styles.chatBoxCover}>
       <Title level={4} className={styles.chatBoxTitle}>
@@ -88,21 +96,41 @@ const ChatMessageBox = ({ discussionId, comments, dateFormat }) => {
       <div className={styles.chatMessageList}>
         {console.log('asdf', allComments)}
         {allComments && allComments.length
-          ? allComments.map((comment) => {
-              return (
-                <Comment
-                  key = {comment._id}
-                  author={comment.user.userName}
-                  avatar={
-                    <Avatar
-                      src={comment.user.avatarImg}
-                      alt={comment.user.userName}
-                    />
-                  }
-                  content={<p>{comment.textMessage}</p>}
-                  datetime={<span>{dateFormat(comment.createdAt)}</span>}
-                />
-              );
+          ? allComments.map((comment) => { 
+              
+              if (comment.user.userId != authState.idToken.claims.studentid) {
+                
+                return (
+                  <Comment
+                    key={comment._id}
+                    author={comment.user.userName}
+                    avatar={
+                      <Avatar
+                        src={comment.user.avatarImg}
+                        alt={comment.user.userName}
+                      />
+                    }
+                    content={<p>{comment.textMessage}</p>}
+                    datetime={<span>{dateFormat(comment.createdAt)}</span>}
+                  />
+                );
+              } else {
+                return (
+                  <Comment
+                    key={comment._id}
+                    actions={[<span onClick={()=>{onDeleteClick(comment._id)}}>Delete</span>]}
+                    author={comment.user.userName}
+                    avatar={
+                      <Avatar
+                        src={comment.user.avatarImg}
+                        alt={comment.user.userName}
+                      />
+                    }
+                    content={<p>{comment.textMessage}</p>}
+                    datetime={<span>{dateFormat(comment.createdAt)}</span>}
+                  />
+                );
+              }
             })
           : console.log(allComments)}
       </div>

@@ -6,6 +6,6 @@ const commentRouter = express.Router();
 
 commentRouter.post('/comment', CommentCtrl.createComment);
 commentRouter.get('/comments/:discussionId', CommentCtrl.getComments);
-commentRouter.delete('/comments/:id', CommentCtrl.deleteComment);
+commentRouter.delete('/comment/:id', CommentCtrl.deleteComment);
 
 module.exports = commentRouter;
