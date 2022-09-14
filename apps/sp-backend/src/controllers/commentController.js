@@ -48,7 +48,13 @@ getComments = asyncHandler(async (req, res) => {
   }
 });
 
+deleteComment = async (req, res) => {
+  const response = await Comment.findOneAndDelete({ _id: ObjectId(req.params.id) });
+  res.json(response);
+};
+
 module.exports = {
   createComment,
   getComments,
+  deleteComment,
 };

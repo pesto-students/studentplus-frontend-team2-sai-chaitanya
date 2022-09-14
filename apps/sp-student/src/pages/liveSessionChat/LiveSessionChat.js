@@ -30,10 +30,10 @@ const LiveSessionChat = () => {
     if (discussions) {
       discussions.filter((discussion, index) => {
         if (index == 0) {
-          getCommentsByDiscussionId(discussion._id).then((response)=>{
-			console.log('REsp1', response);
-			setComments(response);
-		  });
+          getCommentsByDiscussionId(discussion._id).then((response) => {
+            console.log('REsp1', response);
+            setComments(response.data);
+          });
           setCurrentDiscussion(discussion._id);
         }
       });
@@ -43,12 +43,9 @@ const LiveSessionChat = () => {
     console.log('disc', discussion);
     const resp = getCommentsByDiscussionId(discussion[0]._id).then(
       (response) => {
-
-        
-
         console.log('REsp3', response);
 
-        setComments(response);
+        setComments(response.data);
       }
     );
     setCurrentDiscussion(discussion[0]._id);

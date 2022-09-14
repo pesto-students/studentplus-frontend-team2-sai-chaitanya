@@ -10,6 +10,7 @@ const Login = () => {
   const { oktaAuth, authState } = useOktaAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [authFailed, setAuthFailed] = useState(false);
 
   const onLoginHandler = () => {
     oktaAuth
@@ -27,7 +28,8 @@ const Login = () => {
         }
       })
       .catch(function (err) {
-        console.log(err);
+        console.log("user",err);
+        setAuthFailed(true);
       });
   };
 
@@ -46,12 +48,17 @@ const Login = () => {
           <Image src={IMAGE_PATHS.LOGO} alt="" />
         </div>
         <div className={`${styles.flexItem} ${styles.rightBox}`}>
-          <Image src={IMAGE_PATHS.WHITE_LOGO} alt="" className={styles.responsiveLogo}/>
+          <Image
+            src={IMAGE_PATHS.WHITE_LOGO}
+            alt=""
+            className={styles.responsiveLogo}
+          />
           <LoginForm
             onLogin={onLoginHandler}
             setUsername={setUsername}
             setPassword={setPassword}
             authState={authState}
+            authFailed={authFailed}
           />
         </div>
       </div>

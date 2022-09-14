@@ -17,11 +17,13 @@ import { useEffect, useState } from 'react';
 import { getCommentsByDiscussionId } from '../../../routes/serverCalls';
 const ChatMessageBox = ({ discussionId, comments, dateFormat }) => {
   const { oktaAuth, authState } = useOktaAuth();
-  const [allComments, setAllComments] = useState([]);
+  const [allComments, setAllComments] = useState(comments);
   const [commentForm] = Form.useForm();
   console.log('discussionId', discussionId);
+  console.log("comments", comments)
+  console.log("allcomments", allComments)
   useEffect(() => {
-    setAllComments(comments.data);
+    setAllComments(comments);
   }, [comments]);
 
   const onFinish = async (values) => {

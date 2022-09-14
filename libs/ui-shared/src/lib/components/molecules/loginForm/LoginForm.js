@@ -14,7 +14,7 @@ import styles from './loginForm.module.scss';
 import PropTypes from 'prop-types';
 import _noop from 'lodash/noop';
 
-const LoginForm = ({ authState, onLogin, setUsername, setPassword }) => {
+const LoginForm = ({ authState, authFailed, onLogin, setUsername, setPassword }) => {
 	  const [form] = Form.useForm();
   if (!authState.isAuthenticated) {
     return (
@@ -76,10 +76,13 @@ const LoginForm = ({ authState, onLogin, setUsername, setPassword }) => {
                 </Col>
               </Row>
             </InputGroup>
-
+            { authFailed&&(<div className={styles.failureAlert}>
+              Invalid Credentials
+            </div>)}
             <Button variant="contained" htmlType="submit" className={styles.loginButton}>
               Sign in
             </Button>
+            
           </div>
         </Form>
       </div>
@@ -89,6 +92,7 @@ const LoginForm = ({ authState, onLogin, setUsername, setPassword }) => {
 
 LoginForm.propTypes = {
   authState: PropTypes.object,
+  authFailed: PropTypes.bool,
   onLogin: PropTypes.func,
   setUsername: PropTypes.func,
   setPassword: PropTypes.func,
@@ -96,6 +100,7 @@ LoginForm.propTypes = {
 
 LoginForm.defaultProps = {
   authState: {},
+  authFailed: false,
   onLogin: _noop,
   setUsername: _noop,
   setPassword: _noop,
