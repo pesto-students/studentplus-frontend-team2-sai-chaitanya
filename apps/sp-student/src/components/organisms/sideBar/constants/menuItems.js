@@ -40,27 +40,20 @@ const STATISTICS = {
   label: 'Statistics',
 };
 
-const RECENT_CHATBOARDS = {
-  key: 'RECENT_CHATBOARDS',
+const DISCUSSIONS = {
+  key: 'DISCUSSIONS',
   icon: <CommentOutlined />,
-  label: 'Recent Chatboards',
-  children: [
-    {
-      key: 'LIVE_SESSION_CHAT',
-      label: 'Live Session Chat',
-    },
-  ],
+  label: 'Discussions',
 };
 
 const MENU_ITEMS = [
   DASHBOARD,
   PROFILE,
-  RECENT_CHATBOARDS,
+  DISCUSSIONS,
   RESOURCES,
   STATISTICS,
   ACCOUNT_SETTINGS,
 ];
 const DEFAULT_SELECTED_ITEM_KEY = DASHBOARD.key;
-const DEFAULT_OPEN_ITEM_KEY = RECENT_CHATBOARDS.key;
 
-export { DEFAULT_SELECTED_ITEM_KEY, DEFAULT_OPEN_ITEM_KEY, MENU_ITEMS };
+export { DEFAULT_SELECTED_ITEM_KEY, MENU_ITEMS };

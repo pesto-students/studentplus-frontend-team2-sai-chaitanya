@@ -7,6 +7,7 @@
 .container {
   overflow-x: hidden;
   height: 100vh;
+  background-color: #f6f7ff;
   :global{
 	.ant-layout-sider-children {
 			margin-top: 12px;
@@ -31,9 +32,9 @@
 }
 
 .children{
-  flex: auto;
-  padding: 5rem 4rem;
-@media (max-width: $md) {
+	flex: auto;
+	padding: 5rem 4rem;
+	@media (max-width: $md) {
 		padding: 1rem;
 	}
 }

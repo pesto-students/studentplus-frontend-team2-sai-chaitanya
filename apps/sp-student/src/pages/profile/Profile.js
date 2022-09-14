@@ -11,17 +11,20 @@ import {
   Label,
   Col,
   Row,
-} from '../../../../../libs/ui-shared/src/lib/components/atoms';
+  Skeleton,
+} from '../../../../../libs/ui-shared/src/lib/components/';
 import styles from './profile.module.scss';
 import { useOktaAuth } from '@okta/okta-react';
 import { useHistory } from 'react-router-dom';
-import { getUserInfo } from '../../routes/serverCalls';
+import { getUserInfo, getDiscussionsByCohort } from '../../routes/serverCalls';
+import { List, Segmented } from 'antd';
 
 function Profile() {
   const { oktaAuth, authState } = useOktaAuth();
   const [userDetails, setUserDetails] = useState({});
   const [userAddress, setUserAddress] = useState('');
   const [userAssignments, setUserAssignments] = useState([]);
+  const [discussions, setDiscussions] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -30,6 +33,9 @@ function Profile() {
       const address = `${resp.streetAddr}, ${resp.city}, ${resp.state}, ${
         resp.country ? resp.country : ''
       }`;
+	  getDiscussionsByCohort(resp.cohort).then((res) => {
+      setDiscussions(res);
+    });
       setUserAddress(address);
     });
   }, []);
@@ -44,7 +50,7 @@ function Profile() {
   const onEditClickHandler = () => {
     history.push('/account-settings');
   };
-  
+
   return (
     <div className={styles.profileContainer}>
       <Row>
@@ -60,22 +66,28 @@ function Profile() {
               <InputGroup>
                 <Row gutter={8}>
                   <Col span={24}>
-                    <Label className={styles.profileLabel}>
+                    <div className={styles.profileDataCover}>
                       <HomeOutlined />
-                      {userAddress}
-                    </Label>
+                      <Label className={styles.profileLabel}>
+                        {userAddress}
+                      </Label>
+                    </div>
                   </Col>
                   <Col span={24}>
-                    <Label className={styles.profileLabel}>
+                    <div className={styles.profileDataCover}>
                       <PhoneOutlined />
-                      {userDetails.phone}
-                    </Label>
+                      <Label className={styles.profileLabel}>
+                        {userDetails.phone}
+                      </Label>
+                    </div>
                   </Col>
                   <Col span={24}>
-                    <Label className={styles.profileLabel}>
+                    <div className={styles.profileDataCover}>
                       <MailOutlined />
-                      {userDetails.email}
-                    </Label>
+                      <Label className={styles.profileLabel}>
+                        {userDetails.email}
+                      </Label>
+                    </div>
                   </Col>
                 </Row>
               </InputGroup>
@@ -96,27 +108,66 @@ function Profile() {
             <Col span={24}>
               <div className={styles.info}>
                 <Card title="Assignments">
-                  <div className={styles.cardContainer}>
-                    {userAssignments.map((assignment, index) => {
-                      return (
-                        <Listing
-                          key={index}
-                          title={assignment.title}
-                          excerpt="This is a test excerpt"
-                          percent={assignment.progress}
-                        />
-                      );
-                    })}
-                  </div>
+                  {!userAssignments.length ? (
+                    <Skeleton loading={true} active></Skeleton>
+                  ) : (
+                    <List
+                      grid={{
+                        gutter: 16,
+                        xs: 1,
+                        sm: 1,
+                        md: 1,
+                        lg: 1,
+                        xl: 1,
+                        xxl: 1,
+                      }}
+                      itemLayout="horizontal"
+                      dataSource={userAssignments}
+                      renderItem={(item, index) => (
+                        <List.Item>
+                          <Listing
+                            key={index}
+                            title={item.title}
+                            excerpt="This is a test excerpt"
+                            percent={item.progress}
+                          />
+                        </List.Item>
+                      )}
+                    />
+                  )}
                 </Card>
               </div>
             </Col>
             <Col span={24}>
               <div className={styles.info}>
                 <Card title="Discussions">
-                  <div className={styles.cardContainer}>
-                    <Listing percent={20} type="link" />
-                  </div>
+                  {!discussions.length ? (
+                    <Skeleton loading={true} active></Skeleton>
+                  ) : (
+                    <List
+                      grid={{
+                        gutter: 16,
+                        xs: 1,
+                        sm: 1,
+                        md: 1,
+                        lg: 1,
+                        xl: 1,
+                        xxl: 1,
+                      }}
+                      itemLayout="horizontal"
+                      dataSource={discussions}
+                      renderItem={(item, index) => (
+                        <List.Item>
+                          <Listing
+                            key={index}
+                            title={item.discussionTitle}
+                            excerpt="This is a test excerpt"
+                            type="link"
+                          />
+                        </List.Item>
+                      )}
+                    />
+                  )}
                 </Card>
               </div>
             </Col>

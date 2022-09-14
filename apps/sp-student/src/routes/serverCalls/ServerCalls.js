@@ -11,14 +11,23 @@ const getUserInfo = async (userId) => {
   }
 };
 
-const getStudentCohorts = async (resp, ...otherProps) => {
-  const [setEvents, setLoading] = otherProps;
+const getStudentCohorts = async (resp) => {
   try {
     const response = await axios.get(
       `https://studentplus-backend.herokuapp.com/capi/student-cohort/${resp.cohort}`
     );
-    setEvents(response.data.events);
-    setLoading(false);
+	return response;
+  } catch (err) {
+    console.log('Erro', err.message);
+  }
+};
+
+const getStudentCohortEvents = async (resp, offset, numberOfEvents) => {
+  try {
+    const events = await axios.get(
+      `http://localhost:3000/capi/cohort-events/${resp.cohort}/${offset}/${numberOfEvents}`
+    );
+    return events;
   } catch (err) {
     console.log('Erro', err.message);
   }
@@ -109,6 +118,7 @@ const pushComment = async (userId, discussionId, values) => {
 export {
   getUserInfo,
   getStudentCohorts,
+  getStudentCohortEvents,
   uploadProfileImage,
   updateProfile,
   updatePassword,

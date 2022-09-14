@@ -1,42 +1,22 @@
 import React, { useEffect, useState } from 'react';
 
-import { Menu, Logo } from '../../../../../../libs/ui-shared/src/lib/components';
+import {
+  Menu,
+  Logo,
+} from '../../../../../../libs/ui-shared/src/lib/components';
 import styles from './sideBar.module.scss';
 import {
   DEFAULT_SELECTED_ITEM_KEY,
-  DEFAULT_OPEN_ITEM_KEY,
   MENU_ITEMS,
 } from './constants';
-import { useHistory } from 'react-router-dom';
-import { PATHS } from '../../../constants';
-import {Layout} from 'antd';
+import { Layout } from 'antd';
 import IMAGE_PATHS from '../../../../../../libs/ui-shared/public/images/constants';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 const { Sider } = Layout;
 
-function SideBar({ collapsed, onCollapse }) {
+function SideBar({ collapsed, onCollapse, handleMenuItemClick }) {
+  const currentPage = window.sessionStorage.getItem('currentPage');
   const [logo, setLogo] = useState(IMAGE_PATHS.WHITE_LOGO);
-  const history = useHistory();
-  const handleMenuItemClick = ({ key }) => {
-    if (key === 'PROFILE') {
-      history.push(PATHS.PROFILE);
-    }
-    if (key === 'DASHBOARD') {
-      history.push(PATHS.DASHBOARD);
-    }
-    if (key === 'ACCOUNT_SETTINGS') {
-      history.push(PATHS.ACCOUNT_SETTINGS);
-    }
-    if (key === 'LIVE_SESSION_CHAT') {
-      history.push(PATHS.LIVE_SESSION_CHAT);
-    }
-    if (key === 'ASSIGNMENT') {
-      history.push(PATHS.ASSIGNMENT);
-    }
-    if (key === 'STATISTICS') {
-      history.push(PATHS.STATISTICS);
-    }
-  };
   useEffect(() => {
     collapsed
       ? setLogo(IMAGE_PATHS.WHITE_LOGO_ICON)
@@ -55,8 +35,7 @@ function SideBar({ collapsed, onCollapse }) {
       <Logo src={logo} />
       <div className={styles.menu}>
         <Menu
-          defaultSelectedKeys={[DEFAULT_SELECTED_ITEM_KEY]}
-          defaultOpenKeys={[DEFAULT_OPEN_ITEM_KEY]}
+          selectedKeys={currentPage ? currentPage : DEFAULT_SELECTED_ITEM_KEY}
           items={MENU_ITEMS}
           onClick={handleMenuItemClick}
           style={{
