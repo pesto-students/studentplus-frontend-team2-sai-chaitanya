@@ -38,3 +38,5 @@ $ npx nx run sp-backend:serve
 ```
 
 And you are good to go....
+See it working on 
+http://localhost:4200/
