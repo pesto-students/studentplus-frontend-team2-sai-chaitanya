@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [authFailed, setAuthFailed] = useState(false);
 
+  //Okta sign in with credentials
   const onLoginHandler = () => {
     oktaAuth
       .signInWithCredentials({

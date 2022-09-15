@@ -23,6 +23,7 @@ import {
   updatePassword,
 } from '../../routes/serverCalls';
 
+//Error handling for upload limit of 2mb and file type of jpeg and png
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 
@@ -38,6 +39,7 @@ const beforeUpload = (file) => {
 
   return isJpgOrPng && isLt2M;
 };
+
 
 const changeRequestStatus = ({ file, onSuccess }) => {
   setTimeout(() => {
@@ -77,14 +79,16 @@ const AccountSettings = () => {
       ></div>
     </div>
   );
+        
   useEffect(() => {
     form.setFieldsValue({
       img: imageUrl,
     });
   }, [imageUrl]);
+
+  // Getting user information and writing to form
   useEffect(() => {
     getUserInfo(authState.idToken.claims.studentid).then((resp) => {
-      console.log(resp);
       form.setFieldsValue({
         firstName: resp.firstName,
         lastName: resp.lastName,
@@ -101,9 +105,12 @@ const AccountSettings = () => {
     });
   }, []);
 
+  // Post on submit
   const onFinish = async (values) => {
     updateProfile(authState.idToken.claims.studentid, values);
   };
+
+  //Post on change password request
   const onUpdatePassword = async (values) => {
     updatePassword(authState.idToken.claims.email, values);
   };
