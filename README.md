@@ -40,3 +40,10 @@ $ npx nx run sp-backend:serve
 And you are good to go....
 See it working on 
 http://localhost:4200/
+
+### Credentials 
+Student : tushar@gm.com
+Password : 8K29fAv5@987
+
+Manager : zehen@gm.com 
+Password: 8K29fAv5@987
