@@ -49,3 +49,10 @@ Manager : zehen@gm.com
 Password: 8K29fAv5@987
 
 Admin : To be announced in next phase.
+
+### For more information, please contact 
+Navneet Golwalkar :
+ngolwalkar8@gmail.com
+
+Naveen Pooniya :
+ayinoop@gmail.com
