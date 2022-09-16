@@ -23,7 +23,7 @@ const CohortCreator = () => {
 	console.log(values);
     try {
       const response = await axios.post(
-        `http://localhost:3000/capi/cohort/`,
+        `https://studentplus-backend.herokuapp.com/capi/cohort/`,
         values
       );
       console.log('Cloudinary Resp :', response);

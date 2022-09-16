@@ -33,7 +33,7 @@ function Profile() {
       console.log(e);
       try {
         response = await axios.get(
-          `http://localhost:3000/mapi/manager/${authState.idToken.claims.studentid}`
+          `https://studentplus-backend.herokuapp.com/mapi/manager/${authState.idToken.claims.studentid}`
         );
       } catch (e) {
         console.log(e);

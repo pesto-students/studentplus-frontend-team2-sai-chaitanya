@@ -19,7 +19,7 @@ function Profile() {
   const [userAddress, setUserAddress] = useState('');
   const getUserInfo = async () => {
     const response = await axios.get(
-      `http://localhost:3000/sapi/student/${authState.idToken.claims.studentid}`
+      `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`
     );
     return response.data;
   };
