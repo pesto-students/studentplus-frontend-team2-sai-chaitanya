@@ -11,124 +11,172 @@ import {
   Label,
   Col,
   Row,
-} from '../../../../../libs/ui-shared/src/lib/components/atoms';
+  Skeleton,
+} from '../../../../../libs/ui-shared/src/lib/components/';
 import styles from './profile.module.scss';
 import { useOktaAuth } from '@okta/okta-react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { getUserInfo, getDiscussionsByCohort } from '../../routes/serverCalls';
+import { List, Segmented } from 'antd';
+
 function Profile() {
   const { oktaAuth, authState } = useOktaAuth();
   const [userDetails, setUserDetails] = useState({});
   const [userAddress, setUserAddress] = useState('');
-  const [userAssignments, setUserAssignments] = useState([]);
+  const [userCohorts, setUserCohorts] = useState([]);
+  const [discussions, setDiscussions] = useState([]);
   const history = useHistory();
-  const getUserInfo = async () => {
-    console.log(authState);
-    let response;
-    try {
-      response = await axios.get(
-        `https://studentplus-backend.herokuapp.com/mapi/manager/${authState.idToken.claims.studentid}`
-      );
-    } catch (e) {
-      console.log(e);
-      try {
-        response = await axios.get(
-          `http://localhost:3000/mapi/manager/${authState.idToken.claims.studentid}`
-        );
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    return response.data;
-  };
+
+  //get calls for user data and discussions.
+
   useEffect(() => {
-    getUserInfo().then((resp) => {
+    getUserInfo(authState.idToken.claims.studentid).then((resp) => {
       setUserDetails(resp);
       const address = `${resp.streetAddr}, ${resp.city}, ${resp.state}, ${
         resp.country ? resp.country : ''
       }`;
+      getDiscussionsByCohort(resp.cohort).then((res) => {
+        setDiscussions(res);
+      });
       setUserAddress(address);
     });
   }, []);
+  
   useEffect(() => {
-    console.log('UserD', userDetails);
-    console.log(userDetails.assignment);
-    const assignments = !!userDetails.assignment ? userDetails.assignment : [];
-    setUserAssignments(assignments);
+    const cohorts = !!userDetails.cohorts ? userDetails.cohorts : [];
+    console.log(cohorts);
+    setUserCohorts(cohorts);
   }, [userDetails]);
+
+  //Redirect to account settings
   const onEditClickHandler = () => {
+    window.sessionStorage.setItem('currentPage', 'ACCOUNT_SETTINGS');
     history.push('/account-settings');
   };
+
   return (
     <div className={styles.profileContainer}>
-      <div className={styles.userInfo}>
-        <Card>
-          <div className={styles.avatarCover}>
-            <Avatar size={150} src={userDetails.img} />
-            <Label strong={false} className={styles.label}>
-              {userDetails.firstName} {userDetails.lastName}
-            </Label>
-          </div>
-          <div className={styles.userInfoCover}>
-            <InputGroup>
-              <Row gutter={8}>
-                <Col span={24}>
-                  <Label className={styles.profileLabel}>
-                    <HomeOutlined />
-                    {userAddress}
-                  </Label>
-                </Col>
-                <Col span={24}>
-                  <Label className={styles.profileLabel}>
-                    <PhoneOutlined />
-                    {userDetails.phone}
-                  </Label>
-                </Col>
-                <Col span={24}>
-                  <Label className={styles.profileLabel}>
-                    <MailOutlined />
-                    {userDetails.email}
-                  </Label>
-                </Col>
-              </Row>
-            </InputGroup>
-            <div className={styles.buttonCover}>
-              <Button
-                htmltype="button"
-                className={styles.editProfileBtn}
-                onClickHandler={onEditClickHandler}
-              >
-                Edit
-              </Button>
+      <Row>
+        <Col span={14} xs={24} sm={24} md={24} lg={12} xl={12}>
+          <Card>
+            <div className={styles.avatarCover}>
+              <Avatar size={150} src={userDetails.img} />
+              <Label strong={false} className={styles.label}>
+                {userDetails.firstName} {userDetails.lastName}
+              </Label>
             </div>
-          </div>
-        </Card>
-      </div>
-      <div className={styles.otherInfo}>
-        <div className={styles.info}>
-          <Card title="Assignments">
-            <div className={styles.cardContainer}>
-              {userAssignments.map((assignment, index) => {
-                return (
-                  <Listing
-                    key={index}
-                    title={assignment.title}
-                    excerpt="This is a test excerpt"
-                    percent={assignment.progress}
-                  />
-                );
-              })}
+            <div className={styles.userInfoCover}>
+              <InputGroup>
+                <Row gutter={8}>
+                  <Col span={24}>
+                    <div className={styles.profileDataCover}>
+                      <HomeOutlined />
+                      <Label className={styles.profileLabel}>
+                        {userAddress}
+                      </Label>
+                    </div>
+                  </Col>
+                  <Col span={24}>
+                    <div className={styles.profileDataCover}>
+                      <PhoneOutlined />
+                      <Label className={styles.profileLabel}>
+                        {userDetails.phone}
+                      </Label>
+                    </div>
+                  </Col>
+                  <Col span={24}>
+                    <div className={styles.profileDataCover}>
+                      <MailOutlined />
+                      <Label className={styles.profileLabel}>
+                        {userDetails.email}
+                      </Label>
+                    </div>
+                  </Col>
+                </Row>
+              </InputGroup>
+              <div className={styles.buttonCover}>
+                <Button
+                  htmltype="button"
+                  className={styles.editProfileBtn}
+                  onClickHandler={onEditClickHandler}
+                >
+                  Edit
+                </Button>
+              </div>
             </div>
           </Card>
-        </div>
-        <div className={styles.info}>
-          <Card title="Discussions">
-            <div className={styles.cardContainer}>
-              <Listing percent={20} type="link" />
-            </div>
-          </Card>
-        </div>
-      </div>
+        </Col>
+        <Col span={10} xs={24} sm={24} md={24} lg={12} xl={12}>
+          <Row>
+            <Col span={24}>
+              <div className={styles.info}>
+                <Card title="Cohorts">
+                  {!userCohorts.length ? (
+                    <Skeleton loading={true} active></Skeleton>
+                  ) : (
+                    <List
+                      grid={{
+                        gutter: 16,
+                        xs: 1,
+                        sm: 1,
+                        md: 1,
+                        lg: 1,
+                        xl: 1,
+                        xxl: 1,
+                      }}
+                      itemLayout="horizontal"
+                      dataSource={userCohorts}
+                      renderItem={(item, index) => (
+                        <List.Item>
+                          <Listing
+                            key={index}
+                            title={item.cohortID}
+                            excerpt="This is a test excerpt"
+                            status={item.status}
+                          />
+                        </List.Item>
+                      )}
+                    />
+                  )}
+                </Card>
+              </div>
+            </Col>
+            <Col span={24}>
+              <div className={styles.info}>
+                <Card title="Discussions">
+                  {!discussions.length ? (
+                    <Skeleton loading={true} active></Skeleton>
+                  ) : (
+                    <List
+                      grid={{
+                        gutter: 16,
+                        xs: 1,
+                        sm: 1,
+                        md: 1,
+                        lg: 1,
+                        xl: 1,
+                        xxl: 1,
+                      }}
+                      itemLayout="horizontal"
+                      dataSource={discussions}
+                      renderItem={(item, index) => (
+                        <List.Item>
+                          <Listing
+                            key={index}
+                            title={item.discussionTitle}
+                            excerpt="This is a test excerpt"
+                            type="link"
+                          />
+                        </List.Item>
+                      )}
+                    />
+                  )}
+                </Card>
+              </div>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     </div>
   );
 }

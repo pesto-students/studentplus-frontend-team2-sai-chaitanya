@@ -1,49 +1,92 @@
 import { Event } from '../../components';
 import {
   ClockCircleFilled,
-  InputGroup,
-  Row,
-  Col,
+  Button,
   Space,
-  Title,
   Skeleton,
 } from '../../../../../libs/ui-shared/src/lib/components/';
 import styles from './dashboard.module.scss';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getUserInfo, getStudentCohortEvents } from '../../routes/serverCalls';
 import { useOktaAuth } from '@okta/okta-react';
+import { List, Segmented } from 'antd';
 
 const Dashboard = () => {
   const { oktaAuth, authState } = useOktaAuth();
-  const [events, setEvents] = useState();
-  const [loading, setLoading] = useState(true);
-  const getUserInfo = async () => {
-    try {
-      const response = await axios.get(
-        `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`
-      );
-      return response.data;
-    } catch (err) {
-      console.log('Erro', err.message);
-    }
-  };
+  const [events, setEvents] = useState([]);
+  const [addedEvents, setAddedEvents] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [initLoading, setinitLoading] = useState(true);
+  const [page, setPage] = useState(0);
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
-  useEffect(() => {
-    getUserInfo().then(async (resp) => {
-      try {
-        const response = await axios.get(
-          `https://studentplus-backend.herokuapp.com/capi/student-cohort/${resp.cohort}`
-        );
-        setEvents(response.data.events);
-        setLoading(false);
-      } catch (err) {
-        console.log('Erro', err.message);
+
+  const getEvents = async (page) => {
+    const user = await getUserInfo(authState.idToken.claims.studentid).then(
+      (user) => {
+        return user;
       }
+    );
+    const offset = page * 4;
+    const until = page ? offset * 4 : 4;
+    setPage(page + 1);
+    const eves = await getStudentCohortEvents(user, offset, until).then(
+      (events) => {
+        return events;
+      }
+    );
+    return eves;
+  };
+
+  useEffect(() => {
+    getEvents(page).then((eves) => {
+      console.log('initEvents', eves.data);
+      setinitLoading(false);
+      setAddedEvents(eves.data);
+      setEvents(eves.data);
     });
   }, []);
+
+  const onLoadMore = async () => {
+    setLoading(true);
+    setEvents(
+      addedEvents.concat({
+        loading: true,
+        date: '',
+        event: '',
+      })
+    );
+    getEvents(page).then((eves) => {
+      const newEvents = addedEvents.concat(eves.data);
+      setAddedEvents(newEvents);
+      setEvents(newEvents);
+      setLoading(false);
+    });
+  };
+  const onSegmentChange = (value) => {
+    console.log('Segment', value);
+	setinitLoading(true);
+    getEvents(0).then((eves) => {
+      setAddedEvents(eves.data);
+      setEvents(eves.data);
+      setinitLoading(false);
+    });
+  };
+  const loadMore =
+    !initLoading && !loading ? (
+      <div
+        style={{
+          textAlign: 'center',
+          marginTop: 12,
+          height: 32,
+          lineHeight: '32px',
+        }}
+      >
+        <Button onClickHandler={onLoadMore}>Load more</Button>
+      </div>
+    ) : null;
 
   return (
     <div className={styles.dashboardContent}>
@@ -55,50 +98,59 @@ const Dashboard = () => {
         }}
       >
         <div className={styles.eventsCover}>
-          <Title level={4}>Pesto Announcement Events</Title>
-          <InputGroup size="large">
-            <Row gutter={8}>
-              <Skeleton loading={loading} active>
-                {events &&
-                  events.map((Cevent, index) => {
-                    return (
-                      <Col span={12}>
-                        <Event
-                          key={index}
-                          icon={<ClockCircleFilled />}
-                          date={formatDate(Cevent.date)}
-                          title={Cevent.event}
-                          link={window.location.origin}
-                        />
-                      </Col>
-                    );
-                  })}
-              </Skeleton>
-            </Row>
-          </InputGroup>
-        </div>
-        <div className={styles.eventsCover}>
-          <Title level={4}>Cohort Announcement Events</Title>
-          <InputGroup size="large">
-            <Row gutter={8}>
-              <Skeleton loading={loading} active>
-                {events &&
-                  events.map((Cevent, index) => {
-                    return (
-                      <Col span={12}>
-                        <Event
-                          key={index}
-                          icon={<ClockCircleFilled />}
-                          date={formatDate(Cevent.date)}
-                          title={Cevent.event}
-                          link={window.location.origin}
-                        />
-                      </Col>
-                    );
-                  })}
-              </Skeleton>
-            </Row>
-          </InputGroup>
+          <Space
+            direction="vertical"
+            size={20}
+            style={{
+              width: '100%',
+            }}
+          >
+            <Segmented
+              options={[
+                {
+                  label: 'Pesto Events',
+                  value: 'pesto',
+                },
+                {
+                  label: 'Cohort Events',
+                  value: 'cohort',
+                },
+              ]}
+              onChange={onSegmentChange}
+              block
+              size="large"
+            />
+            <List
+              grid={{
+                gutter: 16,
+                xs: 1,
+                sm: 2,
+                md: 3,
+                lg: 3,
+                xl: 3,
+                xxl: 3,
+              }}
+              loading={initLoading}
+              itemLayout="horizontal"
+              loadMore={loadMore}
+              dataSource={events}
+              renderItem={(item) => (
+                <List.Item>
+                  <Skeleton
+                    loading={item.loading ? item.loading : false}
+                    active
+                  >
+                    <Event
+                      icon={<ClockCircleFilled />}
+                      date={formatDate(item.date)}
+                      title={item.event}
+                      link={window.location.origin}
+                    />
+                  </Skeleton>
+                </List.Item>
+              )}
+            />
+          </Space>
         </div>
       </Space>
     </div>

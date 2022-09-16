@@ -40,6 +40,8 @@ getEvents = asyncHandler(async (req, res) => {
 });
 
 
+
+
 module.exports = {
   createEvent,
   getEvents,
