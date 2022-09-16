@@ -6,9 +6,6 @@ import {
   Form,
   Input,
   Label,
-  LoadingOutlined,
-  PlusOutlined,
-  Space,
   Title,
   Textarea,
   InputGroup,
@@ -17,9 +14,17 @@ import {
   message,
   Upload,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
+import ImgCrop from 'antd-img-crop'
 import styles from './accountSettings.module.scss';
-import axios from 'axios';
+import IMAGE_PATHS from '../../../../../libs/ui-shared/public/images/constants';
+import {
+  getUserInfo,
+  uploadProfileImage,
+  updateProfile,
+  updatePassword,
+} from '../../routes/serverCalls';
 
+//Error handling for upload limit of 2mb and file type of jpeg and png
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 
@@ -56,98 +61,60 @@ const AccountSettings = () => {
       formData.append('file', uploadObj.fileList[0].originFileObj);
       formData.append('upload_preset', 'twivocmt');
       formData.append('api_key', '447634538816736');
-      try {
-        const response = axios
-          .post(
-            'https://api.cloudinary.com/v1_1/dhibsuxt9/image/upload',
-            formData
-          )
-          .then((res) => {
-            setImageUrl(res.data.secure_url);
-            console.log('Cloudinary Resp :', res);
-          });
-      } catch (err) {
-        console.log('Cloudinary Error :', err);
-      }
+      uploadProfileImage(formData, setImageUrl);
     }
   };
 
   const uploadButton = (
     <div>
-      <PlusOutlined />
       <div
         style={{
           marginTop: 8,
+          backgroundImage: `url(${IMAGE_PATHS.USERIMAGE})`,
+          width: '200px',
+          height: '200px',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'contain',
         }}
-      >
-        Upload
-      </div>
+      ></div>
     </div>
   );
+
   useEffect(() => {
     form.setFieldsValue({
       img: imageUrl,
     });
   }, [imageUrl]);
+
+  // Getting user information and writing to form
   useEffect(() => {
-    getUserInfo().then((resp) => {
-      if (resp.status !== 'error') {
-        console.log(resp);
-        form.setFieldsValue({
-          firstName: resp.firstName,
-          lastName: resp.lastName,
-          email: resp.email,
-          phone: resp.phone.toString(),
-          city: resp.city,
-          state: resp.state,
-          streetAddr: resp.streetAddr,
-          url: resp.url,
-          about: resp.about,
-          img: resp.img,
-        });
-        setImageUrl(resp.img);
-      }
+    getUserInfo(authState.idToken.claims.studentid).then((resp) => {
+      form.setFieldsValue({
+        firstName: resp.firstName,
+        lastName: resp.lastName,
+        email: resp.email,
+        phone: resp.phone.toString(),
+        city: resp.city,
+        state: resp.state,
+        streetAddr: resp.streetAddr,
+        url: resp.url,
+        about: resp.about,
+        img: resp.img,
+      });
+      setImageUrl(resp.img);
     });
   }, []);
 
-  const getUserInfo = async () => {
-    try {
-      const response = await axios.get(
-        `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`
-      );
-      return response.data;
-    } catch (err) {
-      return {
-        status: 'error',
-        message: err.message,
-      };
-    }
-  };
+  // Post on submit
   const onFinish = async (values) => {
-    try {
-      const response = await axios.put(
-        `https://studentplus-backend.herokuapp.com/sapi/student/${authState.idToken.claims.studentid}`,
-        values
-      );
-      console.log('Cloudinary Resp :', response);
-      message.success('Profile Updated!');
-    } catch (err) {
-      console.log('Cloudinary Error :', err);
-    }
+    updateProfile(authState.idToken.claims.studentid, values);
   };
+
+  //Post on change password request
   const onUpdatePassword = async (values) => {
-    values.email = authState.idToken.claims.email;
-    try {
-      const response = await axios.post(
-        `https://studentplus-backend.herokuapp.com/sapi/change-password/`,
-        values
-      );
-      console.log('Cloudinary Resp :', response);
-      message.success('Password Updated!');
-    } catch (err) {
-      console.log('Error :', err);
-    }
+    updatePassword(authState.idToken.claims.email, values);
   };
+
   return (
     <div className={styles.accountContainer}>
       <Card title="Account Settings">
@@ -158,176 +125,184 @@ const AccountSettings = () => {
               This information will be displayed publically.
             </Label>
           </div>
-          <div className={styles.profileInfo}>
-            <div className={styles.avatarInfo}>
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                customRequest={changeRequestStatus}
-                beforeUpload={beforeUpload}
-                onChange={(obj) => handleChange(obj)}
-                action=""
-              >
-                {imageUrl ? (
-                  <img
-                    src={imageUrl}
-                    alt="avatar"
-                    style={{
-                      width: '100%',
-                    }}
-                  />
-                ) : (
-                  uploadButton
-                )}
-              </Upload>
-            </div>
-            <div className={styles.profilefields}>
-              <Form
-                form={form}
-                name="createuser"
-                onFinish={onFinish}
-                scrollToFirstError
-                labelWrap
-                layout="vertical"
-              >
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={12}>
-                      <Form.Item
-                        name="firstName"
-                        label="First Name"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please input your first name!',
-                            whitespace: false,
-                          },
-                        ]}
-                      >
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item
-                        name="lastName"
-                        label="Last Name"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please input last name!',
-                            whitespace: false,
-                          },
-                        ]}
-                      >
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={12}>
-                      <Form.Item
-                        name="email"
-                        label="E-mail"
-                        rules={[
-                          {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                          },
-                          {
-                            required: true,
-                            message: 'Please input your E-mail!',
-                          },
-                        ]}
-                      >
-                        <Input disabled={true} />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item
-                        name="phone"
-                        label="Contact"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please input your contact number!',
-                          },
-                        ]}
-                      >
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={24}>
-                      <Form.Item name="streetAddr" label="Street Address">
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={12}>
-                      <Form.Item
-                        name="city"
-                        label="City"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please input your city!',
-                          },
-                        ]}
-                        disabled
-                      >
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item name="state" label="State">
-                        <Input />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={24}>
-                      <Form.Item name="about" label="About You">
-                        <Textarea />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-                <InputGroup size="large">
-                  <Row gutter={8}>
-                    <Col span={12}></Col>
-                    <Col span={12}>
-                      <Form.Item name="img" hidden={true}>
-                        <Input />
-                      </Form.Item>
-                      <Form.Item>
-                        <Button
-                          type="primary"
-                          htmlType="submit"
-                          style={{
-                            width: '100%',
-                          }}
+          <Row>
+            <Col span={12} xs={24} sm={24} md={24} lg={24} xl={8}>
+              <div className={styles.avatarInfo}>
+                <ImgCrop rotate grid>
+                  <Upload
+                    name="avatar"
+                    listType="picture-card"
+                    className="avatar-uploader"
+                    showUploadList={false}
+                    customRequest={changeRequestStatus}
+                    beforeUpload={beforeUpload}
+                    onChange={(obj) => handleChange(obj)}
+                    action=""
+                  >
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt="avatar"
+                        style={{
+                          width: '100%',
+                        }}
+                      />
+                    ) : (
+                      uploadButton
+                    )}
+                  </Upload>
+                </ImgCrop>
+              </div>
+            </Col>
+            <Col span={12} xs={24} sm={24} md={24} lg={24} xl={16}>
+              <div className={styles.profilefields}>
+                <Form
+                  form={form}
+                  name="createuser"
+                  onFinish={onFinish}
+                  scrollToFirstError
+                  labelWrap
+                  layout="vertical"
+                >
+                  <InputGroup size="large">
+                    <Row gutter={8}>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item
+                          name="firstName"
+                          label="First Name"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input your first name!',
+                              whitespace: false,
+                            },
+                          ]}
                         >
-                          Update
-                        </Button>
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </InputGroup>
-              </Form>
-            </div>
-          </div>
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item
+                          name="lastName"
+                          label="Last Name"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input last name!',
+                              whitespace: false,
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </InputGroup>
+                  <InputGroup size="large">
+                    <Row gutter={8}>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item
+                          name="email"
+                          label="E-mail"
+                          rules={[
+                            {
+                              type: 'email',
+                              message: 'The input is not valid E-mail!',
+                            },
+                            {
+                              required: true,
+                              message: 'Please input your E-mail!',
+                            },
+                          ]}
+                        >
+                          <Input disabled={true} />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item
+                          name="phone"
+                          label="Contact"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input your contact number!',
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </InputGroup>
+                  <InputGroup size="large">
+                    <Row gutter={8}>
+                      <Col span={24} xs={24} md={24}>
+                        <Form.Item name="streetAddr" label="Street Address">
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </InputGroup>
+                  <InputGroup size="large">
+                    <Row gutter={8}>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item
+                          name="city"
+                          label="City"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please input your city!',
+                            },
+                          ]}
+                          disabled
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item name="state" label="State">
+                          <Input />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </InputGroup>
+                  <InputGroup size="large">
+                    <Row gutter={8}>
+                      <Col span={24} xs={24} md={24}>
+                        <Form.Item name="about" label="About You">
+                          <Textarea />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </InputGroup>
+                  <InputGroup size="large">
+                    <Row gutter={8}>
+                      <Col span={12}></Col>
+                      <Col span={12} xs={24} md={12}>
+                        <Form.Item name="img" hidden={true}>
+                          <Input />
+                        </Form.Item>
+                        <Form.Item>
+                          <div className={styles.buttonContainerHorizontal}>
+                            <Button
+                              type="primary"
+                              htmlType="submit"
+                              style={{
+                                width: '100%',
+                              }}
+                            >
+                              Update
+                            </Button>
+                          </div>
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </InputGroup>
+                </Form>
+              </div>
+            </Col>
+          </Row>
         </div>
       </Card>
       <Card title="Security Settings">
@@ -348,7 +323,7 @@ const AccountSettings = () => {
           >
             <InputGroup size="large">
               <Row gutter={8}>
-                <Col span={12}>
+                <Col span={12} xs={24} md={12}>
                   <Form.Item
                     name="password"
                     label="New Password"
@@ -360,10 +335,10 @@ const AccountSettings = () => {
                     ]}
                     hasFeedback
                   >
-                    <Input />
+                    <Input type="password" />
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col span={12} xs={24} md={12}>
                   <Form.Item
                     name="confirmPassword"
                     label="Confirm Password"
@@ -389,14 +364,13 @@ const AccountSettings = () => {
                       }),
                     ]}
                   >
-                    <Input />
+                    <Input type="password" />
                   </Form.Item>
                 </Col>
               </Row>
               <Row gutter={8}>
-                <Col span={8}></Col>
-                <Col span={8}></Col>
-                <Col span={8}>
+                <Col span={12}></Col>
+                <Col span={12}>
                   <div className={styles.buttonContainerHorizontal}>
                     <Button
                       htmlType="submit"

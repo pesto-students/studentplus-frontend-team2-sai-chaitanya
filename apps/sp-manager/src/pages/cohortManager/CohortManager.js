@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {
   Card,
   Select,
-  Button,
+  Option,
   CalendarOutlined,
 } from '../../../../../libs/ui-shared/src/lib/components/atoms';
 import { CohortTable } from '../../components';
@@ -49,11 +49,21 @@ const CohortManager = () => {
       <div className={styles.container}>
         <div className={styles.gridHeader}>
           <div className={styles.selectionBar}>
-            <Select
+          <Select
               defaultValue={COHORTSARR[0]}
               onChange={onCohortChange}
-              options={COHORTSARR}
-            />
+              // options={COHORTSARR}
+            >
+              {
+                COHORTSARR.map((cohort)=>{
+                  return (
+                    <Option key={cohort._id} value={cohort._id}>
+                      {cohort.cohortID}
+                    </Option>
+                  )
+                })
+              }
+            </Select>
           </div>
           <div className={styles.selectionBar}>
             <CalendarOutlined onClick = {onClickAction}            

@@ -7,7 +7,7 @@ import {
   TeamOutlined,
   CheckOutlined,
   StockOutlined,
-  FolderOpenOutlined
+  FolderOpenOutlined,
 } from '../../../../../../../libs/ui-shared/src/lib/components/atoms';
 
 const ACCOUNT_SETTINGS = {
@@ -25,7 +25,7 @@ const PROFILE = {
   icon: <ProfileOutlined />,
   label: 'Profile',
 };
-const CHATBOARD_EDITOR = {
+const DISCUSSION_EDITOR = {
   key: 'DISCUSSION_EDITOR',
   icon: <CommentOutlined />,
   label: 'Discussion Editor',
@@ -61,12 +61,33 @@ const RESOURCES = {
   label: 'Resources',
   children: [
     {
-      key: 'ASSIGNMENT',
-      label: 'Assignment',
+      key: 'ASSIGNMENTS',
+      label: 'Assignments',
     },
     {
-      key: 'CHATBOARDS',
-      label: 'Chatboards',
+      key: 'CALENDLY',
+      label: 'Calendly',
+    },
+    {
+      key: 'DISCORD',
+      label: 'Discord',
+    },
+    {
+      key: 'DISCUSSIONS',
+      label: 'Discussions',
+    },
+
+    {
+      key: 'NOTION',
+      label: 'Notion',
+    },
+    {
+      key: 'SHAREPOINT',
+      label: 'Sharepoint',
+    },
+    {
+      key: 'TEACHABLE',
+      label: 'Teachable',
     },
   ],
 };
@@ -78,7 +99,7 @@ const MENU_ITEMS = [
   DASHBOARD,
   EVENT_EDITOR,
   PROFILE,
-  CHATBOARD_EDITOR,
+  DISCUSSION_EDITOR,
   ACCOUNT_SETTINGS,
   RESOURCES,
   STATISTICS,

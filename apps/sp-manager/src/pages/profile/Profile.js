@@ -133,6 +133,7 @@ function Profile() {
                             title={item.cohortID}
                             excerpt="This is a test excerpt"
                             status={item.status}
+                            type = "link"
                           />
                         </List.Item>
                       )}
@@ -164,6 +165,7 @@ function Profile() {
                           <Listing
                             key={index}
                             title={item.discussionTitle}
+                            description={item.boardDesc}
                             excerpt="This is a test excerpt"
                             type="link"
                           />

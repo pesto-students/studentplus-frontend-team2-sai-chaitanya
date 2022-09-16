@@ -7,11 +7,11 @@ import {
 } from 'libs/ui-shared/src/lib/components';
 import ReactPlayer from 'react-player';
 import React, { useEffect, useState } from 'react';
-import styles from './liveVideoSession.module.scss';
+import styles from './videoSession.module.scss';
 import PropTypes from 'prop-types';
 const messageListReferance = React.createRef();
 
-const LiveVideoSession = ({ discussions, ondiscussionChange, dateFormat }) => {
+const VideoSession = ({ discussions, ondiscussionChange, dateFormat }) => {
   console.log(discussions);
   const [selectedDiscussion, setSelectedDiscussion] = useState(false);
   const onChangeHandler = (id) => {
@@ -83,16 +83,16 @@ const LiveVideoSession = ({ discussions, ondiscussionChange, dateFormat }) => {
   );
 };
 
-LiveVideoSession.propTypes = {
+VideoSession.propTypes = {
   discussions: PropTypes.array,
   selectedDiscussion: PropTypes.array,
   selectHandler: PropTypes.func,
 };
 
-LiveVideoSession.defaultProps = {
+VideoSession.defaultProps = {
   discussions: [],
   selectedDiscussion: [],
   selectHandler: () => {},
 };
 
-export default LiveVideoSession;
+export default VideoSession;

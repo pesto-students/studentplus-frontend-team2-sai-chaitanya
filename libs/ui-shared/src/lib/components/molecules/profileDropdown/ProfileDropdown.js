@@ -17,9 +17,8 @@ const ProfileDropdown = ({ paths, avatar, signOut }) => {
       history.push(paths.DASHBOARD);
     }
     setActiveMenu(key);
-    console.log(key);
-    console.log(activeMenu);
-  };
+ };
+ console.log("avatar",avatar);
 
   return (
     <Dropdown

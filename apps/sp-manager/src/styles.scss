@@ -173,37 +173,18 @@ html {
 .ant-form-item {
 	margin-bottom: 0;
 }
-.ant-input-group{
+.ant-input-group {
 	margin-bottom: 10px;
 }
 .ant-menu-inline .ant-menu-item::after {
 	border-right: 3px solid #6521ff;
 }
-.ant-input-group-wrapper {
-	margin-top: 10px;
-
-	.ant-input {
-		border: 1px solid #b9b6b6;
-		border-radius: 2rem;
-	}
-}
-/* .ant-select-auto-complete input{
-	border-radius: 2rem;
-	margin-top: 10px;
-	border: 1px solid #b9b6b6;
-} */
-.ant-input-group-addon:first-child {
-	border-radius: 2em 0 0 2em;
-	border: 1px solid #b9b6b6;
-}
-.ant-input-group-addon:last-child {
-	border-radius: 0 2em 2em 0;
-}
-.ant-input-group-addon .anticon svg{
-	width: 12px;
-	height: 12px;
-	margin-top: 3px;
-	margin-right: 5px;
+.ant-upload.ant-upload-select-picture-card {
+	width: 100%;
+	height: 100%;
+	border-radius: 8px;
+	overflow: hidden;
+	margin-top: 8px;
 }
 .ant-picker-range {
 	width: 100%;
@@ -222,23 +203,35 @@ html {
 .ant-table-thead>tr>th {
 	font-weight: 600;
 }
-.ant-input-group-addon {
-	position: relative;
-	padding: 0;
-	color: rgba(0, 0, 0, 0.85);
-	font-weight: normal;
-	font-size: 14px;
-	text-align: left;
-	background-color: #fafafa;
-	border: 1px solid #d9d9d9;
-	border-radius: 2px;
-	transition: all 0.3s;
+.MobileMenuTrigger {
+	display: none;
+	position: absolute;
+	right: -57px;
+	top: 2px;
+	z-index: 99;
+	background: #ffff;
+	padding: 2.3rem 1rem;
 }
-.ant-input-group-addon .ant-select {
-	margin: -3px 13px;
+/* .ant-menu-inline.ant-menu-root .ant-menu-item,
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title {
+	padding: 0 calc(50% - 230px / 2) !important;
+} */
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+	color: #fff;
+	border-color: #4149e5;
+	background: #4149e5;
 }
-.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
-	padding: 0 1px;
+@media (max-width: "786px") {
+	.MobileMenuTrigger {
+		display: block;
+	}
+	.ant-menu.ant-menu-inline-collapsed>.ant-menu-item,
+	.ant-menu.ant-menu-inline-collapsed>.ant-menu-item-group>.ant-menu-item-group-list>.ant-menu-item,
+	.ant-menu.ant-menu-inline-collapsed>.ant-menu-item-group>.ant-menu-item-group-list>.ant-menu-submenu>.ant-menu-submenu-title,
+	.ant-menu.ant-menu-inline-collapsed>.ant-menu-submenu>.ant-menu-submenu-title{
+		padding: 0 calc(50% - 36px / 2);
+	}
 }
 /* width */
 ::-webkit-scrollbar {

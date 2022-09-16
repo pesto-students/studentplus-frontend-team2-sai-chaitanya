@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ChatMessageBox, LiveVideoSession } from '../../components';
-import styles from './liveSessionChat.module.scss';
+import { ChatMessageBox, VideoSession } from '../../components';
+import styles from './discussion.module.scss';
 import {
   getUserInfo,
   getCommentsByDiscussionId,
@@ -8,7 +8,7 @@ import {
 } from '../../routes/serverCalls';
 import { useOktaAuth } from '@okta/okta-react';
 
-const LiveSessionChat = () => {
+const Discussion = () => {
 
   const { oktaAuth, authState } = useOktaAuth();
   const [discussions, setDiscussions] = useState();
@@ -60,7 +60,7 @@ const LiveSessionChat = () => {
   
   return (
     <div className={styles.liveSessionChatCover}>
-      <LiveVideoSession
+      <VideoSession
         discussions={discussions}
         ondiscussionChange={ondiscussionChangeHandler}
         dateFormat={formatDate}
@@ -74,4 +74,4 @@ const LiveSessionChat = () => {
   );
 };
 
-export default LiveSessionChat;
+export default Discussion;

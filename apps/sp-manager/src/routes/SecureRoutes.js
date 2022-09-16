@@ -5,8 +5,10 @@ import { PATHS } from '../constants';
 import { AppSkeleton } from '../components';
 import {
   AccountSettings,
+  Assignment,
   AssignmentEditor,
   Attendance,
+  Discussion,
   DiscussionEditor,
   CohortManager,
   Dashboard,
@@ -37,10 +39,13 @@ function SecureRoutes() {
           path={PATHS.ASSIGNMENT_EDITOR}
           component={AssignmentEditor}
         />
+        
 
         <Route exact path={PATHS.COHORT_MANAGER} component={CohortManager} />
         <Route exact path={PATHS.ATTENDANCE} component={Attendance} />
         <Route exact path={PATHS.STATISTICS} component={Statistics} />
+        <Route exact path={PATHS.ASSIGNMENTS} component={Assignment}/>
+        <Route exact path={PATHS.DISCUSSIONS} component={Discussion}/>
       </Switch>
     </AppSkeleton>
   );

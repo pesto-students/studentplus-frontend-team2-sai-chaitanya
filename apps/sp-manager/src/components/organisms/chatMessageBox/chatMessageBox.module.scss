@@ -1,32 +1,82 @@
+$xs: '480px';
+$sm: '576px';
+$md: '768px';
+$lg: '992px';
+$xl: '1200px';
+$xxl: '1600px';
 .chatBoxCover{
-    display: flex;
-    flex-direction: column;
-    flex:1;
-    border: 1px solid #eee;
-    padding: 2rem;
-    background: #fff;
-    border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex:1;
+  padding: 3rem;
+  background: #fff;
+  border-radius: 0.8rem;
+  width: 100%;
+  :global{
+      textarea.ant-input {
+          border: 0px;
+          border-bottom: 1px solid #d5d2d2;
+      }
+  }
+  @media (max-width: $md) {
+      padding: 1rem;
+  }
 }
 .chatMessageList{
-    display: flex;
-    flex-direction: column;
-    height: 400px;
-    overflow: auto;
-    padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  overflow: auto;
+  padding: 0 2rem;
+  :global{
+      .ant-comment-inner {
+          display: flex;
+          padding: 16px 0;
+          border-bottom: 1px solid #fbf6f6;
+          margin-bottom: 10px;
+      }
+      .ant-comment-avatar img {
+          width: 52px;
+          height: 52px;
+      }
+      .ant-avatar-image {
+          width: 60px !important;
+          height: 60px !important;
+          margin: 0px !important;
+      }
+      .ant-comment-content-author-name {
+          color: rgb(0 0 0);
+          font-size: 14px !important;
+          transition: color 0.3s;
+      }
+      .ant-comment-content-detail p {
+          margin-bottom: inherit;
+          white-space: pre-wrap;
+          font-size: 16px;
+          margin-top: 10px;
+      }
+  }
 }
 .chatBoxTitle{
-    overflow: visible;
+  overflow: visible;
 }
 .messageTextBoxCover{
-    display: flex;
+  display: flex;
+  margin-bottom: 25px;
+  :global{
+      #comment {
+          width: 100%;
+      }
+  }
+
 }
 .messageInputBoxCover{
-    flex:7
+  flex:7
 }
 .messagesendButtonCover{
-    flex:3;
+  flex:3;
 }
 .messagesendButton{
-    width: 100%;
-    margin: 0.6rem;
+  width: 100%;
+  margin: 0.6rem;
 }
