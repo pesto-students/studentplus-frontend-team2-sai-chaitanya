@@ -37,7 +37,7 @@ createComment = (req, res) => {
 getComments = asyncHandler(async (req, res) => {
  const query = { discussionId: req.params.discussionId };
  console.log(query);
- const comments = await Comment.find(query);
+ const comments = await Comment.find(query).sort({updatedAt:-1});
  console.log(comments);
   if (comments) {
     res.json(comments);
@@ -48,7 +48,13 @@ getComments = asyncHandler(async (req, res) => {
   }
 });
 
+deleteComment = async (req, res) => {
+  const response = await Comment.findOneAndDelete({ _id: ObjectId(req.params.id) });
+  res.json(response);
+};
+
 module.exports = {
   createComment,
   getComments,
+  deleteComment,
 };

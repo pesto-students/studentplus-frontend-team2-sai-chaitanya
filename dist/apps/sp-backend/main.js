@@ -309,7 +309,7 @@ createComment = (req, res) => {
 getComments = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     const query = { discussionId: req.params.discussionId };
     console.log(query);
-    const comments = yield Comment.find(query);
+    const comments = yield Comment.find(query).sort({ updatedAt: -1 });
     console.log(comments);
     if (comments) {
         res.json(comments);
@@ -320,9 +320,14 @@ getComments = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 
         throw new Error('comments not found');
     }
 }));
+deleteComment = (req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    const response = yield Comment.findOneAndDelete({ _id: ObjectId(req.params.id) });
+    res.json(response);
+});
 module.exports = {
     createComment,
     getComments,
+    deleteComment,
 };
 
 
@@ -972,6 +977,7 @@ const CommentCtrl = __webpack_require__("./apps/sp-backend/src/controllers/comme
 const commentRouter = express.Router();
 commentRouter.post('/comment', CommentCtrl.createComment);
 commentRouter.get('/comments/:discussionId', CommentCtrl.getComments);
+commentRouter.delete('/comment/:id', CommentCtrl.deleteComment);
 module.exports = commentRouter;
 
 

@@ -9,6 +9,7 @@ import {
   getAllDiscussions,
   pushComment,
   getDiscussionsByCohort,
+  deleteComment,
 } from './ServerCalls';
 export {
   getUserInfo,
@@ -21,4 +22,5 @@ export {
   getAllDiscussions,
   pushComment,
   getDiscussionsByCohort,
+  deleteComment,
 };

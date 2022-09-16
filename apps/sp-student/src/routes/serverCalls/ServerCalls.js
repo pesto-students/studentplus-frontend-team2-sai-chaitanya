@@ -81,6 +81,18 @@ const getCommentsByDiscussionId = async (discussionId) => {
     console.log('Error :', err);
   }
 };
+
+const deleteComment = async (commentId) => {
+  try {
+    const response = await axios.delete(
+      `https://studentplus-backend.herokuapp.com/coapi/comment/${commentId}`
+    );
+    return response
+  } catch (err) {
+    console.log('Error :', err);
+  }
+};
+
 const getAllDiscussions = async () => {
   const response = await axios.get(
     `https://studentplus-backend.herokuapp.com/dapi/discussions`
@@ -128,4 +140,5 @@ export {
   getAllDiscussions,
   pushComment,
   getDiscussionsByCohort,
+  deleteComment,
 };

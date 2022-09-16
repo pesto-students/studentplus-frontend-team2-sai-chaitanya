@@ -18,7 +18,6 @@ import { useOktaAuth } from '@okta/okta-react';
 import { useHistory } from 'react-router-dom';
 import { getUserInfo, getDiscussionsByCohort } from '../../routes/serverCalls';
 import { List, Segmented } from 'antd';
-import { PATHS } from '../../constants';
 
 function Profile() {
   const { oktaAuth, authState } = useOktaAuth();
@@ -28,28 +27,29 @@ function Profile() {
   const [discussions, setDiscussions] = useState([]);
   const history = useHistory();
 
+  //get calls for user data and discussions.
   useEffect(() => {
     getUserInfo(authState.idToken.claims.studentid).then((resp) => {
       setUserDetails(resp);
       const address = `${resp.streetAddr}, ${resp.city}, ${resp.state}, ${
         resp.country ? resp.country : ''
       }`;
-	  getDiscussionsByCohort(resp.cohort).then((res) => {
-      setDiscussions(res);
-    });
+      getDiscussionsByCohort(resp.cohort).then((res) => {
+        setDiscussions(res);
+      });
       setUserAddress(address);
     });
   }, []);
 
+  
   useEffect(() => {
-    console.log('UserD', userDetails);
-    console.log(userDetails.assignment);
     const assignments = !!userDetails.assignment ? userDetails.assignment : [];
     setUserAssignments(assignments);
   }, [userDetails]);
 
+  //Redirect to account settings
   const onEditClickHandler = () => {
-	window.sessionStorage.setItem('currentPage', 'ACCOUNT_SETTINGS');
+    window.sessionStorage.setItem('currentPage', 'ACCOUNT_SETTINGS');
     history.push('/account-settings');
   };
 
