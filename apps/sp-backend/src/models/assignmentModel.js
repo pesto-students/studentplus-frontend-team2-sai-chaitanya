@@ -7,6 +7,7 @@ const Assignment = new Schema(
     cohorts: { type: Array, required: false },
     desc: { type: String, required: false },
     deckLink: { type: String, required: false },
+	week: {type: String, required:true}
   },
   { timestamps: true }
 );

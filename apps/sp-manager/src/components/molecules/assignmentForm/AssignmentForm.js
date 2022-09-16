@@ -41,62 +41,67 @@ const changeRequestStatus = ({ file, onSuccess }) => {
   }, 0);
 };
 
-const cohorts = [
-  {
-    id: '001',
-    name: 'Cohort 1',
-  },
-  {
-    id: '002',
-    name: 'Cohort 2',
-  },
-];
 const weekData = ['Week1', 'Week2'];
 const AssignmentForm = ({ initialValues, onSubmitHandler }) => {
   const [form] = Form.useForm();
-  const [fileKey, setFileKey] = useState('');
-  const [imagsrc, setImagsrc] = useState('');
+  const [fileKey, setFileKey] = useState([]);
   const [fileObj, setFileObj] = useState({});
-  const getassignmentFile = (key) => {
+  const [cohorts, setCohorts] = useState([]);
+
+  const getCohorts = async (userId) => {
     try {
-      const response = axios
-        .get(`http://localhost:3000/aapi/assignment-file/${key}`)
-        .then((res) => {
-          console.log('retfile', res);
-          return res.data;
-        });
+      const response = await axios.get(
+        `https://studentplus-backend.herokuapp.com/capi/cohorts`
+      );
+      return response.data;
     } catch (err) {
-      console.log('AWS S3 Error :', err);
+      console.log('Erro', err.message);
     }
   };
 
   useEffect(() => {
-    if (fileKey != '') getassignmentFile(fileKey);
-  }, [fileKey]);
+	getCohorts().then((resp)=>{
+		console.log('cchorts', resp);
+    setCohorts(resp);
+	});
+  }, []);
 
   const onFinish = (values) => {
-	values.deckLink = fileObj;
-	console.log("VALS: ",values);
+    values.deckLink = fileObj;
+    console.log('VALS: ', values);
     onSubmitHandler(values);
-    //form.resetFields();
+    form.resetFields();
   };
 
   useEffect(() => {
     const cohortArray = initialValues.cohorts;
     initialValues.cohorts ? console.log([...cohortArray]) : '';
-    form.setFieldsValue({
-      _id: initialValues._id,
-      assignmentTitle: initialValues.assignmentTitle,
-      cohorts: initialValues.cohorts,
-      desc: initialValues.desc,
-      deckLink: initialValues.deckLink,
-    });
+    if (initialValues.cohorts) {
+      form.setFieldsValue({
+        _id: initialValues._id,
+        assignmentTitle: initialValues.assignmentTitle,
+        cohorts: initialValues.cohorts,
+        desc: initialValues.desc,
+        deckLink: initialValues.deckLink,
+      });
+      setFileKey([
+        {
+          uid: '1',
+          name: initialValues.deckLink,
+          status: 'done',
+          url: initialValues.deckLink,
+        },
+      ]);
+    }
   }, [initialValues]);
   //state
   const isEdit = false;
   const handleChange = (fileObj) => {
-	console.log("fleobj45",fileObj.fileList[0].originFileObj);
-    setFileObj(fileObj.fileList[0].originFileObj);
+    console.log('flconx', fileObj);
+    console.log('tof', fileObj.fileList != []);
+    fileObj.fileList.length
+      ? setFileObj(fileObj.fileList[0].originFileObj)
+      : setFileObj({});
   };
   return (
     <div className={styles.container}>
@@ -149,8 +154,8 @@ const AssignmentForm = ({ initialValues, onSubmitHandler }) => {
                           {cohorts !== undefined
                             ? cohorts.map((res) => {
                                 return (
-                                  <Option key={res.id} value={res.id}>
-                                    {res.name}
+                                  <Option key={res._id} value={res.cohortId}>
+                                    {res.cohortId}
                                   </Option>
                                 );
                               })
@@ -178,6 +183,13 @@ const AssignmentForm = ({ initialValues, onSubmitHandler }) => {
                   </Space>
                   <Row gutter={8}>
                     <Col span={12}>
+                      <Form.Item name="week" label="Week">
+                        <Select>
+                          <Option value="week1">Week 1</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
                       <Form.Item name="deckLink" label="Deck Link">
                         <Upload
                           showUploadList={true}
@@ -185,12 +197,12 @@ const AssignmentForm = ({ initialValues, onSubmitHandler }) => {
                           beforeUpload={beforeUpload}
                           onChange={(obj) => handleChange(obj)}
                           action=""
+                          fileList={fileKey}
                         >
                           <Button htmlType="button" icon={<UploadOutlined />}>
                             Upload
                           </Button>
                         </Upload>
-                        <img src={imagsrc} />
                       </Form.Item>
                     </Col>
                   </Row>

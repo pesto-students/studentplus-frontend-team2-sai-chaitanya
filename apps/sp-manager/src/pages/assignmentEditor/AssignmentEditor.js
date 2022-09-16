@@ -16,7 +16,7 @@ const AssignmentEditor = () => {
   const [currentAssignment, setCurrentAssignments] = useState({});
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
-    const [fileKey, setFileKey] = useState('');
+  const [fileKey, setFileKey] = useState('');
   const searchInput = useRef(null);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     console.log('Search clicked!!');
@@ -137,10 +137,7 @@ const AssignmentEditor = () => {
     try {
       const response = await axios
         .post('http://localhost:3000/aapi/assignment/file', formData, config)
-        .then((res) => {
-          console.log('sperep', res);
-          setFileKey(res.data);
-        });
+        return response;
     } catch (err) {
       console.log('Cloudinary Error :', err);
     }
@@ -173,20 +170,22 @@ const AssignmentEditor = () => {
           message.error('Something went wrong, please try again!');
         }
       } else {
-		uploadAssignmentDeck(submitedValues.deckLink);
-		submitedValues.deckLink = fileKey;
-		console.log('Allsubvalus', submitedValues);
-        const response = await axios.post(
-          `https://studentplus-backend.herokuapp.com/aapi/assignment`,
-          submitedValues
-        );
-        console.log(response);
-        if (response.data.success == true) {
-          setAssignments((oldValues) => oldValues.concat(submitedValues));
-          message.success('Assignment saved!');
-        } else {
-          message.error('Something went wrong, please try again!');
-        }
+        uploadAssignmentDeck(submitedValues.deckLink).then(async (resp) => {
+          submitedValues.deckLink = resp.data;
+          console.log('Allsubvalus', submitedValues);
+		  console.log('decklnk', resp);
+          const response = await axios.post(
+            `https://studentplus-backend.herokuapp.com/aapi/assignment`,
+            submitedValues
+          );
+          console.log(response);
+          if (response.data.success == true) {
+            setAssignments((oldValues) => oldValues.concat(submitedValues));
+            message.success('Assignment saved!');
+          } else {
+            message.error('Something went wrong, please try again!');
+          }
+        });
       }
     } catch (err) {
       console.log('Error', err);
