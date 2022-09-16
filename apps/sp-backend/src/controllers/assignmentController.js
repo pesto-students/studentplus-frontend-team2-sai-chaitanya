@@ -2,6 +2,8 @@ const Assignment = require('../models/assignmentModel');
 const asyncHandler = require('express-async-handler');
 const { ObjectId } = require('mongodb');
 
+const { singlePrivateFileUpload, retrievePrivateFile } = require('../../awsS3');
+
 createAssignment = (req, res) => {
   const body = req.body;
 
@@ -82,9 +84,22 @@ deleteAssignment = async (req, res) => {
   res.json(response);
 };
 
+uploadAssignment = async (req, res) => {
+  const key = await singlePrivateFileUpload(req.file);
+  console.log('singresp', key);
+  res.json(key);
+};
+
+getAssignmentFile = async (req, res) => {
+  const file = retrievePrivateFile(req.params.key);
+  res.json(file);
+};
+
 module.exports = {
   createAssignment,
   updateAssignment,
   getAssignments,
   deleteAssignment,
+  uploadAssignment,
+  getAssignmentFile,
 };

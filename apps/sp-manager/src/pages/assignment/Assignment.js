@@ -51,7 +51,7 @@ const Assignment = ({ hideNavbar, scale, url }) => {
         />
         <Button htmlType="button">View Assignment</Button>
       </div>
-      <div clasName={styles.assignmentContent}>
+      <div className={styles.assignmentContent}>
         <PDFViewer document={newUrl} scale={scale} hideNavbar={hideNavbar} />
       </div>
     </div>
