@@ -24,7 +24,7 @@ const CreateUser = () => {
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
-    const response = await axios.post('http://localhost:3000/sapi/student', values);
+    const response = await axios.post('https://studentplus-backend.herokuapp.com/sapi/student', values);
     console.log('Received values of form: ', values);
   };
 
