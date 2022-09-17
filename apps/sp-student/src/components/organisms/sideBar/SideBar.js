@@ -16,11 +16,11 @@ const { Sider } = Layout;
 
 function SideBar({ collapsed, onCollapse, handleMenuItemClick }) {
   const currentPage = window.sessionStorage.getItem('currentPage');
-  const [logo, setLogo] = useState(IMAGE_PATHS.WHITE_LOGO);
+  const [logo, setLogo] = useState(IMAGE_PATHS.WHITE_LOGO_ST);
   useEffect(() => {
     collapsed
       ? setLogo(IMAGE_PATHS.WHITE_LOGO_ICON)
-      : setLogo(IMAGE_PATHS.WHITE_LOGO);
+      : setLogo(IMAGE_PATHS.WHITE_LOGO_ST);
   }, [collapsed]);
   return (
     <Sider

@@ -12,26 +12,24 @@ import PropTypes from 'prop-types';
 const messageListReferance = React.createRef();
 
 const VideoSession = ({ discussions, ondiscussionChange, dateFormat }) => {
-  console.log(discussions);
   const [selectedDiscussion, setSelectedDiscussion] = useState(false);
   const onChangeHandler = (id) => {
     const selected = discussions.filter((res) => {
       return res._id == id ? res : '';
     });
-    console.log(selected);
     setSelectedDiscussion(selected);
     ondiscussionChange(selected);
   };
+  
   useEffect(() => {
     discussions
       ? discussions.map((res, index) => {
-          console.log('index', index);
-          console.log('res', res);
           const resp = { 0: res };
           if (index == 0) setSelectedDiscussion(resp);
         })
       : '';
   }, [discussions]);
+
   return (
     <div className={styles.videoChatCover}>
       <div className={styles.videoSection}>
@@ -47,10 +45,7 @@ const VideoSession = ({ discussions, ondiscussionChange, dateFormat }) => {
             </Label>
           </div>
           <div className={styles.sectionRight}>
-            <Select
-              onChange={onChangeHandler}
-              defaultValue="Select Discussion"
-            >
+            <Select onChange={onChangeHandler} defaultValue="Select Discussion">
               {discussions !== undefined ? (
                 discussions.map((res) => {
                   return (

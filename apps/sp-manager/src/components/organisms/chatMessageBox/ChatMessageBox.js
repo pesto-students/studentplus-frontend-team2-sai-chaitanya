@@ -19,27 +19,25 @@ const ChatMessageBox = ({ discussionId, comments, dateFormat }) => {
   const { oktaAuth, authState } = useOktaAuth();
   const [allComments, setAllComments] = useState(comments);
   const [commentForm] = Form.useForm();
-  console.log("allComent", allComments);
+  
+  //Rerender page on recieveing comments
   useEffect(() => {
     setAllComments(comments);
   }, [comments]);
 
+  //Post Comment
   const onFinish = async (values) => {
-    console.log("vlues", values);
     await pushComment(
       authState.idToken.claims.studentid,
       discussionId,
       values,
       setAllComments
     );
-    //setAllComments((comments) => comments.data.concat(resp.comment));
     commentForm.resetFields();
   };
-
-  const onDeleteClick = async (value, setAllComments) => {
-    console.log('value', value);
+  //Delete Comment
+  const onDeleteClick = async (value) => {
     await deleteComment(value, setAllComments);
-    //setAllComments((comments) => comments.data.concat(resp.comment));
     commentForm.resetFields();
   };
 
@@ -93,7 +91,6 @@ const ChatMessageBox = ({ discussionId, comments, dateFormat }) => {
         </Form>
       </div>
       <div className={styles.chatMessageList}>
-        {console.log('asdf', allComments)}
         {allComments && allComments.length
           ? allComments.map((comment) => {
               return (

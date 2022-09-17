@@ -20,10 +20,12 @@ const ChatMessageBox = ({ discussionId, comments, dateFormat }) => {
   const [allComments, setAllComments] = useState(comments);
   const [commentForm] = Form.useForm();
   
+  //Rerender page on recieveing comments
   useEffect(() => {
     setAllComments(comments);
   }, [comments]);
 
+  //Post Comment
   const onFinish = async (values) => {
     await pushComment(
       authState.idToken.claims.studentid,
@@ -31,16 +33,11 @@ const ChatMessageBox = ({ discussionId, comments, dateFormat }) => {
       values,
       setAllComments
     );
-    //setAllComments((comments) => comments.data.concat(resp.comment));
     commentForm.resetFields();
   };
-
+  //Delete Comment
   const onDeleteClick = async (value) => {
-    console.log("value", value);
-    await deleteComment(value,
-      
-    );
-    //setAllComments((comments) => comments.data.concat(resp.comment));
+    await deleteComment(value, setAllComments);
     commentForm.resetFields();
   };
 
@@ -94,7 +91,6 @@ const ChatMessageBox = ({ discussionId, comments, dateFormat }) => {
         </Form>
       </div>
       <div className={styles.chatMessageList}>
-        {console.log('asdf', allComments)}
         {allComments && allComments.length
           ? allComments.map((comment) => { 
               

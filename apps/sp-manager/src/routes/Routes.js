@@ -28,7 +28,6 @@ function Routes() {
       restoreOriginalUri={restoreOriginalUri}
     >
       <Switch>
-        
         <Route exact path={PATHS.LOGIN} component={Login} />
         <Route exact path={PATHS.LOGIN_CALLBACK} component={LoginCallback} />
         <SecureRoute path="*" component={SecureRoutes} />

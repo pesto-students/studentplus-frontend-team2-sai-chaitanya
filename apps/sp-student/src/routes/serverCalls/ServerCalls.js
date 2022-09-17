@@ -82,12 +82,14 @@ const getCommentsByDiscussionId = async (discussionId) => {
   }
 };
 
-const deleteComment = async (commentId) => {
+const deleteComment = async (commentId, setAllComments) => {
   try {
     const response = await axios.delete(
       `https://studentplus-backend.herokuapp.com/coapi/comment/${commentId}`
     );
-    return response
+    setAllComments(comments=>comments.filter(comment=>{return comment._id!==commentId}));
+    return response;
+    
   } catch (err) {
     console.log('Error :', err);
   }
@@ -122,8 +124,8 @@ const pushComment = async (userId, discussionId, values, setAllComments) => {
         values
       );
 	  console.log('pucomm', response);
-	  
-      setAllComments((comments) => comments.concat(response.data.comment));
+        
+      setAllComments(comments => [response.data.comment,...comments]);
     } catch (err) {
       console.log('Error :', err);
     }
