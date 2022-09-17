@@ -17,18 +17,23 @@ const AssignmentEditor = () => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const [fileKey, setFileKey] = useState('');
+  const [isEdit,setIsEdit] = useState(false);
+
   const searchInput = useRef(null);
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     console.log('Search clicked!!');
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
+
   const handleReset = (clearFilters) => {
     console.log('Reset clicked!!');
     clearFilters();
     setSearchText('');
   };
+
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -123,6 +128,7 @@ const AssignmentEditor = () => {
       </>
     ),
   });
+
   const uploadAssignmentDeck = async (file) => {
     const formData = new FormData();
 
@@ -135,13 +141,18 @@ const AssignmentEditor = () => {
     };
 
     try {
-      const response = await axios
-        .post('https://studentplus-backend.herokuapp.com/aapi/assignment/file', formData, config)
-        return response;
+      const response = await axios.post(
+        'https://studentplus-backend.herokuapp.com/aapi/assignment/file',
+        formData,
+        config
+      );
+      return response;
     } catch (err) {
       console.log('Cloudinary Error :', err);
     }
   };
+
+
   const onSubmitHandler = async (submitedValues) => {
     try {
       if (submitedValues._id !== undefined && submitedValues._id !== null) {
@@ -165,6 +176,7 @@ const AssignmentEditor = () => {
             return item; // else return unmodified item
           });
           setAssignments(updatedAssignments);
+          setIsEdit(false);
           message.success('Assignment saved!');
         } else {
           message.error('Something went wrong, please try again!');
@@ -173,7 +185,7 @@ const AssignmentEditor = () => {
         uploadAssignmentDeck(submitedValues.deckLink).then(async (resp) => {
           submitedValues.deckLink = resp.data;
           console.log('Allsubvalus', submitedValues);
-		  console.log('decklnk', resp);
+          console.log('decklnk', resp);
           const response = await axios.post(
             `https://studentplus-backend.herokuapp.com/aapi/assignment`,
             submitedValues
@@ -191,12 +203,14 @@ const AssignmentEditor = () => {
       console.log('Error', err);
     }
   };
+
   const getAssignments = async () => {
     const response = await axios.get(
       `https://studentplus-backend.herokuapp.com/aapi/assignments/`
     );
     return response.data;
   };
+
   useEffect(() => {
     console.log(currentAssignment);
     (async () => {
@@ -205,11 +219,14 @@ const AssignmentEditor = () => {
       console.log(assign);
     })();
   }, []);
+
   const onEditHandler = async (record) => {
     console.log(record);
+    setIsEdit(true);
     setCurrentAssignments(record);
     console.log(record);
   };
+
   const onDeleteHandler = async (record) => {
     console.log(record);
     const response = await axios.delete(
@@ -217,6 +234,7 @@ const AssignmentEditor = () => {
     );
     console.log(response);
   };
+
   const columnArr = [
     {
       title: 'Assignment Title',
@@ -259,11 +277,14 @@ const AssignmentEditor = () => {
       ),
     },
   ];
+  
   return (
     <div className={styles.eventContainer}>
       <AssignmentForm
         initialValues={currentAssignment}
         onSubmitHandler={onSubmitHandler}
+        isEdit = {isEdit}
+        editToggle= {setIsEdit}
       />
       <AssignmentTable
         rowKey="_id"

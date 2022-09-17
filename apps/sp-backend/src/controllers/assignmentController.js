@@ -54,7 +54,9 @@ updateAssignment = asyncHandler(async (req, res) => {
   assignment.assignmentTitle = body.assignmentTitle;
   assignment.cohorts = body.cohorts;
   assignment.desc = body.desc;
-  assignment.deckLink = body.deckLink;
+  assignment.fileLink = body.fileLink;
+  assignment.programWeek = body.programWeek;
+  assignment.assignmentSNo = body.assignmentSNo
   assignment
     .save()
     .then(() => {

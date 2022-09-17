@@ -131,7 +131,9 @@ updateAssignment = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, 
     assignment.assignmentTitle = body.assignmentTitle;
     assignment.cohorts = body.cohorts;
     assignment.desc = body.desc;
-    assignment.deckLink = body.deckLink;
+    assignment.fileLink = body.fileLink;
+    assignment.programWeek = body.programWeek;
+    assignment.assignmentSNo = body.assignmentSNo;
     assignment
         .save()
         .then(() => {
@@ -216,6 +218,17 @@ createCohort = (req, res) => {
         });
     });
 };
+getActiveCohorts = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    const cohort = yield Cohort.find({ status: "Active" }, { cohortId: 1, _id: 1 });
+    if (cohort) {
+        res.json(cohort);
+    }
+    else {
+        res.status(404).json({ message: 'Cohort not found' });
+        res.status(404);
+        throw new Error('Cohort not found');
+    }
+}));
 getCohortById = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     const cohort = yield Cohort.findById({ _id: ObjectId(req.params.id) });
     if (cohort) {
@@ -263,6 +276,7 @@ getCohorts = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0
 module.exports = {
     createCohort,
     getCohorts,
+    getActiveCohorts,
     getCohortById,
     getCohortByStudent,
     getEventsByCohort,
@@ -784,8 +798,9 @@ const Assignment = new Schema({
     assignmentTitle: { type: String, required: true },
     cohorts: { type: Array, required: false },
     desc: { type: String, required: false },
-    deckLink: { type: String, required: false },
-    week: { type: String, required: true }
+    fileLink: { type: String, required: false },
+    programWeek: { type: String, required: true },
+    assignmentSNo: { type: String, required: true }
 }, { timestamps: true });
 module.exports = mongoose.model('assignment', Assignment);
 
@@ -962,6 +977,7 @@ const CohortCtrl = __webpack_require__("./apps/sp-backend/src/controllers/cohort
 const cohortRouter = express.Router();
 cohortRouter.post('/cohort', CohortCtrl.createCohort);
 cohortRouter.get('/cohorts', CohortCtrl.getCohorts);
+cohortRouter.get('/cohorts/active/', CohortCtrl.getActiveCohorts);
 cohortRouter.get('/cohort/:id', CohortCtrl.getCohortById);
 cohortRouter.get('/student-cohort/:cohortId', CohortCtrl.getCohortByStudent);
 cohortRouter.get('/cohort-events/:cohortId/:offset/:number', CohortCtrl.getEventsByCohort);

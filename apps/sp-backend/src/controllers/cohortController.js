@@ -38,6 +38,17 @@ createCohort = (req, res) => {
     });
 };
 
+getActiveCohorts = asyncHandler(async (req, res) => {
+  const cohort = await Cohort.find({status: "Active"},{ cohortId: 1, _id:1});
+  if (cohort) {
+    res.json(cohort);
+  } else {
+    res.status(404).json({ message: 'Cohort not found' });
+    res.status(404);
+    throw new Error('Cohort not found');
+  }
+});
+
 getCohortById = asyncHandler(async (req, res) => {
   const cohort = await Cohort.findById({ _id: ObjectId(req.params.id) });
   if (cohort) {
@@ -86,6 +97,7 @@ getCohorts = asyncHandler(async (req, res) => {
 module.exports = {
   createCohort,
   getCohorts,
+  getActiveCohorts,
   getCohortById,
   getCohortByStudent,
   getEventsByCohort,

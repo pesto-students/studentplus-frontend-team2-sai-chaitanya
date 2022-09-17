@@ -19,6 +19,7 @@ import { UploadOutlined } from '@ant-design/icons';
 // import moment from 'moment';
 import styles from './assignmentForm.module.scss';
 import axios from 'axios';
+
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === 'application/pdf';
 
@@ -41,32 +42,95 @@ const changeRequestStatus = ({ file, onSuccess }) => {
   }, 0);
 };
 
-const weekData = ['Week1', 'Week2'];
-const AssignmentForm = ({ initialValues, onSubmitHandler }) => {
+const programWeekData = [
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+  '11',
+  '12',
+  '13',
+  '14',
+  '15',
+  '16',
+  '17',
+  '18',
+  '19',
+  '20',
+  '21',
+  '22',
+  '23',
+  '24',
+  '25',
+  '26',
+  '27',
+  '28',
+  '29',
+  '30',
+];
+
+const assignmentSNo = [
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+  '11',
+  '12',
+  '13',
+  '14',
+  '15',
+];
+
+const AssignmentForm = ({
+  initialValues,
+  onSubmitHandler,
+  isEdit,
+  setIsEdit,
+}) => {
   const [form] = Form.useForm();
   const [fileKey, setFileKey] = useState([]);
   const [fileObj, setFileObj] = useState({});
   const [cohorts, setCohorts] = useState([]);
 
-  const getCohorts = async (userId) => {
+  const getActiveCohorts = async () => {
     try {
       const response = await axios.get(
-        `https://studentplus-backend.herokuapp.com/capi/cohorts`
+        `https://studentplus-backend.herokuapp.com/capi/cohorts/Active`
       );
       return response.data;
     } catch (err) {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/capi/cohorts/Active`
+        );
+        return response.data;
+      } catch (err) {
       console.log('Erro', err.message);
     }
+  }
   };
 
   useEffect(() => {
-	getCohorts().then((resp)=>{
-		console.log('cchorts', resp);
-    setCohorts(resp);
-	});
+    getActiveCohorts().then((resp) => {
+      console.log('cchorts', resp);
+      setCohorts(resp);
+    });
   }, []);
 
   const onFinish = (values) => {
+    setIsEdit = false;
     values.deckLink = fileObj;
     console.log('VALS: ', values);
     onSubmitHandler(values);
@@ -93,9 +157,8 @@ const AssignmentForm = ({ initialValues, onSubmitHandler }) => {
         },
       ]);
     }
-  }, [initialValues]);
-  //state
-  const isEdit = false;
+  }, [initialValues, isEdit]);
+
   const handleChange = (fileObj) => {
     console.log('flconx', fileObj);
     console.log('tof', fileObj.fileList != []);
@@ -182,15 +245,38 @@ const AssignmentForm = ({ initialValues, onSubmitHandler }) => {
                     <Title level={5}>Resource</Title>
                   </Space>
                   <Row gutter={8}>
-                    <Col span={12}>
-                      <Form.Item name="week" label="Week">
+                    <Col span={4}>
+                      <Form.Item name="week" label="Program Week">
                         <Select>
-                          <Option value="week1">Week 1</Option>
+                          {programWeekData !== undefined
+                            ? programWeekData.map((res) => {
+                                return (
+                                  <Option key={res} value={res}>
+                                    {res}
+                                  </Option>
+                                );
+                              })
+                            : ''}
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={4}>
+                      <Form.Item name="assignmentSNo" label="Assignment S.No. ">
+                        <Select>
+                          {assignmentSNo !== undefined
+                            ? assignmentSNo.map((res) => {
+                                return (
+                                  <Option key={res} value={res}>
+                                    {res}
+                                  </Option>
+                                );
+                              })
+                            : ''}
                         </Select>
                       </Form.Item>
                     </Col>
                     <Col span={12}>
-                      <Form.Item name="deckLink" label="Deck Link">
+                      <Form.Item name="fileLink" label="File Link">
                         <Upload
                           showUploadList={true}
                           customRequest={changeRequestStatus}
