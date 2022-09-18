@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { AssignmentForm, AssignmentTable } from '../../components';
 import {
   Button,
   Input,
@@ -7,32 +8,27 @@ import {
   SearchOutlined,
   Tag,
 } from '../../../../../libs/ui-shared/src/lib/components';
-import { EventForm, EventTable } from '../../components';
-import styles from './eventEditor.module.scss';
+import styles from './assignmentEditor.module.scss';
 import axios from 'axios';
-import Highlighter from 'react-highlight-words';
 
-const EventEditor = () => {
-  const [events, setEvents] = useState([]);
-  const [currentEvent, setCurrentEvent] = useState({});
+const AssignmentEditor = () => {
+  const [assignments, setAssignments] = useState([]);
+  const [currentAssignment, setCurrentAssignments] = useState({});
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
+  const [fileKey, setFileKey] = useState('');
   const searchInput = useRef(null);
-  const [isEdit,setIsEdit] = useState(false);
-
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
-	console.log('Search clicked!!');
+    console.log('Search clicked!!');
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
-
   const handleReset = (clearFilters) => {
-	console.log('Reset clicked!!');
+    console.log('Reset clicked!!');
     clearFilters();
     setSearchText('');
   };
-
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -87,8 +83,8 @@ const EventEditor = () => {
             htmlType="button"
             size="small"
             onClickHandler={() => {
-				console.log('Filter cliked!!');
-				clearFilters();
+              console.log('Filter cliked!!');
+              clearFilters();
               confirm({
                 closeDropdown: false,
               });
@@ -115,100 +111,127 @@ const EventEditor = () => {
         setTimeout(() => searchInput.current?.select(), 100);
       }
     },
-    render: (_, { cohorts }) => (
+    render: (data) => (
       <>
-        {cohorts.map((cohort) => {
+        {data.map((val) => {
           return (
-            <Tag color="blue" key={cohort}>
-              {cohort}
+            <Tag color="blue" key={val}>
+              {val}
             </Tag>
           );
         })}
       </>
     ),
   });
+  const uploadAssignmentDeck = async (file) => {
+    const formData = new FormData();
 
+    formData.append('file', file);
+    console.log(formData);
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
+
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/aapi/assignment/file',
+        formData,
+        config
+      );
+      return response;
+    } catch (err) {
+      console.log('Cloudinary Error :', err);
+    }
+  };
   const onSubmitHandler = async (submitedValues) => {
     try {
       if (submitedValues._id !== undefined && submitedValues._id !== null) {
         const response = await axios.put(
-          `https://studentplus-backend.herokuapp.com/eapi/event/${submitedValues._id}`,
+          `https://studentplus-backend.herokuapp.com/aapi/assignment/${submitedValues._id}`,
           submitedValues
         );
         console.log(response);
         if (response.data.success == true) {
-          console.log('events', events);
-          if (events == undefined) {
+          console.log('assignments', assignments);
+          if (assignments == undefined) {
             return false;
           }
-          const updatedEvents = events.map((item) => {
+          const updatedAssignments = assignments.map((item) => {
             if (item._id == submitedValues._id) {
               return {
                 ...submitedValues,
-                eventTitle: submitedValues.eventTitle,
+                assignmentTitle: submitedValues.assignmentTitle,
               }; //gets everything that was already in item, and updates "done"
             }
             return item; // else return unmodified item
           });
-          setEvents(updatedEvents);
-          setIsEdit(false);
+          setAssignments(updatedAssignments);
           message.success('Assignment saved!');
         } else {
           message.error('Something went wrong, please try again!');
         }
       } else {
+        uploadAssignmentDeck(submitedValues.deckLink).then(async (resp) => {
+          submitedValues.deckLink = resp.data;
           console.log('Allsubvalus', submitedValues);
+          console.log('decklnk', resp);
           const response = await axios.post(
-            `https://studentplus-backend.herokuapp.com/eapi/event`,
+            `https://studentplus-backend.herokuapp.com/aapi/assignment`,
             submitedValues
           );
           console.log(response);
           if (response.data.success == true) {
-            setEvents((oldValues) => oldValues.concat(submitedValues));
-            message.success('Event saved!');
+            setAssignments((oldValues) => oldValues.concat(submitedValues));
+            message.success('Assignment saved!');
           } else {
             message.error('Something went wrong, please try again!');
           }
+        });
       }
     } catch (err) {
       console.log('Error', err);
     }
   };
-
-  const onEditHandler = async (record) => {
-    console.log(record);
-    setIsEdit(true);
-    setCurrentEvent(record);
-    console.log(record);
-  };
-
-  const onDeleteHandler = async (record) => {
-    console.log(record);
-    const response = await axios.delete(
-      `https://studentplus-backend.herokuapp.com/eapi/event/${record._id}`
-    );
-    console.log(response);
-  };
-
-  const getEvents = async () => {
+  const getAssignments = async () => {
     const response = await axios.get(
-      `https://studentplus-backend.herokuapp.com/eapi/events/`
+      `https://studentplus-backend.herokuapp.com/aapi/assignments/`
     );
     return response.data;
   };
-
   useEffect(() => {
+    console.log(currentAssignment);
     (async () => {
-      const eve = await getEvents();
-      setEvents(eve);
-      console.log(eve);
+      const assign = await getAssignments();
+      setAssignments(assign);
+      console.log(assign);
     })();
   }, []);
+  const onEditHandler = async (record) => {
+    console.log(record);
+    setCurrentAssignments(record);
+    console.log(record);
+  };
+  const onDeleteHandler = async (record) => {
+    console.log(record);
+	try{
+    const response = await axios.delete(
+      `https://studentplus-backend.herokuapp.com/aapi/assignment/${record._id}`
+    );
+    console.log(response);
+	message.success('Assignment Deleted!');
+	}
+	catch(err){
+console.log("Error", err);
+	}
+
+  };
   const columnArr = [
     {
-      title: 'Event Title',
-      dataIndex: 'eventTitle',
-      key: 'eventTitle',
+      title: 'Assignment Title',
+      dataIndex: 'assignmentTitle',
+      key: 'assignmentTitle',
     },
     {
       title: 'Cohorts',
@@ -217,14 +240,9 @@ const EventEditor = () => {
       ...getColumnSearchProps('cohorts'),
     },
     {
-      title: 'Start Time',
-      dataIndex: 'startTime',
-      key: 'startTime',
-    },
-    {
-      title: 'End Time',
-      dataIndex: 'endTime',
-      key: 'endTime',
+      title: 'Description',
+      dataIndex: 'desc',
+      key: 'desc',
     },
     {
       title: 'Action',
@@ -253,13 +271,17 @@ const EventEditor = () => {
   ];
   return (
     <div className={styles.eventContainer}>
-      <EventForm initialValues={currentEvent}
+      <AssignmentForm
+        initialValues={currentAssignment}
         onSubmitHandler={onSubmitHandler}
-        isEdit = {isEdit}
-        editToggle= {setIsEdit}></EventForm>
-      <EventTable dataSource={events} columns={columnArr}></EventTable>
+      />
+      <AssignmentTable
+        rowKey="_id"
+        dataSource={assignments}
+        columns={columnArr}
+      />
     </div>
   );
 };
 
-export default EventEditor;
+export default AssignmentEditor;

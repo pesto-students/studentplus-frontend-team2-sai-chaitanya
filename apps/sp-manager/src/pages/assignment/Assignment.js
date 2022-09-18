@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import PDFViewer from 'pdf-viewer-reactjs';
+
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -122,7 +122,7 @@ console.log();
         </Col>
       </Row>
       <div className={styles.assignmentContent}>
-        <PDFViewer document={newUrl} scale={scale} hideNavbar={hideNavbar} />
+        
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ const Event = new Schema(
     eventTitle: { type: String, required: true },
     cohorts: { type: Array, required: true },
     eventLink: { type: String, required: true },
+    eventDesc: { type: String, required: true },
     password: { type: String, required: false },
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },

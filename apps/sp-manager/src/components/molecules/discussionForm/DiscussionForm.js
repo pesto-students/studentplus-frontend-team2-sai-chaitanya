@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Button,
   Card,
@@ -15,30 +15,59 @@ import {
 } from '../../../../../../libs/ui-shared/src/lib/components';
 // import moment from 'moment';
 import styles from './discussionForm.module.scss';
+import axios from 'axios';
 
-const cohorts = [
-  {
-    id: '001',
-    name: 'Cohort 1',
-  },
-  {
-    id: '002',
-    name: 'Cohort 2',
-  },
-];
-const assignments = [
-  {
-    id: '001',
-    name: 'Assignment 1',
-  },
-  {
-    id: '002',
-    name: 'Assignment 2',
-  },
-];
 const DiscussionForm = ({ initialValues, onSubmitHandler }) => {
   const [form] = Form.useForm();
+    const [cohorts, setCohorts] = useState([]);
+	const [assignments, setAssignments] = useState([]);
 
+  const getActiveCohorts = async () => {
+    try {
+      const response = await axios.get(
+        `https://studentplus-backend.herokuapp.com/capi/cohorts/active`
+      );
+      return response.data;
+    } catch (err) {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/capi/cohorts/active`
+        );
+        return response.data;
+      } catch (err) {
+        console.log('Erro', err.message);
+      }
+    }
+  };
+
+  const getAssignments = async () => {
+    try {
+      const response = await axios.get(
+        `https://studentplus-backend.herokuapp.com/aapi/assignments`
+      );
+      return response.data;
+    } catch (err) {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/aapi/assignments`
+        );
+        return response.data;
+      } catch (err) {
+        console.log('Erro', err.message);
+      }
+    }
+  };
+
+   useEffect(() => {
+     getActiveCohorts().then((resp) => {
+       console.log('cchorts', resp);
+       setCohorts(resp);
+     });
+	 getAssignments().then((resp) => {
+     console.log('cchorts', resp);
+     setAssignments(resp);
+   });
+   }, []);
   const onFinish = (values) => {
     console.log(values);
     onSubmitHandler(values);
@@ -107,7 +136,17 @@ const DiscussionForm = ({ initialValues, onSubmitHandler }) => {
                           },
                         ]}
                       >
-                        <Select options={cohorts} mode="tags" />
+                        <Select mode="tags">
+                          {cohorts !== undefined
+                            ? cohorts.map((res) => {
+                                return (
+                                  <Option key={res._id} value={res.cohortId}>
+                                    {res.cohortId}
+                                  </Option>
+                                );
+                              })
+                            : ''}
+                        </Select>
                       </Form.Item>
                     </Col>
                   </Row>
@@ -155,7 +194,17 @@ const DiscussionForm = ({ initialValues, onSubmitHandler }) => {
                           },
                         ]}
                       >
-                        <Select options={assignments} mode="tags" />
+                        <Select mode="tags">
+						{assignments !== undefined
+                            ? assignments.map((res) => {
+                                return (
+                                  <Option key={res._id} value={res._id}>
+                                    {res.assignmentTitle}
+                                  </Option>
+                                );
+                              })
+                            : ''}
+						</Select>
                       </Form.Item>
                     </Col>
                   </Row>
