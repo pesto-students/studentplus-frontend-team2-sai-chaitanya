@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Button,
   Card,
@@ -15,19 +15,39 @@ import {
 } from '../../../../../../libs/ui-shared/src/lib/components/';
 // import moment from 'moment';
 import styles from './eventForm.module.scss';
+import axios from 'axios';
 
-const cohorts = [
-  {
-    id: '001',
-    name: 'Cohort 1',
-  },
-  {
-    id: '002',
-    name: 'Cohort 2',
-  },
-];
-const EventForm = ({ onSubmitHandler }) => {
+const EventForm = ({ initialValues,
+  onSubmitHandler,
+  isEdit,
+  setIsEdit, }) => {
   const [form] = Form.useForm();
+  const [cohorts, setCohorts] = useState([]);
+
+  const getActiveCohorts = async () => {
+    try {
+      const response = await axios.get(
+        `https://studentplus-backend.herokuapp.com/capi/cohorts/active`
+      );
+      return response.data;
+    } catch (err) {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/capi/cohorts/active`
+        );
+        return response.data;
+      } catch (err) {
+      console.log('Erro', err.message);
+    }
+  }
+  };
+
+  useEffect(() => {
+    getActiveCohorts().then((resp) => {
+      console.log('cchorts', resp);
+      setCohorts(resp);
+    });
+  }, []);
 
   const onFinish = (values) => {
     const startTime = values.startEndTime[0].format('YYYY-MM-DD HH:mm:ss');
@@ -37,8 +57,22 @@ const EventForm = ({ onSubmitHandler }) => {
     onSubmitHandler(values);
     form.resetFields();
   };
-  //state
-  const isEdit = false;
+  
+  useEffect(() => {
+    const cohortArray = initialValues.cohorts;
+    initialValues.cohorts ? console.log([...cohortArray]) : '';
+    if (initialValues.cohorts) {
+      form.setFieldsValue({
+        _id: initialValues._id,
+        eventTitle: initialValues.eventTitle,
+        cohorts: initialValues.cohorts,
+        eventLink: initialValues.eventLink,
+        startTime: initialValues.startTime,
+        endTime: initialValues.endTime,
+      });
+  }}, [initialValues, isEdit]);
+
+
   return (
     <div className={styles.eventContainer}>
       <Card className={styles.eventForm}>
@@ -85,7 +119,17 @@ const EventForm = ({ onSubmitHandler }) => {
                           },
                         ]}
                       >
-                        <Select options={cohorts} mode="tags" />
+                        <Select mode="tags">
+                          {cohorts !== undefined
+                            ? cohorts.map((res) => {
+                                return (
+                                  <Option key={res._id} value={res.cohortId}>
+                                    {res.cohortId}
+                                  </Option>
+                                );
+                              })
+                            : ''}
+                        </Select>
                       </Form.Item>
                     </Col>
                   </Row>

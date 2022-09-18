@@ -476,8 +476,52 @@ getEvents = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0,
     const events = yield Event.find({});
     res.json(events);
 }));
+updateEvent = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    const body = req.body;
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a body to update',
+        });
+    }
+    const event = yield Event.findById({
+        _id: ObjectId(req.params.id),
+    });
+    if (!event) {
+        return res.status(400).json({ success: false, error: err });
+    }
+    event.eventTitle = body.assignmentTitle;
+    event.cohorts = body.cohorts;
+    event.eventLink = body.eventLink;
+    event.eventPassword = body.eventPassword;
+    event.startTime = body.startTime;
+    event.endTime = body.endTime;
+    event
+        .save()
+        .then(() => {
+        return res.status(200).json({
+            success: true,
+            id: event._id,
+            message: 'Event updated!',
+        });
+    })
+        .catch((error) => {
+        return res.status(404).json({
+            error,
+            message: 'Event not updated!',
+        });
+    });
+}));
+deleteEvent = (req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    const response = yield Event.findOneAndDelete({
+        _id: ObjectId(req.params.id),
+    });
+    res.json(response);
+});
 module.exports = {
     createEvent,
+    updateEvent,
+    deleteEvent,
     getEvents,
 };
 
@@ -1024,6 +1068,8 @@ const EventCtrl = __webpack_require__("./apps/sp-backend/src/controllers/eventCo
 const eventRouter = express.Router();
 eventRouter.post('/event', EventCtrl.createEvent);
 eventRouter.get('/events', EventCtrl.getEvents);
+eventRouter.put('/event/:id', EventCtrl.updateEvent);
+eventRouter.delete('/event/:id', EventCtrl.deleteEvent);
 module.exports = eventRouter;
 
 

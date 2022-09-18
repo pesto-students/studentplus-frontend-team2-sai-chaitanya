@@ -141,6 +141,7 @@ const pushComment = async (userId, discussionId, values, setAllComments) => {
     }
   });
 };
+
 export {
   getUserInfo,
   getStudentCohorts,

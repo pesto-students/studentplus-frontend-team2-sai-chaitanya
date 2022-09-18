@@ -107,13 +107,13 @@ const AssignmentForm = ({
   const getActiveCohorts = async () => {
     try {
       const response = await axios.get(
-        `https://studentplus-backend.herokuapp.com/capi/cohorts/Active`
+        `https://studentplus-backend.herokuapp.com/capi/cohorts/active`
       );
       return response.data;
     } catch (err) {
       try {
         const response = await axios.get(
-          `http://localhost:3000/capi/cohorts/Active`
+          `http://localhost:3000/capi/cohorts/active`
         );
         return response.data;
       } catch (err) {

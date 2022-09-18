@@ -14,9 +14,11 @@ import Highlighter from 'react-highlight-words';
 
 const EventEditor = () => {
   const [events, setEvents] = useState([]);
+  const [currentEvent, setCurrentEvent] = useState({});
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
+  const [isEdit,setIsEdit] = useState(false);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
 	console.log('Search clicked!!');
@@ -125,29 +127,80 @@ const EventEditor = () => {
       </>
     ),
   });
+
   const onSubmitHandler = async (submitedValues) => {
     try {
-      const response = await axios.post(
-        `https://studentplus-backend.herokuapp.com/eapi/event`,
-        submitedValues
-      );
-      console.log(response);
-      if (response.data.success == true) {
-        setEvents((oldValues) => oldValues.concat(submitedValues));
-        message.success('Event created!');
+      if (submitedValues._id !== undefined && submitedValues._id !== null) {
+        const response = await axios.put(
+          `https://studentplus-backend.herokuapp.com/eapi/event/${submitedValues._id}`,
+          submitedValues
+        );
+        console.log(response);
+        if (response.data.success == true) {
+          console.log('events', events);
+          if (events == undefined) {
+            return false;
+          }
+          const updatedEvents = events.map((item) => {
+            if (item._id == submitedValues._id) {
+              return {
+                ...submitedValues,
+                eventTitle: submitedValues.eventTitle,
+              }; //gets everything that was already in item, and updates "done"
+            }
+            return item; // else return unmodified item
+          });
+          setEvents(updatedEvents);
+          setIsEdit(false);
+          message.success('Assignment saved!');
+        } else {
+          message.error('Something went wrong, please try again!');
+        }
       } else {
-        message.error('Something went wrong, please try again!');
+        uploadEventDeck(submitedValues.deckLink).then(async (resp) => {
+          submitedValues.deckLink = resp.data;
+          console.log('Allsubvalus', submitedValues);
+          console.log('decklnk', resp);
+          const response = await axios.post(
+            `https://studentplus-backend.herokuapp.com/eapi/event`,
+            submitedValues
+          );
+          console.log(response);
+          if (response.data.success == true) {
+            setEvents((oldValues) => oldValues.concat(submitedValues));
+            message.success('Event saved!');
+          } else {
+            message.error('Something went wrong, please try again!');
+          }
+        });
       }
     } catch (err) {
       console.log('Error', err);
     }
   };
+
+  const onEditHandler = async (record) => {
+    console.log(record);
+    setIsEdit(true);
+    setCurrentEvent(record);
+    console.log(record);
+  };
+
+  const onDeleteHandler = async (record) => {
+    console.log(record);
+    const response = await axios.delete(
+      `https://studentplus-backend.herokuapp.com/eapi/event/${record._id}`
+    );
+    console.log(response);
+  };
+
   const getEvents = async () => {
     const response = await axios.get(
       `https://studentplus-backend.herokuapp.com/eapi/events/`
     );
     return response.data;
   };
+
   useEffect(() => {
     (async () => {
       const eve = await getEvents();
@@ -177,10 +230,37 @@ const EventEditor = () => {
       dataIndex: 'endTime',
       key: 'endTime',
     },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (_, record) => (
+        <Space size="middle">
+          <Button
+            htmlType="link"
+            onClickHandler={() => {
+              onEditHandler(record);
+            }}
+          >
+            Edit
+          </Button>
+          <Button
+            htmlType="link"
+            onClickHandler={() => {
+              onDeleteHandler(record);
+            }}
+          >
+            Delete
+          </Button>
+        </Space>
+      ),
+    },
   ];
   return (
     <div className={styles.eventContainer}>
-      <EventForm onSubmitHandler={onSubmitHandler}></EventForm>
+      <EventForm initialValues={currentEvent}
+        onSubmitHandler={onSubmitHandler}
+        isEdit = {isEdit}
+        editToggle= {setIsEdit}></EventForm>
       <EventTable dataSource={events} columns={columnArr}></EventTable>
     </div>
   );
