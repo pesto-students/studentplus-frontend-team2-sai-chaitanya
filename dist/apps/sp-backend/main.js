@@ -100,7 +100,8 @@ createAssignment = (req, res) => {
     if (!assignment) {
         return res.status(400).json({ success: false, error: err });
     }
-    assignment.save()
+    assignment
+        .save()
         .then(() => {
         return res.status(200).json({
             success: true,
@@ -152,6 +153,11 @@ getAssignments = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, vo
     const assignments = yield Assignment.find({});
     res.json(assignments);
 }));
+getAssignmentsByWeek = asyncHandler((req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    const query = { week: req.params.week };
+    const assignments = yield Assignment.find(query);
+    res.json(assignments);
+}));
 deleteAssignment = (req, res) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     const response = yield Assignment.findOneAndDelete({
         _id: ObjectId(req.params.id),
@@ -174,6 +180,7 @@ module.exports = {
     deleteAssignment,
     uploadAssignment,
     getAssignmentFile,
+    getAssignmentsByWeek,
 };
 
 
@@ -945,6 +952,7 @@ const AssignmentCtrl = __webpack_require__("./apps/sp-backend/src/controllers/as
 const assignmentRouter = express.Router();
 assignmentRouter.post('/assignment', AssignmentCtrl.createAssignment);
 assignmentRouter.get('/assignments', AssignmentCtrl.getAssignments);
+assignmentRouter.get('/assignments/:week', AssignmentCtrl.getAssignmentsByWeek);
 assignmentRouter.put('/assignment/:id', AssignmentCtrl.updateAssignment);
 assignmentRouter.delete('/assignment/:id', AssignmentCtrl.deleteAssignment);
 assignmentRouter.post('/assignment/file', singleMulterUpload('file'), AssignmentCtrl.uploadAssignment);

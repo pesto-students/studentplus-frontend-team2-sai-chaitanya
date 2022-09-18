@@ -7,6 +7,7 @@ const assignmentRouter = express.Router();
 
 assignmentRouter.post('/assignment', AssignmentCtrl.createAssignment);
 assignmentRouter.get('/assignments', AssignmentCtrl.getAssignments);
+assignmentRouter.get('/assignments/:week', AssignmentCtrl.getAssignmentsByWeek);
 assignmentRouter.put('/assignment/:id', AssignmentCtrl.updateAssignment);
 assignmentRouter.delete('/assignment/:id', AssignmentCtrl.deleteAssignment);
 assignmentRouter.post(

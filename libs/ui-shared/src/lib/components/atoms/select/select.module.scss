@@ -1,6 +1,5 @@
 .selectbox{
 	overflow: hidden;
-	box-shadow: 1px 3px 10px #eee;
 	height: 50px;
 	font-weight: 400;
 	color: #8b8888;
@@ -10,4 +9,10 @@
 	margin-top: 10px;
 	margin-bottom: 2rem !important;
 	font-size: small;
+	border: 1px solid #c8c2c2;
+	:global{
+		.ant-select-selector{
+			box-shadow: none !important;
+		}
+	}
 }

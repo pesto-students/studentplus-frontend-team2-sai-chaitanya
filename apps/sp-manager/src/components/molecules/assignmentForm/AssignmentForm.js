@@ -60,14 +60,14 @@ const AssignmentForm = ({ initialValues, onSubmitHandler }) => {
   };
 
   useEffect(() => {
-	getCohorts().then((resp)=>{
-		console.log('cchorts', resp);
-    setCohorts(resp);
-	});
+    getCohorts().then((resp) => {
+      console.log('cchorts', resp);
+      setCohorts(resp);
+    });
   }, []);
 
   const onFinish = (values) => {
-    values.deckLink = fileObj;
+	if (values._id==undefined) values.deckLink = fileObj;
     console.log('VALS: ', values);
     onSubmitHandler(values);
     form.resetFields();
@@ -83,6 +83,7 @@ const AssignmentForm = ({ initialValues, onSubmitHandler }) => {
         cohorts: initialValues.cohorts,
         desc: initialValues.desc,
         deckLink: initialValues.deckLink,
+        week: initialValues.week,
       });
       setFileKey([
         {
@@ -102,6 +103,15 @@ const AssignmentForm = ({ initialValues, onSubmitHandler }) => {
     fileObj.fileList.length
       ? setFileObj(fileObj.fileList[0].originFileObj)
       : setFileObj({});
+    let newFileList = [...fileObj.fileList];
+    newFileList = newFileList.slice(-2);
+    newFileList = newFileList.map((file) => {
+      if (file.response) {
+        file.url = file.response.url;
+      }
+      return file;
+    });
+    setFileKey(newFileList);
   };
   return (
     <div className={styles.container}>
@@ -197,9 +207,14 @@ const AssignmentForm = ({ initialValues, onSubmitHandler }) => {
                           beforeUpload={beforeUpload}
                           onChange={(obj) => handleChange(obj)}
                           action=""
-                          fileList={fileKey}
+                          fileList={fileKey ? fileKey : []}
+                          className={styles.uploadButton}
                         >
-                          <Button htmlType="button" icon={<UploadOutlined />}>
+                          <Button
+                            type="default"
+                            htmlType="button"
+                            icon={<UploadOutlined />}
+                          >
                             Upload
                           </Button>
                         </Upload>

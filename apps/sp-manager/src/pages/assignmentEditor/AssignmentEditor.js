@@ -135,8 +135,11 @@ const AssignmentEditor = () => {
     };
 
     try {
-      const response = await axios
-        .post('https://studentplus-backend.herokuapp.com/aapi/assignment/file', formData, config)
+      const response = await axios.post(
+        'http://localhost:3000/aapi/assignment/file',
+        formData,
+        config
+      );
         return response;
     } catch (err) {
       console.log('Cloudinary Error :', err);

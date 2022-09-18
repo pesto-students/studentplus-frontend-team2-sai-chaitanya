@@ -10,6 +10,8 @@ import {
   pushComment,
   getDiscussionsByCohort,
   deleteComment,
+  getAssignmentsByWeek,
+  getAssignmentsFile,
 } from './ServerCalls';
 export {
   getUserInfo,
@@ -23,4 +25,6 @@ export {
   pushComment,
   getDiscussionsByCohort,
   deleteComment,
+  getAssignmentsByWeek,
+  getAssignmentsFile,
 };

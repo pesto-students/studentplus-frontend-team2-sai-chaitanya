@@ -44,3 +44,16 @@
     gap: 16px;
     margin: 2rem auto;
 }
+.uploadButton{
+	width: 100%;
+	:global{
+		.ant-upload-select{
+			width:100%;
+		}
+		.ant-btn-default{
+			width: 100%;
+			margin-top: 10px;
+			height: 50px;
+		}
+	}
+}

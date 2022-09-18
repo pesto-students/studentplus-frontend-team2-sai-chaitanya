@@ -20,7 +20,8 @@ createAssignment = (req, res) => {
     return res.status(400).json({ success: false, error: err });
   }
 
-  assignment.save()
+  assignment
+    .save()
     .then(() => {
       return res.status(200).json({
         success: true,
@@ -77,6 +78,12 @@ getAssignments = asyncHandler(async (req, res) => {
   res.json(assignments);
 });
 
+getAssignmentsByWeek = asyncHandler(async (req, res) => {
+  const query = { week: req.params.week };
+  const assignments = await Assignment.find(query);
+  res.json(assignments);
+});
+
 deleteAssignment = async (req, res) => {
   const response = await Assignment.findOneAndDelete({
     _id: ObjectId(req.params.id),
@@ -102,4 +109,5 @@ module.exports = {
   deleteAssignment,
   uploadAssignment,
   getAssignmentFile,
+  getAssignmentsByWeek,
 };

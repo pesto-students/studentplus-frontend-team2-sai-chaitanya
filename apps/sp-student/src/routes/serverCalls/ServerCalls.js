@@ -33,6 +33,29 @@ const getStudentCohortEvents = async (resp, offset, numberOfEvents) => {
   }
 };
 
+const getAssignmentsByWeek = async (week) => {
+  try {
+    const assignments = await axios.get(
+      `http://localhost:3000/aapi/assignments/${week}`
+    );
+    return assignments;
+  } catch (err) {
+    console.log('Erro', err.message);
+  }
+};
+
+const getAssignmentsFile = async (key) => {
+  try {
+    const assignments = await axios.get(
+      `http://localhost:3000/aapi/assignment-file/${key}`
+    );
+    return assignments;
+  } catch (err) {
+    console.log('Erro', err.message);
+  }
+};
+
+
 const uploadProfileImage = async (formData, setImageUrl) => {
   try {
     const response = await axios
@@ -141,4 +164,6 @@ export {
   pushComment,
   getDiscussionsByCohort,
   deleteComment,
+  getAssignmentsByWeek,
+  getAssignmentsFile,
 };

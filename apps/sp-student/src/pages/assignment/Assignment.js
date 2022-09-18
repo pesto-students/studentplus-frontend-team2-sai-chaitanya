@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react';
-import PDFViewer from 'pdf-viewer-reactjs';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import { PDFReader } from 'reactjs-pdf-reader'
 import {
   Button,
   Row,
@@ -10,6 +10,10 @@ import {
 } from '../../../../../libs/ui-shared/src/lib/components';
 import Pdf from '../../../../../libs/ui-shared/public/sample.pdf';
 import styles from './assignment.module.scss';
+import {
+  getAssignmentsByWeek,
+  getAssignmentsFile,
+} from '../../routes/serverCalls';
 
 const weekData = [
   {
@@ -23,12 +27,7 @@ const weekData = [
     name: 'Week 2',
   },
 ];
-const getAssignmentsByWeek = (week) => {
-  const assign = assignmentData.filter((assignment) => {
-    return assignment.week == week;
-  });
-  return assign;
-};
+
 const assignmentData = [
   {
     key: 0,
@@ -69,7 +68,18 @@ const assignmentData = [
 ];
 
 const Assignment = ({ hideNavbar, scale, url }) => {
-  const [assignments, setAssignments] = useState(getAssignmentsByWeek('week1'));
+  const [assignments, setAssignments] = useState();
+  const [newUrl, setNewUrl] = useState('');
+  console.log("seassign", assignments);
+useEffect(() => {
+  console.log('weeksAssign', getAssignmentsByWeek('week1'));
+  const assigns = getAssignmentsByWeek('week1').then((resp) => {
+    return resp.data;
+  });
+  assigns.then((response)=>{
+	setAssignments(response);
+  });
+}, []);
 
   const [pdfUrl, setpdfUrl] = useState(
     'https://arxiv.org/pdf/quant-ph/0410100.pdf'
@@ -81,17 +91,19 @@ const Assignment = ({ hideNavbar, scale, url }) => {
   };
 
   const onSecondWeekChange = (value) => {
-console.log();
+	const selectAssignment = assignments.filter((assignment)=>{
+		return assignment._id == value._id;
+	})
+console.log("retunUrl", getAssignmentsFile(selectAssignment.deckLink));
+getAssignmentsFile(selectAssignment.deckLink).then((resp)=>{
+	setNewUrl(resp.data);
+});
   };
-  const newUrl = useMemo(() => ({ url: pdfUrl }));
   return (
     <div className={styles.assignmentCover}>
       <Row>
         <Col span={8} xs={24} md={8}>
-          <Select
-            defaultValue={weekData[0].id}
-            onChange={handleWeekChange}
-          >
+          <Select defaultValue={weekData[0].id} onChange={handleWeekChange}>
             {weekData !== undefined
               ? weekData.map((res) => {
                   return (
@@ -104,12 +116,15 @@ console.log();
           </Select>
         </Col>
         <Col span={8} xs={24} md={8}>
-          <Select onChange={onSecondWeekChange}>
+          <Select
+            onChange={onSecondWeekChange}
+            defaultValue="Select Assignment"
+          >
             {assignments !== undefined
               ? assignments.map((res) => {
                   return (
-                    <Option key={res.key} value={res.id}>
-                      {res.name}
+                    <Option key={res._id} value={res._id}>
+                      {res.assignmentTitle}
                     </Option>
                   );
                 })
@@ -123,7 +138,7 @@ console.log();
         </Col>
       </Row>
       <div className={styles.assignmentContent}>
-        <PDFViewer document={newUrl} scale={scale} hideNavbar={hideNavbar} />
+        <PDFReader url="https://cdn.filestackcontent.com/wcrjf9qPTCKXV3hMXDwK" />
       </div>
     </div>
   );
