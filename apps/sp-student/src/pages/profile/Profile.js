@@ -130,7 +130,7 @@ function Profile() {
                           <Listing
                             key={index}
                             title={item.title}
-                            excerpt="This is a test excerpt"
+                            description="This is a test excerpt"
                             percent={item.progress}
                           />
                         </List.Item>
@@ -163,7 +163,7 @@ function Profile() {
                           <Listing
                             key={index}
                             title={item.discussionTitle}
-                            excerpt="This is a test excerpt"
+                            description={item.boardDesc}
                             type="link"
                           />
                         </List.Item>

@@ -17,10 +17,10 @@ const RESOURCES = {
   icon: <FolderOpenOutlined />,
   label: 'Resources',
   children: [
-    {
+   /*  {
       key: 'ASSIGNMENT',
       label: 'Assignment',
-    },
+    }, */
     {
       key: 'CALENDLY',
       label: 'Calendly',
@@ -71,7 +71,6 @@ const MENU_ITEMS = [
   PROFILE,
   DISCUSSIONS,
   RESOURCES,
-  STATISTICS,
   ACCOUNT_SETTINGS,
 ];
 const DEFAULT_SELECTED_ITEM_KEY = DASHBOARD.key;

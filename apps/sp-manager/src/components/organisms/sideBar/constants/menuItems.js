@@ -60,10 +60,10 @@ const RESOURCES = {
   icon: <FolderOpenOutlined />,
   label: 'Resources',
   children: [
-    {
+   /*  {
       key: 'ASSIGNMENTS',
       label: 'Assignments',
-    },
+    }, */
     {
       key: 'CALENDLY',
       label: 'Calendly',
@@ -93,16 +93,13 @@ const RESOURCES = {
 };
 
 const MENU_ITEMS = [
-  ATTENDANCE,
-  ASSIGNMENT_EDITOR,
-  COHORT_MANAGER,
   DASHBOARD,
+  ASSIGNMENT_EDITOR,
   EVENT_EDITOR,
   PROFILE,
   DISCUSSION_EDITOR,
   ACCOUNT_SETTINGS,
   RESOURCES,
-  STATISTICS,
 ];
 const DEFAULT_SELECTED_ITEM_KEY = DASHBOARD.key;
 const DEFAULT_OPEN_ITEM_KEY = RESOURCES.key;

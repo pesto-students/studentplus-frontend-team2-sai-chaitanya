@@ -26,6 +26,7 @@ const Dashboard = () => {
   const getEvents = async (page) => {
     const user = await getUserInfo(authState.idToken.claims.studentid).then(
       (user) => {
+		console.log('GrtManager', user);
         return user;
       }
     );

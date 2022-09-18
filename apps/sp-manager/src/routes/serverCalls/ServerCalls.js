@@ -34,9 +34,11 @@ const getStudentCohorts = async (resp) => {
 
 const getStudentCohortEvents = async (resp, offset, numberOfEvents) => {
   try {
+	console.log("servercall", resp);
     const events = await axios.get(
-      `https://studentplus-backend.herokuapp.com/capi/cohort-events/${resp.cohort}/${offset}/${numberOfEvents}`
+      `https://studentplus-backend.herokuapp.com/capi/cohort-events/${resp.cohorts[0].cohortID}/${offset}/${numberOfEvents}`
     );
+	console.log('servercallEve', resp);
     return events;
   } catch (err) {
     console.log('Erro', err.message);
