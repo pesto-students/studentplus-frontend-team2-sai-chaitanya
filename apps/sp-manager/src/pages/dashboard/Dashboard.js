@@ -23,22 +23,22 @@ const Dashboard = () => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  const getEvents = async (page) => {
-    const user = await getUserInfo(authState.idToken.claims.studentid).then(
-      (user) => {
-        return user;
-      }
-    );
-    const offset = page * 4;
-    const until = page ? offset * 4 : 4;
-    setPage(page + 1);
-    const eves = await getStudentCohortEvents(user, offset, until).then(
-      (events) => {
-        return events;
-      }
-    );
-    return eves;
-  };
+  // const getEvents = async (page) => {
+  //   const user = await getUserInfo(authState.idToken.claims.studentid).then(
+  //     (user) => {
+  //       return user;
+  //     }
+  //   );
+  //   const offset = page * 4;
+  //   const until = page ? offset * 4 : 4;
+  //   setPage(page + 1);
+  //   const eves = await getStudentCohortEvents(user, offset, until).then(
+  //     (events) => {
+  //       return events;
+  //     }
+  //   );
+  //   return eves;
+  // };
 
   useEffect(() => {
     getEvents(page).then((eves) => {
