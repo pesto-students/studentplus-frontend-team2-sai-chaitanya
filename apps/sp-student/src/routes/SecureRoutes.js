@@ -7,7 +7,7 @@ import {
   AccountSettings,
   Assignment,
   Dashboard,
-  LiveSessionChat,
+  Discussion,
   Profile,
   Statistics,
 } from '../pages';
@@ -23,7 +23,7 @@ function SecureRoutes() {
         <Route
           exact
           path={PATHS.DISCUSSIONS}
-          component={LiveSessionChat}
+          component={Discussion}
         />
         <Route
           exact

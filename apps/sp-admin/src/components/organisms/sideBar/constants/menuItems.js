@@ -1,8 +1,12 @@
 import {
   DashboardOutlined,
   ProfileOutlined,
+  CommentOutlined,
   SettingOutlined,
+  CalendarOutlined,
   TeamOutlined,
+  StockOutlined,
+  FolderOpenOutlined,
 } from '../../../../../../../libs/ui-shared/src/lib/components/atoms';
 
 const ACCOUNT_SETTINGS = {
@@ -10,25 +14,89 @@ const ACCOUNT_SETTINGS = {
   icon: <SettingOutlined />,
   label: 'Settings',
 };
-const COHORT_CREATOR = {
-  key: 'COHORT_CREATOR',
-  icon: <TeamOutlined />,
-  label: 'Cohot Creator',
-};
-
 const DASHBOARD = {
   key: 'DASHBOARD',
   icon: <DashboardOutlined />,
   label: 'Dashboard',
 };
-
 const PROFILE = {
   key: 'PROFILE',
   icon: <ProfileOutlined />,
   label: 'Profile',
 };
+const DISCUSSION_EDITOR = {
+  key: 'DISCUSSION_EDITOR',
+  icon: <CommentOutlined />,
+  label: 'Discussion Editor',
+};
+const ASSIGNMENT_EDITOR = {
+  key: 'ASSIGNMENT_EDITOR',
+  icon: <CommentOutlined />,
+  label: 'Assignment Editor',
+};
+const EVENT_EDITOR = {
+  key: 'EVENT_EDITOR',
+  icon: <CalendarOutlined />,
+  label: 'Events Editor',
+};
+const COHORT_EDITOR = {
+  key: 'COHORT_MANAGER',
+  icon: <TeamOutlined />,
+  label: 'Cohort Manager',
+};
+const STATISTICS = {
+  key: 'STATISTICS',
+  icon: <StockOutlined />,
+  label: 'Statistics',
+};
+const RESOURCES = {
+  key: 'RESOURCES',
+  icon: <FolderOpenOutlined />,
+  label: 'Resources',
+  children: [
+    {
+      key: 'ASSIGNMENTS',
+      label: 'Assignments',
+    },
+    {
+      key: 'CALENDLY',
+      label: 'Calendly',
+    },
+    {
+      key: 'DISCORD',
+      label: 'Discord',
+    },
+    {
+      key: 'DISCUSSIONS',
+      label: 'Discussions',
+    },
 
-const MENU_ITEMS = [DASHBOARD, PROFILE, COHORT_CREATOR, ACCOUNT_SETTINGS];
+    {
+      key: 'NOTION',
+      label: 'Notion',
+    },
+    {
+      key: 'SHAREPOINT',
+      label: 'Sharepoint',
+    },
+    {
+      key: 'TEACHABLE',
+      label: 'Teachable',
+    },
+  ],
+};
+
+const MENU_ITEMS = [
+  ASSIGNMENT_EDITOR,
+  COHORT_EDITOR,
+  DASHBOARD,
+  EVENT_EDITOR,
+  PROFILE,
+  DISCUSSION_EDITOR,
+  ACCOUNT_SETTINGS,
+  RESOURCES,
+  STATISTICS,
+];
 const DEFAULT_SELECTED_ITEM_KEY = DASHBOARD.key;
-
-export { DEFAULT_SELECTED_ITEM_KEY, MENU_ITEMS };
+const DEFAULT_OPEN_ITEM_KEY = RESOURCES.key;
+export { DEFAULT_OPEN_ITEM_KEY, DEFAULT_SELECTED_ITEM_KEY, MENU_ITEMS };

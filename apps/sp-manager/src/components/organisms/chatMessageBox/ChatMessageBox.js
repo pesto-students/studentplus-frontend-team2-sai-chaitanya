@@ -1,46 +1,123 @@
-import { Button, Input, Title } from 'libs/ui-shared/src/lib/components';
-import { ChatMessage } from '../../molecules';
-import styles from './chatMessageBox.module.scss';
+import {
+  InputGroup,
+  Textarea,
+  Row,
+  Col,
+  Form,
+  Title,
+  Button,
+  Avatar,
+} from 'libs/ui-shared/src/lib/components';
 
-const ChatMessageBox = () => {
+import styles from './chatMessageBox.module.scss';
+import { useOktaAuth } from '@okta/okta-react';
+import { pushComment, deleteComment } from '../../../routes/serverCalls';
+import { Comment } from 'antd';
+import { useEffect, useState } from 'react';
+
+const ChatMessageBox = ({ discussionId, comments, dateFormat }) => {
+  const { oktaAuth, authState } = useOktaAuth();
+  const [allComments, setAllComments] = useState(comments);
+  const [commentForm] = Form.useForm();
+  
+  //Rerender page on recieveing comments
+  useEffect(() => {
+    setAllComments(comments);
+  }, [comments]);
+
+  //Post Comment
+  const onFinish = async (values) => {
+    await pushComment(
+      authState.idToken.claims.studentid,
+      discussionId,
+      values,
+      setAllComments
+    );
+    commentForm.resetFields();
+  };
+  //Delete Comment
+  const onDeleteClick = async (value) => {
+    await deleteComment(value, setAllComments);
+    commentForm.resetFields();
+  };
+
   return (
     <div className={styles.chatBoxCover}>
-      <Title level={2} className={styles.chatBoxTitle}>
-        Chat
+      <Title level={4} className={styles.chatBoxTitle}>
+        Comments
       </Title>
-      <div className={styles.chatMessageList}>
-        <ChatMessage
-          user={{
-            userName: 'Navneet',
-          }}
-          textMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ulla"
-        />
-        <ChatMessage
-          user={{
-            userName: 'Naveen',
-          }}
-          textMessage="laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate"
-        />
-        <ChatMessage
-          user={{
-            userName: 'Navneet',
-          }}
-          textMessage="Sed ut perspiciatis unde omnis iste natus"
-        />
-        <ChatMessage
-          user={{
-            userName: 'Naveen',
-          }}
-          textMessage="Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-        />
-      </div>
       <div className={styles.messageTextBoxCover}>
-        <div className={styles.messageInputBoxCover}>
-          <Input />
-        </div>
-        <div className={styles.messagesendButtonCover}>
-          <Button className={styles.messagesendButton}>Send</Button>
-        </div>
+        <Form
+          form={commentForm}
+          name="comment"
+          onFinish={onFinish}
+          scrollToFirstError
+          labelWrap
+          layout="vertical"
+        >
+          <InputGroup size="large">
+            <Row gutter={8}>
+              <Col span={20}>
+                <Form.Item
+                  name="textMessage"
+                  label="Enter your comment here"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please enter text!',
+                    },
+                  ]}
+                >
+                  <Textarea />
+                </Form.Item>
+              </Col>
+              <Col
+                span={4}
+                style={{
+                  alignSelf: 'end',
+                }}
+              >
+                <Button
+                  htmlType="submit"
+                  style={{
+                    width: '100%',
+                  }}
+                >
+                  Send
+                </Button>
+              </Col>
+            </Row>
+          </InputGroup>
+        </Form>
+      </div>
+      <div className={styles.chatMessageList}>
+        {allComments && allComments.length
+          ? allComments.map((comment) => {
+              return (
+                <Comment
+                  key={comment._id}
+                  actions={[
+                    <span
+                      onClick={() => {
+                        onDeleteClick(comment._id);
+                      }}
+                    >
+                      Delete
+                    </span>,
+                  ]}
+                  author={comment.user.userName}
+                  avatar={
+                    <Avatar
+                      src={comment.user.avatarImg}
+                      alt={comment.user.userName}
+                    />
+                  }
+                  content={<p>{comment.textMessage}</p>}
+                  datetime={<span>{dateFormat(comment.createdAt)}</span>}
+                />
+              );
+            })
+          : console.log(allComments)}
       </div>
     </div>
   );

@@ -7,31 +7,29 @@ import {
 } from 'libs/ui-shared/src/lib/components';
 import ReactPlayer from 'react-player';
 import React, { useEffect, useState } from 'react';
-import styles from './liveVideoSession.module.scss';
+import styles from './videoSession.module.scss';
 import PropTypes from 'prop-types';
 const messageListReferance = React.createRef();
 
-const LiveVideoSession = ({ discussions, ondiscussionChange, dateFormat }) => {
-  console.log(discussions);
+const VideoSession = ({ discussions, ondiscussionChange, dateFormat }) => {
   const [selectedDiscussion, setSelectedDiscussion] = useState(false);
   const onChangeHandler = (id) => {
     const selected = discussions.filter((res) => {
       return res._id == id ? res : '';
     });
-    console.log(selected);
     setSelectedDiscussion(selected);
     ondiscussionChange(selected);
   };
+
   useEffect(() => {
     discussions
       ? discussions.map((res, index) => {
-          console.log('index', index);
-          console.log('res', res);
           const resp = { 0: res };
           if (index == 0) setSelectedDiscussion(resp);
         })
       : '';
   }, [discussions]);
+
   return (
     <div className={styles.videoChatCover}>
       <div className={styles.videoSection}>
@@ -47,10 +45,7 @@ const LiveVideoSession = ({ discussions, ondiscussionChange, dateFormat }) => {
             </Label>
           </div>
           <div className={styles.sectionRight}>
-            <Select
-              onChange={onChangeHandler}
-              defaultValue="Select Discussion"
-            >
+            <Select onChange={onChangeHandler} defaultValue="Select Discussion">
               {discussions !== undefined ? (
                 discussions.map((res) => {
                   return (
@@ -83,16 +78,16 @@ const LiveVideoSession = ({ discussions, ondiscussionChange, dateFormat }) => {
   );
 };
 
-LiveVideoSession.propTypes = {
+VideoSession.propTypes = {
   discussions: PropTypes.array,
   selectedDiscussion: PropTypes.array,
   selectHandler: PropTypes.func,
 };
 
-LiveVideoSession.defaultProps = {
+VideoSession.defaultProps = {
   discussions: [],
   selectedDiscussion: [],
   selectHandler: () => {},
 };
 
-export default LiveVideoSession;
+export default VideoSession;

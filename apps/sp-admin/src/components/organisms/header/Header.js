@@ -1,32 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useOktaAuth } from '@okta/okta-react';
+import { Layout } from 'antd';
 import {
-  Logo,
   Title,
   ProfileDropdown,
 } from '../../../../../../libs/ui-shared/src/lib/components';
 import styles from './header.module.scss';
+
 import { PATHS } from '../../../constants';
+import { DEFAULT_SELECTED_ITEM_KEY } from '../sideBar/constants';
+import {
+  getUserInfo,
+} from '../../../routes/serverCalls';
 
-const removeAllSlash = function (str) {
-  return str.replace(/\//g, '');
-};
+const Header = ({ ...otherProps }) => {
+  const [avatar, setAvatar] = useState(false);
+  const { oktaAuth, authState } = useOktaAuth();
 
-const Header = () => {
-  const path = removeAllSlash(window.location.pathname);
-  let pageTitle = 'Dashboard';
-  if (path != '') {
-    pageTitle = path.charAt(0).toUpperCase() + path.slice(1);
+  const currentPage = window.sessionStorage.getItem('currentPage');
+  const signOut = ()=>{
+	oktaAuth.signOut('/');
   }
+  useEffect(() => {
+    getUserInfo(authState.idToken.claims.studentid).then((resp) => {
+      setAvatar(resp.img);
+    });
+  }, []);
   return (
-    <div className={styles.header}>
-      <div className={styles.headerLeft}>
-        <Logo />
-      </div>
-      <div className={styles.headerRight}>
-        <Title level={3}>{pageTitle}</Title>
-        <ProfileDropdown paths={PATHS} />
-      </div>
-    </div>
+    <Layout.Header {...otherProps}>
+      <Title
+        level={3}
+        style={{
+          marginBottom: '0',
+          fontSize: '2rem',
+        }}
+      >
+        {currentPage
+          ? currentPage.replaceAll('_', ' ')
+          : DEFAULT_SELECTED_ITEM_KEY}
+      </Title>
+      <ProfileDropdown paths={PATHS} avatar={avatar} signOut={signOut} />
+    </Layout.Header>
   );
 };
 

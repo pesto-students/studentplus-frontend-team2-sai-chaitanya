@@ -33,6 +33,25 @@ function AppSkeleton({ children }) {
     if (key === 'STATISTICS') {
       history.push(PATHS.STATISTICS);
     }
+
+    // Resources redirection
+
+    if (key === 'CALENDLY') {
+      window.location.href = PATHS.CALENDLY;
+    }
+    if (key === 'DISCORD') {
+      window.location.href = PATHS.DISCORD;
+    }
+    if (key === 'NOTION') {
+      window.location.href = PATHS.NOTION;
+    }
+    if (key === 'SHAREPOINT') {
+      window.location.href = PATHS.SHAREPOINT;
+    }
+    if (key === 'TEACHABLE') {
+      window.location.href = PATHS.TEACHABLE;
+    }
+
 	window.sessionStorage.setItem('currentPage', key);
   };
   useEffect(() => {

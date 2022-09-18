@@ -1,1 +1,2 @@
-export { default } from './Assignment';
+import Assignment from './Assignment';
+export default Assignment;

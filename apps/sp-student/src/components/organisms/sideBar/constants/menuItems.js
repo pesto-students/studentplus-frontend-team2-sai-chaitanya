@@ -21,6 +21,26 @@ const RESOURCES = {
       key: 'ASSIGNMENT',
       label: 'Assignment',
     },
+    {
+      key: 'CALENDLY',
+      label: 'Calendly',
+    },
+    {
+      key: 'DISCORD',
+      label: 'Discord',
+    },
+    {
+      key: 'NOTION',
+      label: 'Notion',
+    },
+    {
+      key: 'SHAREPOINT',
+      label: 'Sharepoint',
+    },
+    {
+      key: 'TEACHABLE',
+      label: 'Teachable',
+    },
   ],
 };
 const DASHBOARD = {

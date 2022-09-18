@@ -43,10 +43,10 @@ const Login = () => {
     return (
       <div className={styles.flexBox}>
         <div className={`${styles.flexItem} ${styles.leftBox} ${styles.ld}`}>
-          <Image src={IMAGE_PATHS.LOGO} alt="" />
+          <Image src={IMAGE_PATHS.LOGO_MA} alt="" />
         </div>
         <div className={`${styles.flexItem} ${styles.leftBox} ${styles.sd}`}>
-          <Image src={IMAGE_PATHS.WHITE_LOGO} alt="" />
+          <Image src={IMAGE_PATHS.WHITE_LOGO_MA} alt="" />
         </div>
         <div className={`${styles.flexItem} ${styles.rightBox}`}>
           <Title level={3}>Manager</Title>

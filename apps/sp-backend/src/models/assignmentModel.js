@@ -6,8 +6,9 @@ const Assignment = new Schema(
     assignmentTitle: { type: String, required: true },
     cohorts: { type: Array, required: false },
     desc: { type: String, required: false },
-    deckLink: { type: String, required: false },
-	week: {type: String, required:true}
+    fileLink: { type: String, required: false },
+	  programWeek: {type: String, required:true},
+    assignmentSNo: {type: String, required:true}
   },
   { timestamps: true }
 );
