@@ -14,8 +14,10 @@ import styles from './loginForm.module.scss';
 import PropTypes from 'prop-types';
 import _noop from 'lodash/noop';
 
-const LoginForm = ({ authState, authFailed, onLogin, setUsername, setPassword }) => {
+const LoginForm = ({ authState, authFailed, onLogin, setUsername, setPassword, userValue, passValue }) => {
 	  const [form] = Form.useForm();
+    setPassword(passValue);
+    setUsername(userValue);
   if (!authState.isAuthenticated) {
     return (
       <div className={styles.loginFormCover}>
@@ -39,36 +41,40 @@ const LoginForm = ({ authState, authFailed, onLogin, setUsername, setPassword })
                 <Col span={24}>
                   <Form.Item
                     name="username"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please input your email!',
-                        whitespace: false,
-                      },
-                    ]}
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: 'Please input your email!',
+                    //     whitespace: false,
+                    //   },
+                    // ]}
                   >
                     <Input
                       type="text"
+                      value= {userValue}
                       prefix={<UserOutlined />}
                       onChange={(e) => setUsername(e.target.value)}
-                      placeholder="Email Address"
+                      // placeholder="Email Address"
+                      placeholder={userValue}
                     />
                   </Form.Item>
                 </Col>
                 <Col span={24}>
                   <Form.Item
                     name="password"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please input your password!',
-                        whitespace: false,
-                      },
-                    ]}
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: 'Please input your password!',
+                    //     whitespace: false,
+                    //   },
+                    // ]}
                   >
                     <Input
                       type="password"
-                      placeholder="Password"
+                      value={passValue}
+                      placeholder = {passValue}
+                      // placeholder="Password"
                       prefix={<KeyOutlined />}
                       onChange={(e) => setPassword(e.target.value)}
                     />

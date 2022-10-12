@@ -57,6 +57,8 @@ const Login = () => {
           />
           <LoginForm
             onLogin={onLoginHandler}
+            userValue={"tushar@gm.com"}
+            passValue={"8K29fAv5@987"}
             setUsername={setUsername}
             setPassword={setPassword}
             authState={authState}
