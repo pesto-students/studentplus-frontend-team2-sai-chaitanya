@@ -47,7 +47,7 @@ const Login = () => {
     return (
       <div className={styles.flexBox}>
         <div className={`${styles.flexItem} ${styles.leftBox} ${styles.ld}`}>
-          <Image src={IMAGE_PATHS.LOGO_ST} alt="" />
+          <Image src={IMAGE_PATHS.LOGO_ST} />
         </div>
         <div className={`${styles.flexItem} ${styles.rightBox}`}>
           <Image

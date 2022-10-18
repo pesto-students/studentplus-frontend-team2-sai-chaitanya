@@ -14,9 +14,9 @@ const Event = ({ cardTitle, date, icon, title }) => {
         {icon}
         <Label>{date}</Label>
         <Title level={4}>{title}</Title>
-        <Button type="link" href={title}>
+        {/* <Button type="link" href={title}>
           {title}
-        </Button>
+        </Button> */}
       </Card>
     </div>
   );

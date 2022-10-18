@@ -13,7 +13,7 @@ const Event = ({ cardTitle, date, link, icon, title }) => {
         {icon}
         <Label>{date}</Label>
         <Title level={4}>{title}</Title>
-        <a href="#">{link}</a>
+        {/* <a href="#">{link}</a> */}
       </Card>
     </div>
   );

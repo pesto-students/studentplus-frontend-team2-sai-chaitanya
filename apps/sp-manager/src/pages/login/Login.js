@@ -47,11 +47,11 @@ const Login = () => {
     return (
       <div className={styles.flexBox}>
         <div className={`${styles.flexItem} ${styles.leftBox} ${styles.ld}`}>
-          <Image src={IMAGE_PATHS.LOGO_ST} alt="" />
+          <Image src={IMAGE_PATHS.LOGO_MA} alt="" />
         </div>
         <div className={`${styles.flexItem} ${styles.rightBox}`}>
           <Image
-            src={IMAGE_PATHS.WHITE_LOGO_ST}
+            src={IMAGE_PATHS.WHITE_LOGO_MA}
             alt=""
             className={styles.responsiveLogo}
           />
