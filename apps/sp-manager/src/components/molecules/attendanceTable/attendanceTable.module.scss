@@ -1,0 +1,21 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.gridContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+.Present {
+    color:greenyellow
+}
+.Absent {
+    color:red
+}
+.absentN {
+    color:orange
+}

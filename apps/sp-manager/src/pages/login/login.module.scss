@@ -1,0 +1,54 @@
+.flexBox {
+display: flex;
+flex-direction: row;
+    height: 100vh;
+}
+
+.flexItem{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+
+}
+
+.leftBox {
+background-color: rgba(209, 209, 209, 32%);
+}
+
+.rightBox {
+background-color: #FFFFFF;
+}
+
+.formCover {
+    min-width: 50%;
+}
+
+@media only screen and (max-width: 600px) {
+    .flexBox{
+        flex-direction: column;
+    }
+    .flexItem.ld{
+        display: none;
+    }
+    .flexItem.sd{
+        display: flex;
+    }
+    .flexItem.sd img {
+        width: 100%;
+        margin-bottom: 2px;
+    }
+    .rightBox {
+        padding: 20px 0px;
+    }
+}
+@media only screen and (min-width: 600px) {
+    .flexItem.ld{
+        display: flex;
+    }
+    .flexItem.sd{
+        display: none;
+    }
+}

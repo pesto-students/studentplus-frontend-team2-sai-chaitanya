@@ -1,0 +1,57 @@
+.profileContainer {
+    display: flex;
+}
+.userInfo, .otherInfo {
+    flex: 5;
+    padding: 1rem;
+}
+.otherInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.info{
+    flex:auto;
+}
+.avatarCover{
+    text-align: center;
+    padding: 2rem;
+}
+.userInfoCover{
+    padding: 3rem;
+}
+.label{
+    font-size: 16px;
+}
+.buttonCover{
+    width: 25em;
+    margin:2em auto;
+    .editProfileBtn{
+        display: block;
+        width: 80%;
+        margin: auto;
+    }
+}
+/* .cardContainer{
+    padding: 3rem;
+} */
+.profileLabel{
+    display: block;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    color: #918e8e;
+}
+/* .profileCard{
+    padding: 3rem;
+    height: 100%;
+    border-radius: 25px;
+    margin: 8px;
+    text-align: center;
+}
+.assignmentCard,
+.chatBoardCard {
+    padding: 1rem 3rem 3rem;
+    height: 100%;
+    border-radius: 25px;
+    margin: 8px;
+} */

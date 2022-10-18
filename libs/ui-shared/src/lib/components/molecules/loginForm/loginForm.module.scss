@@ -1,0 +1,83 @@
+  $xs: '480px';
+  $sm: '576px';
+  $md: '768px';
+  $lg: '992px';
+  $xl: '1200px';
+  $xxl: '1600px';
+  
+.formTitle {
+    margin: 5px 0px;
+    font-weight: 500;
+}
+
+.formLabel {
+    color: #9b9b9b;
+    display: block;
+    margin-bottom: 20px;
+	font-size: 16px;
+}
+.loginButton{
+		width: 100%;
+			padding: 13px;
+			border: 0px;
+			color: #fff;
+			font-size: 16px;
+			background: #4048e8;
+			margin-top: 16px;
+			cursor: pointer;
+}
+label.loginWarning {
+    color: red;
+    background: #ffe3e3;
+    width: 100%;
+    display: block;
+    padding: 5px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+label.inpuLabel {
+    display: block;
+    padding: 10px 0px;
+    font-weight: 400;
+}
+
+.username, .password{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid #dadada;
+    border-radius: 13px;
+    padding: 10px;
+}
+.username:focus-visible, .password:focus-visible{
+    outline: 2px solid #4048e8 !important;
+}
+
+.signIn {
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    border: 0px;
+    color: #fff;
+    font-size: 16px;
+    background: #4048e8;
+    margin-top: 16px;
+    cursor: pointer;
+}
+.loginHeader{
+
+}
+.loginFormCover{
+	display: flex;
+	flex-direction: column;
+	@media (max-width: $md) {
+			padding: 3rem;
+		}
+}
+
+.failureAlert {
+    color: red;
+    font-size: 16px;
+}

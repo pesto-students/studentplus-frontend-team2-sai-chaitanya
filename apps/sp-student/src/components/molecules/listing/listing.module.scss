@@ -1,0 +1,16 @@
+.listItem{
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 2rem;
+	:global{
+		h5.ant-typography{
+			font-size: 14px;
+		}
+	}
+}
+.itemLeft{
+    flex: 1;
+}
+.itemRight{
+    flex: 1;    
+}

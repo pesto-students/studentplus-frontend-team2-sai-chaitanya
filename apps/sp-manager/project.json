@@ -1,0 +1,84 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/sp-manager/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/sp-manager",
+        "index": "apps/sp-manager/src/index.html",
+        "baseHref": "/",
+        "main": "apps/sp-manager/src/main.js",
+        "polyfills": "apps/sp-manager/src/polyfills.js",
+        "tsConfig": "apps/sp-manager/tsconfig.app.json",
+        "assets": [
+          "apps/sp-manager/src/favicon.ico",
+          "apps/sp-manager/src/assets",
+		  "apps/sp-manager/src/netlify.toml"
+        ],
+        "styles": ["apps/sp-manager/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/sp-manager/src/environments/environment.js",
+              "with": "apps/sp-manager/src/environments/environment.prod.js"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "sp-manager:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "sp-manager:build:development"
+        },
+        "production": {
+          "buildTarget": "sp-manager:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/sp-manager/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/sp-manager"],
+      "options": {
+        "jestConfig": "apps/sp-manager/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

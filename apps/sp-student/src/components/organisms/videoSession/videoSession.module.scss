@@ -1,0 +1,64 @@
+ $xs: '480px';
+ $sm: '576px';
+ $md: '768px';
+ $lg: '992px';
+ $xl: '1200px';
+ $xxl: '1600px';
+
+.videoChatCover{
+    display: flex;
+    flex:1;
+}
+.videoSection, .chatSection{
+    flex:1;
+}
+.videoSectionHeader{
+    display:flex;
+    margin: 16px 0px;
+	:global{
+		.ant-select{
+			padding: 3px;
+			font-size: 16px;
+			background: #fff;
+		}
+	}
+}
+.sectionLeft{
+    flex:1;
+    margin: 0px 0px 10px 0px;
+	align-self: center;
+	:global{
+		.ant-typography {
+			color: #bbb3b3;
+			font-size: 16px;
+		}
+		.ant-typography-ellipsis.ant-typography{
+			color:rgba(0, 0, 0, 0.85);
+		}
+	}
+}
+.sectionRight{
+    flex:1;
+	:global {
+			.ant-select {
+				@media (max-width: $md) {
+					margin-top: 0;
+				}
+			}
+		}
+}
+.videoPlayer{
+	background: #fff;
+	padding: 1rem;
+	border-radius: 0.8rem;
+	:global{
+		div{
+			width:100% !important;
+			height: 600px !important;
+			@media (max-width: $md) {
+				width: auto !important;
+				height: 360px !important;
+			}
+		}			  
+	}
+}

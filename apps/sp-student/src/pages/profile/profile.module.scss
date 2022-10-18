@@ -1,0 +1,75 @@
+  $xs: '480px';
+  $sm: '576px';
+  $md: '768px';
+  $lg: '992px';
+  $xl: '1200px';
+  $xxl: '1600px';
+
+.profileContainer {
+    display: flex;
+}
+.userInfo, .otherInfo {
+    flex: 5;
+    padding: 1rem;
+}
+.otherInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.info{
+    flex:auto;
+}
+.avatarCover{
+    text-align: center;
+    padding: 2rem;
+}
+.userInfoCover{
+    padding: 3rem;
+	@media (max-width: $md) {
+			padding: 0;
+		}
+}
+.label{
+    font-size: 16px;
+}
+.buttonCover{
+    margin:2em auto;
+    .editProfileBtn{
+        display: block;
+        width: 80%;
+        margin: auto;
+    }
+}
+/* .cardContainer{
+    padding: 3rem;
+} */
+.profileLabel{
+    display: block;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    color: #918e8e;
+	width: 100%;
+}
+.profileDataCover{
+	display: flex;
+	:global{
+		.anticon{
+			align-self: center;
+		}
+	}
+}
+/* .profileCard{
+    padding: 3rem;
+    height: 100%;
+    border-radius: 25px;
+    margin: 8px;
+    text-align: center;
+}
+.assignmentCard,
+.chatBoardCard {
+    padding: 1rem 3rem 3rem;
+    height: 100%;
+    border-radius: 25px;
+    margin: 8px;
+} */

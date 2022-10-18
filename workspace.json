@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "sp-admin": "apps/sp-admin",
+    "sp-backend": "apps/sp-backend",
+    "sp-manager": "apps/sp-manager",
+    "sp-student": "apps/sp-student",
+    "ui-shared": "libs/ui-shared"
+  }
+}

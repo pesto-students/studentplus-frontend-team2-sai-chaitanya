@@ -1,0 +1,22 @@
+.event{
+    display: block;
+	:global {
+		a.ant-btn {
+			padding: 4px 10px !important
+		}
+		.ant-typography-ellipsis{
+			font-size: 1.4rem;
+			margin: 10px 3px !important;
+		}
+		.anticon svg {
+			width: 15px;
+			height: 15px;
+			margin-left: 6px;
+		}
+	}
+}
+.eventCard{
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin: 20px 0px;
+}
