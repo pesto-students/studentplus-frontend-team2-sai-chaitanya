@@ -2,6 +2,14 @@
 
 > StudentPlus is a platform to assist Plus program students to learn, collaborate and access the program content in centralized way. The platform provides tools for program manager and moderators(mentors) to assess and support the program students.
 
+# Table of Contents
+
+1. [Demo](#demo)
+2. [Installation](#installation)
+3. [Technology Stack](#technology-stack)
+4. [Authors](#authors)
+5. [License](#license)
+
 # Demo
 
 ## There are two client side apps:
@@ -58,7 +66,7 @@ Password: 8K29fAv5@987
 
 Admin : To be announced in next phase.
 
-### For more information, please contact authors
+## Authors
 Navneet Golwalkar :
 ngolwalkar8@gmail.com
 
